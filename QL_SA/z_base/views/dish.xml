@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="tigo_dish_tree_views">
+            <field name="name">Món ăn</field>
+            <field name="model">tigo.dish</field>
+            <field name="arch" type="xml">
+                <tree string="Món ăn">
+                    <field name="dish_id"/>
+                    <field name="name"/>
+                    <field name="ingredient_ids" widget="many2many_tags"/>
+                    <field name="price_total"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dish_form">
+            <field name="name">Món ăn</field>
+            <field name="model">tigo.dish</field>
+            <field name="arch" type="xml">
+                <form string="Món ăn">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="dish_id"/>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="ingredient_ids" widget="many2many_tags"/>
+                                <field name="price_total" force_save="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_dish_models" model="ir.actions.act_window">
+            <field name="name">Món ăn</field>
+            <field name="res_model">tigo.dish</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        <menuitem id="dish_menu"
+                  name="Danh sách món ăn"
+                  parent="sale.product_menu_catalog"
+                  action="action_dish_models"
+                  sequence="2"/>
+    </data>
+</odoo>

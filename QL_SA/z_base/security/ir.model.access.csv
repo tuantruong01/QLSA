@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_tigo_mealregister,tigo_mealregister,model_tigo_mealregister,,1,1,1,1
+access_tigo_dish,tigo_dish,model_tigo_dish,,1,1,1,1
+access_tigo_menu,tigo_menu,model_tigo_menu,,1,1,1,1
+access_tigo_detailed_registration,tigo_detailed_registration,model_tigo_detailed_registration,,1,1,1,1
+access_tigo_room,tigo_room,model_tigo_room,,1,1,1,1
+
+
+
+
+
+
+

@@ -1,0 +1,51 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="tigo_room_tree">
+            <field name="name">Phòng</field>
+            <field name="model">tigo.room</field>
+            <field name="arch" type="xml">
+                <tree string="Phòng">
+                    <field name="id_room"/>
+                    <field name="name"/>
+                    <field name="type_room"/>
+                    <field name="sate"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="room_form">
+            <field name="name">Phòng</field>
+            <field name="model">tigo.room</field>
+            <field name="arch" type="xml">
+                <form string="Phòng">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="id_room"/>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="type_room"/>
+                                <field name="sate"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="room_view" model="ir.actions.act_window">
+            <field name="name">Phòng</field>
+            <field name="res_model">tigo.room</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        <menuitem name="Data Master"
+                  id="root_data_menu"
+                  parent="z_base.meal_manegent_menu"
+                  sequence="4"/>
+        <menuitem name="Phòng"
+                  id="room_menu"
+                  parent="z_base.root_data_menu"
+                  action="room_view"
+                  sequence="1"/>
+    </data>
+</odoo>

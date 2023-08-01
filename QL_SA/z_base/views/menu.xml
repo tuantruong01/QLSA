@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="tigo_menu_tree">
+            <field name="name">Thực đơn</field>
+            <field name="model">tigo.menu</field>
+            <field name="arch" type="xml">
+                <tree string="Thực đơn">
+                    <field name="code"/>
+                    <field name="name"/>
+<!--                    <field name="dish_ids" widget="many2many_tags"/>-->
+                    <field name="type_menu"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="menu_form">
+            <field name="name">Thực đơn</field>
+            <field name="model">tigo.menu</field>
+            <field name="arch" type="xml">
+                <form string="Thực đơn">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="code"/>
+                                <field name="name"/>
+                                <field name="dish_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="type_menu"/>
+                                <field name="date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="menu_view" model="ir.actions.act_window">
+            <field name="name">Thực đơn</field>
+            <field name="res_model">tigo.menu</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        <menuitem name="Thực đơn"
+                  id="root_menu"
+                  parent="z_base.meal_manegent_menu"
+                  sequence="4"/>
+        <menuitem name="Thực đơn"
+                  id="menu_tigo_menu"
+                  parent="z_base.root_menu"
+                  action="menu_view"
+                  sequence="1"/>
+    </data>
+</odoo>

@@ -1,0 +1,75 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="meal_register_tree">
+            <field name="name">Đăng ký suất ăn</field>
+            <field name="model">tigo.mealregister</field>
+            <field name="arch" type="xml">
+                <tree string="Đăng ký suất ăn">
+                    <field name="name"/>
+                    <field name="register"/>
+                    <field name="date"/>
+                    <field name="number"/>
+                    <field name="meal_type"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="meal_register_form">
+            <field name="name">Đăng ký suất ăn</field>
+            <field name="model">tigo.mealregister</field>
+            <field name="arch" type="xml">
+                <form string="Đăng ký suất ăn">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="register"/>
+                                <field name="meal_type"/>
+                            </group>
+                            <group>
+                                <field name="date"/>
+                                <field name="number" attrs="{'invisible': [('meal_type','=','draft')]}"/>
+                                <field name="menu" attrs="{'invisible': [('meal_type','=','draft')]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Đăng ký cho nhân viên">
+                                <field name="employee_mealregister_ids">
+                                    <tree editable="bottom">
+                                        <field name="code"/>
+                                        <field name="employee_id"/>
+                                        <field name="number_phone"/>
+                                        <field name="menu"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Đăng ký cho khách hàng">
+                                <field name="client_mealregister_ids">
+                                    <tree editable="bottom">
+                                        <field name="name_client"/>
+                                        <field name="phone_client"/>
+                                        <field name="menu_client"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="meal_register_view" model="ir.actions.act_window">
+            <field name="name">Đăng ký suất ăn</field>
+            <field name="res_model">tigo.mealregister</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        <menuitem name="Quản lý suất ăn"
+                  id="meal_manegent_menu"
+                  web_icon="D:\QLSA\QLSA\QL_SA\z_base\static\description\icon.png"
+                  sequence="1"/>
+        <menuitem name="Đăng ký suất ăn"
+                  id="meal_register_menu"
+                  parent="z_base.meal_manegent_menu"
+                  action="meal_register_view"
+                  sequence="1"/>
+    </data>
+</odoo>
