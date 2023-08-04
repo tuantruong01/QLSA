@@ -15,6 +15,7 @@
              'views/menu.xml',
              'views/hr_employee_inherit_view.xml',
              'views/room.xml',
+             'views/service.xml',
 
              'security/ir.model.access.csv'
              ],

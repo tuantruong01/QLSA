@@ -1,0 +1,61 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="tigo_service_tree">
+            <field name="name">Dịch vụ</field>
+            <field name="model">tigo.service</field>
+            <field name="arch" type="xml">
+                <tree string="Dịch vụ">
+                    <field name="code"/>
+                    <field name="name_id"/>
+                    <field name="type"/>
+                    <field name="room_id"/>
+                    <field name="start_day"/>
+                    <field name="end_day"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="service_form">
+            <field name="name">Dịch Vụ</field>
+            <field name="model">tigo.service</field>
+            <field name="arch" type="xml">
+                <form string="Dịch vụ">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="code"/>
+                                <field name="name_id"/>
+                                <field name="type"/>
+                                <field name="room_id"/>
+                                <field name="dish_ids" widget="many2many_tags"/>
+                            </group>
+                            <group>
+                                <field name="start_day"/>
+                                <field name="end_day"/>
+                                <field name="time_use" attrs="{'invisible': [('type','=','eat')]}" />
+                                <field name="price"/>
+                                <field name="deposit"/>
+                                <field name="total"/>
+                                <field name="note"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="service_view" model="ir.actions.act_window">
+            <field name="name">Dịch vụ</field>
+            <field name="res_model">tigo.service</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        <menuitem name="Dịch vụ"
+                  id="root_service"
+                  parent="z_base.meal_manegent_menu"
+                  sequence="5"/>
+        <menuitem name="Đặt Phòng"
+                  id="service_menu"
+                  parent="z_base.root_service"
+                  action="service_view"
+                  sequence="1"/>
+    </data>
+</odoo>

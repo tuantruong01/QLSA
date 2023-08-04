@@ -4,6 +4,10 @@ access_tigo_dish,tigo_dish,model_tigo_dish,,1,1,1,1
 access_tigo_menu,tigo_menu,model_tigo_menu,,1,1,1,1
 access_tigo_detailed_registration,tigo_detailed_registration,model_tigo_detailed_registration,,1,1,1,1
 access_tigo_room,tigo_room,model_tigo_room,,1,1,1,1
+access_tigo_register_client,tigo_register_client,model_tigo_register_client,,1,1,1,1
+access_tigo_service,tigo_service,model_tigo_service,,1,1,1,1
+
+
 
 
 
