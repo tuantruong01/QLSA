@@ -17,7 +17,8 @@
              'views/room.xml',
              'views/service.xml',
 
-             'security/ir.model.access.csv'
+             'security/ir.model.access.csv',
+             'security/qlsa_security.xml'
              ],
     'license': 'LGPL-3',
 }

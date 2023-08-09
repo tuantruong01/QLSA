@@ -9,6 +9,7 @@
                     <field name="name"/>
                     <field name="type_room"/>
                     <field name="sate"/>
+                    <field name="level"/>
                 </tree>
             </field>
         </record>
@@ -22,9 +23,11 @@
                             <group>
                                 <field name="id_room"/>
                                 <field name="name"/>
+                                <field name="price" attrs="{'invisible': [('type_room','=','eat')]}"/>
                             </group>
                             <group>
                                 <field name="type_room"/>
+                                <field name="level"/>
                                 <field name="sate"/>
                             </group>
                         </group>
@@ -41,6 +44,7 @@
         <menuitem name="Data Master"
                   id="root_data_menu"
                   parent="z_base.meal_manegent_menu"
+                  groups="group_zbase_manager"
                   sequence="4"/>
         <menuitem name="Phòng"
                   id="room_menu"

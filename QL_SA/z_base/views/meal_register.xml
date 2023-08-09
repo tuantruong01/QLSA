@@ -37,6 +37,7 @@
                                         <field name="code_id"/>
                                         <field name="employee"/>
                                         <field name="number_phone"/>
+                                        <field name="dpm_id"/>
                                         <field name="menu" widget="many2many_tags" />
                                     </tree>
                                 </field>
@@ -46,6 +47,7 @@
                                     <tree editable="bottom">
                                         <field name="name_client"/>
                                         <field name="phone_client"/>
+                                        <field name="note"/>
                                         <field name="menu" widget="many2many_tags"/>
                                     </tree>
                                 </field>

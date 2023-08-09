@@ -22,8 +22,10 @@
                             <group>
                                 <field name="dish_id"/>
                                 <field name="name"/>
+                                <field name="type"/>
                             </group>
                             <group>
+                                <field name="wage" />
                                 <field name="ingredient_ids" widget="many2many_tags"/>
                                 <field name="price_total" force_save="1"/>
                             </group>

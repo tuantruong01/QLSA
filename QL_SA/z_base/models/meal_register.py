@@ -39,6 +39,7 @@ class Detail(models.Model):
     employee = fields.Char(string="Nhân viên", related='code_id.name')
     number_phone = fields.Char(string=_('Số điện thoại'), related='code_id.mobile_phone')
     menu = fields.Many2many('tigo.dish', 'menu_ref', 'register_id', 'dish_register_id', string=_('Thực đơn'))
+    dpm_id = fields.Many2one('hr.department',string="Phòng Ban", related='code_id.department_id')
 
     @api.onchange('menu')
     def onchange_menu(self):
@@ -61,3 +62,4 @@ class Detail(models.Model):
                                 string=_('Thực đơn'))
         name_client = fields.Char(string=_('Tên khách hàng'))
         phone_client = fields.Integer(string=_('Số điện thoại'))
+        note = fields.Char(string="Ghi chú")
