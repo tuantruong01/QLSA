@@ -5,9 +5,9 @@ access_tigo_detailed_registration,tigo_detailed_registration,model_tigo_detailed
 access_tigo_room,tigo_room,model_tigo_room,,1,1,1,1
 access_tigo_register_client,tigo_register_client,model_tigo_register_client,,1,1,1,1
 access_tigo_service,tigo_service,model_tigo_service,,1,1,1,1
-access_menu_staff,menu_staff,model_tigo_menu,group_zbase_user,1,0,0,0
-access_menu_manager,menu_manager,model_tigo_menu,group_zbase_manager,1,1,1,1
-access_menu_chef,menu_chef,model_tigo_menu,group_zbase_chef,1,1,1,1
+access_menu_staff,menu_staff,model_tigo_menu,,1,0,0,0
+access_menu_manager,menu_manager,model_tigo_menu,,1,1,1,1
+access_menu_chef,menu_chef,model_tigo_menu,,1,1,1,1
 
 
 
