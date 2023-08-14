@@ -33,5 +33,5 @@
         <field name="domain_force">[("create_uid", '=', user.id)]</field>
         <field name="groups" eval="[(4, ref('group_canteen_user'))]"/>
     </record>
-
+<!--    test-->
 </odoo>
