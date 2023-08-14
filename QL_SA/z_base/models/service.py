@@ -11,7 +11,7 @@ class MealRegister(models.Model):
                               string=_('Người đặt'),
                               default=lambda self: self.env.user,
                               readonly=1)
-    code = fields.Integer(string=_('Mã Đặt Phòng'), requied=1)
+    id = fields.Integer(string=_('Mã Đặt Phòng'), readonly=1)
     type = fields.Selection([('sing', 'Hát'), ('eat', 'Ăn uống')], string=_('Kiểu Dịch Vụ'), default="eat")
     sate = fields.Selection([('draft', 'Chờ'),
                              ('pay1', 'Đã Thanh Toán Tiền Cọc'),
@@ -26,8 +26,6 @@ class MealRegister(models.Model):
     price = fields.Float(string='Thành tiền')
     note = fields.Char(string='Ghi Chú')
     time_use = fields.Float(string='Tổng giờ hát', compute='_compute_timeup')
-
-    _sql_constraints = [('code', 'unique(code)', "Mã đặt phòng đã tồn tại")]
 
     @api.depends('start_day', 'end_day')
     def _compute_timeup(self):

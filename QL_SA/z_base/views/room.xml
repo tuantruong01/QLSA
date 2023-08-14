@@ -5,7 +5,7 @@
             <field name="model">tigo.room</field>
             <field name="arch" type="xml">
                 <tree string="Phòng">
-                    <field name="id_room"/>
+                    <field name="id"/>
                     <field name="name"/>
                     <field name="type_room"/>
                     <field name="sate"/>
@@ -21,13 +21,12 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="id_room"/>
                                 <field name="name"/>
                                 <field name="price" attrs="{'invisible': [('type_room','=','eat')]}"/>
                             </group>
                             <group>
-                                <field name="type_room"/>
-                                <field name="level"/>
+                                <field name="type_room" />
+                                <field name="level" attrs="{'invisible': [('type_room','=','eat')]}"/>
                                 <field name="sate"/>
                             </group>
                         </group>
@@ -41,9 +40,10 @@
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
         </record>
-        <menuitem name="Data Master"
+        <menuitem name="Danh Mục"
                   id="root_data_menu"
                   parent="z_base.meal_manegent_menu"
+                  groups="group_canteen_manager"
                   sequence="4"/>
         <menuitem name="Phòng"
                   id="room_menu"

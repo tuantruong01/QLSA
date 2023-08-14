@@ -7,7 +7,7 @@ class MealRegister(models.Model):
     _name = 'tigo.mealregister'
     _description = 'Đăng ký bữa ăn'
 
-    name = fields.Integer(string=_('Mã suất ăn'))
+    id = fields.Integer(string=_('Mã suất ăn'), readonly=1)
     register = fields.Many2one('res.users',
                                string=_('Người đăng ký'),
                                default=lambda self: self.env.user,
@@ -22,13 +22,14 @@ class MealRegister(models.Model):
     client_mealregister_ids = fields.One2many('tigo.register.client', 'registration_id',
                                               string="Đăng ký cho khách hàng")
 
-    _sql_constraints = [('name', 'unique(name)', "Mã đăng ký đã tồn tại")]
+
 
     @api.onchange('menu_ids')
     def onchange_menu(self):
         for r in self:
             r.employee_mealregister_ids.menu = r.menu_ids
             r.client_mealregister_ids.menu = r.menu_ids
+
 
 class Detail(models.Model):
     _name = 'tigo.detailed.registration'
@@ -39,19 +40,8 @@ class Detail(models.Model):
     employee = fields.Char(string="Nhân viên", related='code_id.name')
     number_phone = fields.Char(string=_('Số điện thoại'), related='code_id.mobile_phone')
     menu = fields.Many2many('tigo.dish', 'menu_ref', 'register_id', 'dish_register_id', string=_('Thực đơn'))
-    dpm_id = fields.Many2one('hr.department',string="Phòng Ban", related='code_id.department_id')
+    dpm_id = fields.Many2one('hr.department', string="Phòng Ban", related='code_id.department_id')
 
-    @api.onchange('menu')
-    def onchange_menu(self):
-        for r in self:
-            if r.registration_id.date:
-                date = datetime.strftime(r.registration_id.date, '%Y-%m-%d')
-                menu = self.env['tigo.menu'].search([('date', '=', date)]).mapped('dish_ids').ids
-                return {
-                    'domain': {
-                        'menu': [('id', '=', menu)]
-                    }
-                }
 
     class Client(models.Model):
         _name = 'tigo.register.client'

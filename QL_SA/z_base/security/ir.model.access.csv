@@ -1,13 +1,24 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_tigo_mealregister,tigo_mealregister,model_tigo_mealregister,,1,1,1,1
-access_tigo_dish,tigo_dish,model_tigo_dish,,1,1,1,1
+access_dish_chef,dish_chef,model_tigo_dish,group_canteen_chef,1,1,1,1
+access_dish_manager,dish_manager,model_tigo_dish,group_canteen_manager,1,1,1,1
+
 access_tigo_detailed_registration,tigo_detailed_registration,model_tigo_detailed_registration,,1,1,1,1
 access_tigo_room,tigo_room,model_tigo_room,,1,1,1,1
 access_tigo_register_client,tigo_register_client,model_tigo_register_client,,1,1,1,1
-access_tigo_service,tigo_service,model_tigo_service,,1,1,1,1
-access_menu_staff,menu_staff,model_tigo_menu,,1,0,0,0
-access_menu_manager,menu_manager,model_tigo_menu,,1,1,1,1
-access_menu_chef,menu_chef,model_tigo_menu,,1,1,1,1
+
+access_tigo_service_staff,tigo_service_staff,model_tigo_service,group_canteen_user,1,1,1,1
+access_tigo_service_chef,tigo_service_chef,model_tigo_service,group_canteen_chef,1,0,0,0
+access_tigo_service_manager,tigo_service_manager,model_tigo_service,group_canteen_manager,1,1,1,1
+
+access_menu_staff,menu_staff,model_tigo_menu,group_canteen_user,1,0,0,0
+access_menu_manager,menu_manager,model_tigo_menu,group_canteen_chef,1,1,1,1
+access_menu_chef,menu_chef,model_tigo_menu,group_canteen_manager,1,1,1,1
+
+access_register_chef,register_chef,model_tigo_mealregister,group_canteen_chef,1,0,0,0
+access_register_staff,register_staff,model_tigo_mealregister,group_canteen_user,1,1,1,1
+access_register_manager,register_manager,model_tigo_mealregister,group_canteen_manager,1,1,1,1
+
+
 
 
 

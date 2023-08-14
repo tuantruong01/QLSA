@@ -5,11 +5,10 @@
             <field name="model">tigo.menu</field>
             <field name="arch" type="xml">
                 <tree string="Thực đơn">
-                    <field name="code"/>
+                    <field name="id"/>
                     <field name="name"/>
                     <field name="type_menu"/>
-                    <field name="date_start"/>
-                    <field name="date_end"/>
+                    <field name="sate"/>
                 </tree>
             </field>
         </record>
@@ -21,14 +20,12 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="code"/>
                                 <field name="name"/>
                                 <field name="dish_ids" widget="many2many_tags"/>
                             </group>
                             <group>
                                 <field name="type_menu"/>
-                                <field name="date_start"/>
-                                <field name="date_end"/>
+                                <field name="sate"/>
                             </group>
                         </group>
                     </sheet>

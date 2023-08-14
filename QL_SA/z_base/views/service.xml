@@ -5,7 +5,7 @@
             <field name="model">tigo.service</field>
             <field name="arch" type="xml">
                 <tree string="Dịch vụ">
-                    <field name="code"/>
+                    <field name="id"/>
                     <field name="name_id"/>
                     <field name="type"/>
                     <field name="room_id"/>
@@ -22,7 +22,6 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="code"/>
                                 <field name="name_id"/>
                                 <field name="type"/>
                                 <field name="room_id"/>
