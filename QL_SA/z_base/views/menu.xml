@@ -38,15 +38,59 @@
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
         </record>
-        <menuitem name="Thực đơn"
+        <menuitem name="Thực Đơn"
                   id="root_menu"
                   parent="z_base.meal_manegent_menu"
                   sequence="5"
-                  />
-        <menuitem name="Thực đơn"
+        />
+        <menuitem name="Thực Đơn"
                   id="menu_tigo_menu"
                   parent="z_base.root_menu"
                   action="menu_view"
                   sequence="1"/>
     </data>
+
+    <data>
+        <record model="ir.ui.view" id="setting_menu_tree">
+            <field name="name">Cấu Hình</field>
+            <field name="model">tigo.menu.setting</field>
+            <field name="arch" type="xml">
+                <tree string="Cấu Hình">
+                    <field name="id"/>
+                    <field name="menu_ids"/>
+                    <field name="day_start"/>
+                    <field name="day_end"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="setting_use_form">
+            <field name="name">Thực đơn</field>
+            <field name="model">tigo.menu.setting</field>
+            <field name="arch" type="xml">
+                <form string="Cấu Hình">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="menu_ids"/>
+                                <field name="day_start"/>
+                                <field name="day_end"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="setting_menu_view" model="ir.actions.act_window">
+            <field name="name">Cấu Hình</field>
+            <field name="res_model">tigo.menu.setting</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        <menuitem name="Cấu Hình"
+                  id="menu_setting_menu"
+                  parent="z_base.root_menu"
+                  action="setting_menu_view"
+                  sequence="2"/>
+    </data>
+
 </odoo>

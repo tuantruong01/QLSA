@@ -42,7 +42,7 @@
             </field>
         </record>
         <record id="service_view" model="ir.actions.act_window">
-            <field name="name">Dịch vụ</field>
+            <field name="name">Dịch Vụ</field>
             <field name="res_model">tigo.service</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
