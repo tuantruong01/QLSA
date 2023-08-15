@@ -53,7 +53,7 @@
             <field name="name">Đồ uống</field>
             <field name="model">tigo.dish</field>
             <field name="arch" type="xml">
-                <tree string="Đồ ăn">
+                <tree string="Đồ uống">
                     <field name="id"/>
                     <field name="name"/>
                     <field name="type_food"/>
@@ -65,7 +65,7 @@
             <field name="name">Đồ uống</field>
             <field name="model">tigo.dish</field>
             <field name="arch" type="xml">
-                <form string="Đồ ăn">
+                <form string="Đồ uống">
                     <sheet>
                         <group>
                             <group>
@@ -99,7 +99,7 @@
     </data>
 
     <data>
-        <record model="ir.ui.view" id="type_food_tree_views">
+        <record model="ir.ui.view" id="type_food_eat_tree_views">
             <field name="name">Đồ ăn</field>
             <field name="model">tigo.dish</field>
             <field name="arch" type="xml">
@@ -136,7 +136,7 @@
         </record>
         <record id="action_type_food_eat_models" model="ir.actions.act_window">
             <field name="name">Đồ ăn</field>
-            <field name="res_model">tigo.menu.setting</field>
+            <field name="res_model">tigo.dish</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[("type_service", '=', 'service'),("type_food", '=', 'eat')]</field>
         </record>
@@ -145,7 +145,8 @@
                   name="Đồ ăn"
                   parent="z_base.root_service"
                   action="action_type_food_eat_models"
-                  sequence="4"/>
+                  sequence="3"/>
     </data>
+
 </odoo>
 
