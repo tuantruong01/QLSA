@@ -14,9 +14,8 @@ access_menu_staff,menu_staff,model_tigo_menu,group_canteen_user,1,0,0,0
 access_menu_manager,menu_manager,model_tigo_menu,group_canteen_chef,1,1,1,1
 access_menu_chef,menu_chef,model_tigo_menu,group_canteen_manager,1,1,1,1
 
-access_register_chef,register_chef,model_tigo_mealregister,group_canteen_chef,1,0,0,0
-access_register_staff,register_staff,model_tigo_mealregister,group_canteen_user,1,1,1,1
-access_register_manager,register_manager,model_tigo_mealregister,group_canteen_manager,1,1,1,1
+
+access_register_manager,register_manager,model_tigo_mealregister,,1,1,1,1
 
 
 
