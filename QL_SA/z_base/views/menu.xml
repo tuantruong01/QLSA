@@ -70,9 +70,9 @@
                 <form string="Cấu Hình">
                     <sheet>
                         <group>
-                            <field name="menu_ids"/>
                             <field name="day_start"/>
                             <field name="day_end"/>
+                            <field name="menu_ids"/>
                         </group>
                     </sheet>
                 </form>
