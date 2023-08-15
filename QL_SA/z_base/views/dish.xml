@@ -21,11 +21,13 @@
                         <group>
                             <group>
                                 <field name="name"/>
-                                <field name="type"/>
+                                <field name="type_service"/>
+                                <field name="type_food"/>
                             </group>
                             <group>
                                 <field name="wage" />
-                                <field name="ingredient_ids" widget="many2many_tags"/>
+                                <field name="ingredient_ids" widget="many2many_tags"
+                                       attrs="{'invisible': [('type_food','=','drink')]}"/>
                                 <field name="price_total" force_save="1"/>
                             </group>
                         </group>

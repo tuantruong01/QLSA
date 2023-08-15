@@ -11,16 +11,16 @@ class Dish(models.Model):
     id = fields.Integer(string=_('Mã Món'), readonly=1)
     price_total = fields.Float(string=_('Thành tiền'), readonly=1)
     wage = fields.Float(string=_('Tiền công'))
-    type = fields.Selection([('sing', 'Dịch vụ'), ('eat', 'Đồ ăn')], default='eat', string='Loại')
+    type_service = fields.Selection([('service', 'Dịch vụ ngoài'), ('internal', 'Nội bộ')], default='internal',
+                                    string='Kiểu ')
+    type_food = fields.Selection([('eat', 'Đồ ăn'), ('drink', 'Đồ uống')], default='eat', string='Dạng thực phẩm')
 
-    @api.onchange('ingredient_ids', 'wage')
+    @api.onchange('ingredient_ids')
     def onchange_ingredient_ids(self):
         for r in self:
             r.price_total = sum(r.ingredient_ids.mapped('list_price'), r.wage)
 
-    _sql_constraints = [('dish_id', 'unique(dish_id)', "Mã món ăn đã tồn tại")]
-
-    # @api.onechange('wage')
-    # def onchange_wage(self):
-    #     for r in self:
-    #         r.price_total = sum(r.ingredient_ids.mapped('list_price'), r.wage)
+    @api.onchange('wage')
+    def onchange_wage(self):
+        for r in self:
+            r.price_total = sum(r.ingredient_ids.mapped('list_price'), r.wage)
