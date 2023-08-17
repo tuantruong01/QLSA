@@ -11,11 +11,11 @@
         'base', 'hr'
     ],
     'data': ['views/meal_register.xml',
-             'views/dish.xml',
-             'views/menu.xml',
-             'views/hr_employee_inherit_view.xml',
              'views/room.xml',
              'views/service.xml',
+             'views/menu.xml',
+             'views/dish.xml',
+             'views/hr_employee_inherit_view.xml',
              'views/menu_service.xml',
 
              'security/ir.model.access.csv',
