@@ -10,16 +10,18 @@
     'depends': [
         'base', 'hr'
     ],
-    'data': ['views/meal_register.xml',
-             'views/room.xml',
-             'views/service.xml',
-             'views/menu.xml',
-             'views/dish.xml',
-             'views/hr_employee_inherit_view.xml',
-             'views/menu_service.xml',
+    'data': [
+        'security/qlsa_security.xml',
+        'security/ir.model.access.csv',
+        'views/meal_register.xml',
 
-             'security/ir.model.access.csv',
-             'security/qlsa_security.xml'
-             ],
+        'views/room.xml',
+        'views/service.xml',
+        'views/menu.xml',
+        'views/dish.xml',
+        'views/hr_employee_inherit_view.xml',
+        'views/menu_service.xml',
+
+    ],
     'license': 'LGPL-3',
 }
