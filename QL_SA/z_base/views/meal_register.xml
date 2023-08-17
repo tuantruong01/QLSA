@@ -5,7 +5,7 @@
             <field name="model">tigo.mealregister</field>
             <field name="arch" type="xml">
                 <tree string="Đăng ký suất ăn">
-                    <field name="id"/>
+                    <field name="name"/>
                     <field name="register"/>
                     <field name="date"/>
                     <field name="meal_type"/>
@@ -20,6 +20,7 @@
                     <sheet>
                         <group>
                             <group>
+                                <field name="name"/>
                                 <field name="register"/>
                                 <field name="meal_type"/>
                             </group>
