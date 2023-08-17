@@ -8,7 +8,7 @@
                     <field name="id"/>
                     <field name="name"/>
                     <field name="type_menu"/>
-                    <field name="sate"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -17,15 +17,15 @@
             <field name="model">tigo.menu</field>
             <field name="arch" type="xml">
                 <form string="Thực đơn">
+                    <head>
+                        <field name="state" widget="statusbar"/>
+                    </head>
                     <sheet>
                         <group>
                             <group>
                                 <field name="name"/>
-                                <field name="dish_ids" widget="many2many_tags"/>
-                            </group>
-                            <group>
                                 <field name="type_menu"/>
-                                <field name="sate"/>
+                                <field name="dish_ids" widget="many2many_tags"/>
                             </group>
                         </group>
                     </sheet>
@@ -57,7 +57,7 @@
             <field name="arch" type="xml">
                 <tree string="Cấu Hình">
                     <field name="id"/>
-                    <field name="menu_ids"/>
+                    <field name="menu_ids" widget="many2many_tags"/>
                     <field name="day_start"/>
                     <field name="day_end"/>
                 </tree>
@@ -68,6 +68,13 @@
             <field name="model">tigo.menu.setting</field>
             <field name="arch" type="xml">
                 <form string="Cấu Hình">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                        <button string="Tắt Kích Hoạt" class="oe_highlight" type="object" name="action_unactive"
+                                attrs="{'invisible': [('state','!=','active')]}"/>
+                        <button string="Kích Hoạt" class="oe_highlight" type="object" name="action_active"
+                                attrs="{'invisible': [('state','!=','unactive')]}"/>
+                    </header>
                     <sheet>
                         <group>
                             <field name="day_start"/>
