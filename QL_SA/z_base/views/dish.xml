@@ -5,7 +5,7 @@
             <field name="model">tigo.dish</field>
             <field name="arch" type="xml">
                 <tree string="Món ăn">
-                    <field name="id"/>
+                    <field name="code_dish"/>
                     <field name="name"/>
                     <field name="ingredient_ids" widget="many2many_tags"/>
                     <field name="price_total"/>
@@ -20,6 +20,7 @@
                     <sheet>
                         <group>
                             <group>
+                                <field name="code_dish"/>
                                 <field name="name"/>
                                 <field name="type_service"/>
                                 <field name="type_food"/>

@@ -9,5 +9,54 @@
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
         </record>
+        <record id="sequence_hr_employee" model="ir.sequence">
+            <field name="name">Nhân Viên</field>
+            <field name="code">hr.employee</field>
+            <field name="prefix">NV/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="sequence_service" model="ir.sequence">
+            <field name="name">Dịch Vụ</field>
+            <field name="code">tigo.service</field>
+            <field name="prefix">DV/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="sequence_room" model="ir.sequence">
+            <field name="name">Phòng</field>
+            <field name="code">tigo.room</field>
+            <field name="prefix">P/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="sequence_room" model="ir.sequence">
+            <field name="name">Món ăn</field>
+            <field name="code">tigo.dish</field>
+            <field name="prefix">MA/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="sequence_room" model="ir.sequence">
+            <field name="name">Thực Đơn</field>
+            <field name="code">tigo.menu</field>
+            <field name="prefix">TD/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="sequence_room" model="ir.sequence">
+            <field name="name">Cấu Hình</field>
+            <field name="code">tigo.menu.setting</field>
+            <field name="prefix">CH/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
     </data>
 </odoo>

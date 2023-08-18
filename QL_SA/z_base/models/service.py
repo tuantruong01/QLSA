@@ -11,7 +11,7 @@ class MealRegister(models.Model):
                               string=_('Người đặt'),
                               default=lambda self: self.env.user,
                               readonly=1)
-    id = fields.Integer(string=_('Mã Đặt Phòng'), readonly=1)
+    name = fields.Char(string=_('Mã Đặt Phòng'), readonly=1)
     type = fields.Selection([('sing', 'Hát'), ('eat', 'Ăn uống')], string=_('Kiểu Dịch Vụ'), default="eat")
     sate = fields.Selection([('draft', 'Chờ'),
                              ('pay1', 'Đã Thanh Toán Tiền Cọc'),
@@ -27,7 +27,13 @@ class MealRegister(models.Model):
     note = fields.Char(string='Ghi Chú')
     time_use = fields.Float(string='Tổng giờ hát', compute='_compute_timeup')
 
-    @api.depends('start_day', 'end_day')
+    @api.model
+    def create(self, vals_list):
+        res = super(MealRegister, self).create(vals_list)
+        res['name'] = self.env['ir.sequence'].next_by_code('tigo.service')
+        return res
+
+    @api.depends('start_day', 'end_day','type')
     def _compute_timeup(self):
         for r in self:
             if r.start_day and r.end_day:
@@ -42,6 +48,19 @@ class MealRegister(models.Model):
     @api.onchange('dish_ids')
     def onchange_ingredient_ids(self):
         for r in self:
+            r.price = sum(r.dish_ids.mapped('price_total'), (r.time_use * 40000))
+            r.deposit = (r.price * 0.2)
+            r.total = r.price - r.deposit
+
+    @api.onchange('end_day', 'start_day', 'type')
+    def onchange_end_day(self):
+        for r in self:
+            if r.type == 'eat':
+                r.time_use = 0
+                r.price = sum(r.dish_ids.mapped('price_total'), (r.time_use * 40000))
+                r.deposit = (r.price * 0.2)
+                r.total = r.price - r.deposit
+            elif r.type == 'sing':
                 r.price = sum(r.dish_ids.mapped('price_total'), (r.time_use * 40000))
                 r.deposit = (r.price * 0.2)
                 r.total = r.price - r.deposit

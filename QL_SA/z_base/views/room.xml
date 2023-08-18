@@ -5,7 +5,7 @@
             <field name="model">tigo.room</field>
             <field name="arch" type="xml">
                 <tree string="Phòng">
-                    <field name="id"/>
+                    <field name="code_room"/>
                     <field name="name"/>
                     <field name="type_room"/>
                     <field name="sate"/>
@@ -21,6 +21,7 @@
                     <sheet>
                         <group>
                             <group>
+                                <field name="code_room"/>
                                 <field name="name"/>
                                 <field name="price" attrs="{'invisible': [('type_room','=','eat')]}"/>
                             </group>

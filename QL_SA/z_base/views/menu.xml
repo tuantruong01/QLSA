@@ -8,7 +8,6 @@
                     <field name="id"/>
                     <field name="name"/>
                     <field name="type_menu"/>
-                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -17,9 +16,6 @@
             <field name="model">tigo.menu</field>
             <field name="arch" type="xml">
                 <form string="Thực đơn">
-                    <head>
-                        <field name="state" widget="statusbar"/>
-                    </head>
                     <sheet>
                         <group>
                             <group>
@@ -60,6 +56,7 @@
                     <field name="menu_ids" widget="many2many_tags"/>
                     <field name="day_start"/>
                     <field name="day_end"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
