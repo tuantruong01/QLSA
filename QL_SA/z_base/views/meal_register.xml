@@ -17,6 +17,9 @@
             <field name="model">tigo.mealregister</field>
             <field name="arch" type="xml">
                 <form string="Đăng ký suất ăn">
+                    <header>
+                        <button string="Đăng ký" class="oe_highlight" type="object" name="action_register"/>
+                    </header>
                     <sheet>
                         <group>
                             <group>
@@ -27,7 +30,8 @@
                             <group>
                                 <field name="date"/>
                                 <field name="number" attrs="{'invisible': [('meal_type','=','draft')]}"/>
-                                <field name="menu_ids" widget="many2many_tags" attrs="{'invisible': [('meal_type','=','draft')]}"/>
+                                <field name="menu_ids" widget="many2many_tags"
+                                       attrs="{'invisible': [('meal_type','=','draft')]}"/>
                             </group>
                         </group>
                         <notebook>
@@ -38,7 +42,7 @@
                                         <field name="employee"/>
                                         <field name="number_phone"/>
                                         <field name="dpm_id"/>
-                                        <field name="menu" widget="many2many_tags" />
+                                        <field name="menu" widget="many2many_tags"/>
                                     </tree>
                                 </field>
                             </page>
@@ -61,7 +65,7 @@
             <field name="name">Đăng ký suất ăn</field>
             <field name="res_model">tigo.mealregister</field>
             <field name="view_mode">tree,form</field>
-             <field name="domain">[]</field>
+            <field name="domain">[]</field>
         </record>
         <menuitem name="Quản Lý Suất Ăn"
                   id="meal_manegent_menu"

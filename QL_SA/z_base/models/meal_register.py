@@ -32,6 +32,10 @@ class MealRegister(models.Model):
         res['name'] = self.env['ir.sequence'].next_by_code('tigo.mealregister')
         return res
 
+    def action_register(self):
+        for r in self:
+            pass
+
 
 class Detail(models.Model):
     _name = 'tigo.detailed.registration'

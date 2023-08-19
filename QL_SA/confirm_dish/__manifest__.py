@@ -12,6 +12,7 @@
                 ],
     'data': [
         'security/ir.model.access.csv',
+        'views/confirm_dish.xml'
     ],
     'license': 'LGPL-3',
 }
