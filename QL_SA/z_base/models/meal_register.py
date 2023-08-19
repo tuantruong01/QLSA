@@ -17,14 +17,13 @@ class MealRegister(models.Model):
     menu_ids = fields.Many2many('tigo.dish', 'menu_table_ref', 'table_menu', 'dish_table_id', string=_('Thực đơn'))
     employee_mealregister_ids = fields.One2many('tigo.detailed.registration', 'registration_id',
                                                 string="Đăng ký cho nhân viên")
-    client_mealregister_ids = fields.One2many('tigo.register.client', 'registration_id',
-                                              string="Đăng ký cho khách hàng")
+    # client_mealregister_ids = fields.One2many('tigo.register.client', 'registration_id',
+    #                                           string="Đăng ký cho khách hàng")
 
     @api.onchange('menu_ids')
     def onchange_menu(self):
         for r in self:
             r.employee_mealregister_ids.menu = r.menu_ids
-            r.client_mealregister_ids.menu = r.menu_ids
 
     @api.model
     def create(self, vals_list):
@@ -37,25 +36,5 @@ class MealRegister(models.Model):
             pass
 
 
-class Detail(models.Model):
-    _name = 'tigo.detailed.registration'
-    _description = 'Đăng ký Nhân Viên'
-
-    registration_id = fields.Many2one('tigo.mealregister', string=_('Đăng ký suất ăn'))
-    code_id = fields.Many2one('hr.employee', string='Mã nhân viên')
-    employee = fields.Char(string="Nhân viên", related='code_id.name')
-    number_phone = fields.Char(string=_('Số điện thoại'), related='code_id.mobile_phone')
-    menu = fields.Many2many('tigo.dish', 'menu_ref', 'register_id', 'dish_register_id', string=_('Thực đơn'))
-    dpm_id = fields.Many2one('hr.department', string="Phòng Ban", related='code_id.department_id')
 
 
-class Client(models.Model):
-    _name = 'tigo.register.client'
-    _description = 'Đăng ký Khách Hàng'
-
-    registration_id = fields.Many2one('tigo.mealregister', string=_('Đăng ký suất ăn'))
-    menu = fields.Many2many('tigo.dish', 'menu_client_ref', 'register_client_id', 'dish_client_id',
-                            string=_('Thực đơn'))
-    name_client = fields.Char(string=_('Tên khách hàng'))
-    phone_client = fields.Integer(string=_('Số điện thoại'))
-    note = fields.Char(string="Ghi chú")
