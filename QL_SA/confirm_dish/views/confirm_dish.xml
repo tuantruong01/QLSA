@@ -38,14 +38,17 @@
             </field>
         </record>
         <record id="confirm_dish_action" model="ir.actions.act_window">
-            <field name="name">Suất ăn</field>
+            <field name="name">Xác Nhận Đã Ăn</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">confirm.dish</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('date_register', '=', context_today().strftime('%Y-%m-%d'))]</field>
         </record>
         <!-- This Menu Item must have a parent and an action -->
-        <menuitem id="confirm_dish_action_menu" name="Suất ăn" parent="z_base.meal_manegent_menu"
-                  action="confirm_dish_action" sequence="2"/>
+        <menuitem name="Xác nhận đã ăn"
+                  id="meal_register_menu"
+                  parent="z_base.root_meal_menu"
+                  action="confirm_dish_action"
+                  sequence="2"/>
     </data>
 </odoo>

@@ -71,9 +71,13 @@
                   id="meal_manegent_menu"
                   web_icon="D:\QLSA\QLSA\QL_SA\z_base\static\description\icon.png"
                   sequence="1"/>
-        <menuitem name="Đăng Ký Suất Ăn"
-                  id="meal_register_menu"
+        <menuitem name="Quản Lý Ăn Trưa"
+                  id="root_meal_menu"
                   parent="z_base.meal_manegent_menu"
+                  sequence="1"/>
+        <menuitem name="Đăng ký ăn trưa"
+                  id="meal_register_menu"
+                  parent="z_base.root_meal_menu"
                   action="meal_register_view"
                   sequence="1"/>
     </data>

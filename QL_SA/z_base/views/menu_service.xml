@@ -42,9 +42,13 @@
             <field name="view_mode">tree,form</field>
             <field name="domain">[("type_service", '=', 'service')]</field>
         </record>
-        <menuitem id="dish_service"
-                  name="Menu"
+        <menuitem id="list_service"
+                  name="Danh Mục"
                   parent="z_base.root_service"
+                  sequence="3"/>
+        <menuitem id="dish_service"
+                  name="Thực Đơn"
+                  parent="z_base.list_service"
                   action="action_dish_service_models"
                   sequence="2"/>
     </data>
@@ -93,11 +97,16 @@
             <field name="domain">[("type_service", '=', 'service'),("type_food", '=', 'drink')]</field>
         </record>
 
+        <menuitem id="menu_service_menu"
+                  name="Thực Đơn"
+                  parent="z_base.root_service"
+                  sequence="2"/>
         <menuitem id="type_drink"
                   name="Đồ uống"
-                  parent="z_base.root_service"
+                  parent="z_base.menu_service_menu"
                   action="action_type_food_drink_models"
-                  sequence="3"/>
+                  sequence="1"/>
+
     </data>
 
     <data>
@@ -146,9 +155,9 @@
 
         <menuitem id="type_eat"
                   name="Đồ ăn"
-                  parent="z_base.root_service"
+                  parent="z_base.menu_service_menu"
                   action="action_type_food_eat_models"
-                  sequence="3"/>
+                  sequence="1"/>
     </data>
 
 </odoo>

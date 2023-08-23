@@ -1,0 +1,104 @@
+<odoo>
+    <data>
+        <!--Cấu Hình Thực Đơn Theo Ngày-->
+        <record model="ir.ui.view" id="menu_day_tree">
+            <field name="name">Thực Đơn Ngày</field>
+            <field name="model">tigo.menu.setting</field>
+            <field name="arch" type="xml">
+                <tree string="Thực Đơn Ngày">
+                    <field name="id"/>
+                    <field name="menu_ids" widget="many2many_tags"/>
+                    <field name="day_start"/>
+                    <field name="day_end"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="menu_day_form">
+            <field name="name">Thực Đơn Ngày</field>
+            <field name="model">tigo.menu.setting</field>
+            <field name="arch" type="xml">
+                <form string="Thực Đơn Ngày">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                        <button string="Tắt Kích Hoạt" class="oe_highlight" type="object" name="action_unactive"
+                                attrs="{'invisible': [('state','!=','active')]}"/>
+                        <button string="Kích Hoạt" class="oe_highlight" type="object" name="action_active"
+                                attrs="{'invisible': [('state','!=','unactive')]}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="day_start"/>
+                            <field name="day_end"/>
+                            <field name="menu_ids"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_menu_day_view" model="ir.actions.act_window">
+            <field name="name">Thực Đơn Ngày</field>
+            <field name="res_model">tigo.menu.setting</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+        <menuitem name="Cấu Hình"
+                  id="setting_menu_menu"
+                  parent="z_base.root_menu"
+                  sequence="3"/>
+        <menuitem name="Thực Đơn Ngày"
+                  id="menu_day"
+                  parent="z_base.setting_menu_menu"
+                  action="action_menu_day_view"
+                  sequence="1"/>
+
+<!--Cấu Hình Thực Đơn Theo Tuần-->
+        <record model="ir.ui.view" id="menu_week_tree">
+            <field name="name">Thực Đơn Tuần</field>
+            <field name="model">tigo.menu.setting</field>
+            <field name="arch" type="xml">
+                <tree string="Thực Đơn Tuần">
+                    <field name="id"/>
+                    <field name="menu_ids" widget="many2many_tags"/>
+                    <field name="day_start"/>
+                    <field name="day_end"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="menu_week_form">
+            <field name="name">Thực Đơn Tuần</field>
+            <field name="model">tigo.menu.setting</field>
+            <field name="arch" type="xml">
+                <form string="Thực Đơn Tuần">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                        <button string="Tắt Kích Hoạt" class="oe_highlight" type="object" name="action_unactive"
+                                attrs="{'invisible': [('state','!=','active')]}"/>
+                        <button string="Kích Hoạt" class="oe_highlight" type="object" name="action_active"
+                                attrs="{'invisible': [('state','!=','unactive')]}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="day_start"/>
+                            <field name="day_end"/>
+                            <field name="menu_ids"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="action_menu_week_view" model="ir.actions.act_window">
+            <field name="name">Thực Đơn Tuần</field>
+            <field name="res_model">tigo.menu.setting</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem name="Thực Đơn Tuần"
+                  id="menu_week"
+                  parent="z_base.setting_menu_menu"
+                  action="action_menu_week_view"
+                  sequence="2"/>
+    </data>
+</odoo>

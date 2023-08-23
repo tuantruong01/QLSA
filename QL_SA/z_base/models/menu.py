@@ -5,10 +5,10 @@ class Menu(models.Model):
     _name = 'tigo.menu'
     _description = 'Menu'
 
-    code_menu = fields.Integer(string=_('Mã thực đơn'), readonly=1)
+    code_menu = fields.Char(string=_('Mã thực đơn'), readonly=1)
     name = fields.Char(string=_('Tên thực đơn'), requied=True)
     dish_ids = fields.Many2many('tigo.dish', 'menu_dish_ref', 'menu_id', 'dish_id', string=_('Món ăn'))
-    type_menu = fields.Selection([('draft', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'), default="draft")
+    type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'), default="set")
 
     @api.model
     def create(self, vals_list):

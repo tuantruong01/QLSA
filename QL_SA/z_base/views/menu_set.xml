@@ -1,21 +1,21 @@
 <odoo>
     <data>
-        <record model="ir.ui.view" id="tigo_menu_tree">
-            <field name="name">Thực đơn</field>
+        <record model="ir.ui.view" id="menu_set_tree_views">
+            <field name="name">Thực đơn suất</field>
             <field name="model">tigo.menu</field>
             <field name="arch" type="xml">
-                <tree string="Thực đơn">
+                <tree string="Thực đơn suất">
                     <field name="code_menu"/>
                     <field name="name"/>
                     <field name="type_menu"/>
                 </tree>
             </field>
         </record>
-        <record model="ir.ui.view" id="menu_form">
-            <field name="name">Thực đơn</field>
+        <record model="ir.ui.view" id="menu_set_form">
+            <field name="name">Thực đơn suất</field>
             <field name="model">tigo.menu</field>
             <field name="arch" type="xml">
-                <form string="Thực đơn">
+                <form string="Thực Đơn Suất">
                     <sheet>
                         <group>
                             <group>
@@ -31,16 +31,26 @@
                 </form>
             </field>
         </record>
-        <record id="menu_view" model="ir.actions.act_window">
-            <field name="name">Thực đơn</field>
+        <record id="action_menu_set_models" model="ir.actions.act_window">
+            <field name="name">Thực Đơn Suất</field>
             <field name="res_model">tigo.menu</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[]</field>
+            <field name="domain">[("type_menu", '=', 'set')]</field>
         </record>
-        <menuitem name="Thực Đơn"
-                  id="menu_tigo_menu"
-                  parent="z_base.root_data_menu"
-                  action="menu_view"
+
+        <menuitem name="Quản Lý Thực Đơn"
+                  id="root_menu"
+                  parent="z_base.meal_manegent_menu"
+                  sequence="2"/>
+        <menuitem name="Thực đơn / Nguyên vật liệu"
+                  id="menu_ingredient"
+                  parent="z_base.root_menu"
+                  sequence="1"/>
+
+        <menuitem name="Thực Đơn Suất"
+                  id="menu_set"
+                  parent="z_base.menu_ingredient"
+                  action="action_menu_set_models"
                   sequence="1"/>
     </data>
 </odoo>

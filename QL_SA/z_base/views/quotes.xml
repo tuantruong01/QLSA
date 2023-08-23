@@ -1,10 +1,10 @@
 <odoo>
     <data>
-        <record model="ir.ui.view" id="tigo_service_tree">
-            <field name="name">Dịch vụ</field>
+        <record model="ir.ui.view" id="quotes_service_tree">
+            <field name="name">Báo Giá</field>
             <field name="model">tigo.service</field>
             <field name="arch" type="xml">
-                <tree string="Dịch vụ">
+                <tree string="Báo giá">
                     <field name="name"/>
                     <field name="name_id"/>
                     <field name="type"/>
@@ -15,10 +15,10 @@
             </field>
         </record>
         <record model="ir.ui.view" id="service_form">
-            <field name="name">Dịch Vụ</field>
+            <field name="name">Báo Giá</field>
             <field name="model">tigo.service</field>
             <field name="arch" type="xml">
-                <form string="Dịch vụ">
+                <form string="Báo Giá">
                     <sheet>
                         <group>
                             <group>
@@ -42,24 +42,16 @@
                 </form>
             </field>
         </record>
-        <record id="service_view" model="ir.actions.act_window">
-            <field name="name">Dịch Vụ</field>
+        <record id="quotes_service_view" model="ir.actions.act_window">
+            <field name="name">Báo Giá</field>
             <field name="res_model">tigo.service</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
         </record>
-        <menuitem name="Dịch Vụ Ngoài"
-                  id="root_service"
-                  parent="z_base.meal_manegent_menu"
-                  sequence="3"/>
-        <menuitem name="Chức Năng Đặt Dịch Vụ"
-                  id="service_menu"
-                  parent="z_base.root_service"
-                  sequence="1"/>
-        <menuitem name="Đặt Phòng"
-                  id="order_service"
+        <menuitem name="Báo Giá"
+                  id="quotes_service"
                   parent="z_base.service_menu"
                   action="service_view"
-                  sequence="2"/>
+                  sequence="1"/>
     </data>
 </odoo>
