@@ -5,13 +5,13 @@ class Dish(models.Model):
     _name = 'tigo.dish'
     _description = 'Dish'
 
-    name = fields.Char(string=_('Tên món ăn'), requied=True)
+    name = fields.Char(string=_('Tên món ăn'), required=True)
     ingredient_ids = fields.Many2many('product.template', 'dish_product_ref', 'dish_id', 'ptml_id',
                                       string=_('Nguyên liệu'))
     code_dish = fields.Char(string=_('Mã Món'), readonly=1)
     price_total = fields.Float(string=_('Giá'), readonly=1)
     wage = fields.Float(string=_('Tiền công'))
-    type_service = fields.Selection([('service', 'Dịch vụ ngoài'), ('internal', 'Nội bộ')], default='internal',
+    type_service = fields.Selection([('service', 'Dịch vụ ngoài'), ('internal', 'Nội bộ')], default='service',
                                     string='Kiểu ')
     type_food = fields.Selection([('eat', 'Đồ ăn'), ('drink', 'Đồ uống')], default='eat', string='Dạng thực phẩm')
 

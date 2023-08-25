@@ -13,12 +13,15 @@ class MealRegister(models.Model):
     number = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người đăng ký'), default="four")
     meal_type = fields.Selection([('draft', 'Suất'), ('table', 'Bàn')],
                                  string=_('Hình thức ăn'), default='draft')
-    date = fields.Date(string=_('Ngày đăng ký'), requied=True)
+    date = fields.Date(string=_('Ngày đăng ký'), required=True)
     menu_ids = fields.Many2many('tigo.dish', 'menu_table_ref', 'table_menu', 'dish_table_id', string=_('Thực đơn'))
     employee_mealregister_ids = fields.One2many('tigo.detailed.registration', 'registration_id',
                                                 string="Đăng ký cho nhân viên")
     client_mealregister_ids = fields.One2many('tigo.register.client', 'registration_id',
                                               string="Đăng ký cho khách hàng")
+    state = fields.Selection([('draft', 'Chờ'),
+                             ('done', 'Đã đăng ký'),
+                             ('cancel', 'Hủy')], default='draft')
 
     @api.onchange('menu_ids')
     def onchange_menu(self):
@@ -33,8 +36,11 @@ class MealRegister(models.Model):
 
     def action_register(self):
         for r in self:
-            pass
+            r.state = 'done'
 
+    def action_cancel(self):
+        for r in self:
+            r.state = 'cancel'
 
 
 

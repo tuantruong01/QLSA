@@ -1,10 +1,10 @@
 <odoo>
     <data>
-        <record model="ir.ui.view" id="order_service_tree">
-            <field name="name">Đặt Phòng</field>
+        <record model="ir.ui.view" id="quotes_service_tree">
+            <field name="name">Báo Giá</field>
             <field name="model">tigo.service</field>
             <field name="arch" type="xml">
-                <tree string="Đặt Phòng">
+                <tree string="Báo giá">
                     <field name="name"/>
                     <field name="name_id"/>
                     <field name="type"/>
@@ -15,11 +15,11 @@
                 </tree>
             </field>
         </record>
-        <record model="ir.ui.view" id="order_service_form">
-            <field name="name">Dịch Vụ</field>
+        <record model="ir.ui.view" id="quotes_service_form">
+            <field name="name">Báo Giá</field>
             <field name="model">tigo.service</field>
             <field name="arch" type="xml">
-                <form string="Đặt Phòng">
+                <form string="Báo Giá">
                     <header>
                         <field name="state" widget="statusbar"/>
                         <button string="Đặt Phòng" class="oe_highlight" type="object" name="action_order"
@@ -52,24 +52,16 @@
                 </form>
             </field>
         </record>
-        <record id="order_service_view" model="ir.actions.act_window">
-            <field name="name">Dịch Vụ</field>
+        <record id="quotes_service_view" model="ir.actions.act_window">
+            <field name="name">Báo Giá</field>
             <field name="res_model">tigo.service</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('state', '=', 'order')]</field>
+            <field name="domain">[('state', '=', 'quotes')]</field>
         </record>
-        <menuitem name="Dịch Vụ Ngoài"
-                  id="root_service"
-                  parent="z_base.meal_manegent_menu"
-                  sequence="3"/>
-        <menuitem name="Chức Năng Đặt Dịch Vụ"
-                  id="service_menu"
-                  parent="z_base.root_service"
-                  sequence="1"/>
-        <menuitem name="Đặt Phòng"
-                  id="order_service"
+        <menuitem name="Báo Giá"
+                  id="quotes_service"
                   parent="z_base.service_menu"
-                  action="order_service_view"
-                  sequence="2"/>
+                  action="quotes_service_view"
+                  sequence="1"/>
     </data>
 </odoo>
