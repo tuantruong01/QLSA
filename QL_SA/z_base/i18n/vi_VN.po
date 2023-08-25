@@ -28,3 +28,15 @@ msgstr "Nguyên liệu"
 #: model:ir.ui.menu,name:sale.product_menu_catalog
 msgid "Products"
 msgstr "Món ăn"
+
+#. module: product
+#: model:ir.actions.act_window,name:product.product_template_action
+#: model:ir.actions.act_window,name:product.product_template_action_all
+#: model:ir.model.fields,field_description:product.field_product_product__product_variant_ids
+#: model:ir.model.fields,field_description:product.field_product_template__product_variant_ids
+#: model_terms:ir.ui.view,arch_db:product.product_pricelist_view
+#: model_terms:ir.ui.view,arch_db:product.product_template_search_view
+#: model_terms:ir.ui.view,arch_db:product.product_template_view_activity
+#: model_terms:ir.ui.view,arch_db:product.report_pricelist_page
+msgid "Products"
+msgstr "Nguyên liệu"

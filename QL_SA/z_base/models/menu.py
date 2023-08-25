@@ -1,6 +1,8 @@
 from odoo import models, fields, _, api
 from datetime import timedelta
 
+from odoo.exceptions import UserError
+
 
 class Menu(models.Model):
     _name = 'tigo.menu'
@@ -26,12 +28,12 @@ class SettingMenu(models.Model):
     state = fields.Selection([('unactive', 'Chưa kích hoạt'), ('active', 'Đã kích hoạt')], string=_('Trạng Thái'),
                              default="unactive")
     menu_ids = fields.Many2many('tigo.menu', 'setting_menu_ref', 'setting_id', 'menu_id', string=_('Thực Đơn'))
-    day_start = fields.Date(string="Từ ngày", required=True)
-    day_end = fields.Date(string="Đến ngày", required=True)
+    day_start = fields.Date(string="Từ ngày")
+    day_end = fields.Date(string="Đến ngày", readonly=True)
+    type = fields.Selection([('day', 'Ngày'), ('week', 'Tuần')], string="Theo ngày/tuần")
     type_menu = fields.Selection([('set', 'Suất'), ('table', 'Bàn')], string=_('Kiểu Thực Đơn'),
                                  default="set")
-    day = fields.Date(string="Check thuc don ngay", required=True)
-    week = fields.Date(string="Check thuc don tuan", required=True)
+    day = fields.Date(string="Ngày")
 
     @api.model
     def create(self, vals_list):
@@ -47,13 +49,12 @@ class SettingMenu(models.Model):
         for r in self:
             r.state = "unactive"
 
-    @api.model
-    def check(self):
+    @api.onchange('day_start')
+    def onchange_day_start(self):
         for r in self:
-            a = r.day_start + timedelta(days=1)
-            b = (r.day_start + timedelta(days=7))
-            if r.day_end == a:
-                r.day = r.day_end
-            elif r.day_end == b:
-                r.week = r.day_end
-
+            if r.day_start:
+                if r.day_start.weekday() != 0:
+                    raise UserError(_('Bạn phải chọn ngày đầu tuần.'))
+                else:
+                    print('aa')
+                    r.day_end = r.day_start + timedelta(days=6)

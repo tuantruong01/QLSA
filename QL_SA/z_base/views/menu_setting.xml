@@ -7,10 +7,10 @@
             <field name="arch" type="xml">
                 <tree string="Thực Đơn Ngày">
                     <field name="name"/>
-                    <field name="menu_ids" widget="many2many_tags"/>
+                    <field name="menu_ids"/>
                     <field name="type_menu"/>
-                    <field name="day_start"/>
-                    <field name="day_end"/>
+                    <field name="day"/>
+                    <field name="type"/>
                     <field name="state"/>
                 </tree>
             </field>
@@ -29,11 +29,20 @@
                     </header>
                     <sheet>
                         <group>
-                            <field name="name"/>
-                            <field name="day_start"/>
-                            <field name="day_end"/>
-                            <field name="type_menu"/>
-                            <field name="menu_ids"/>
+                            <group>
+                                <field name="name"/>
+                                <field name="day_start"
+                                       attrs="{'invisible': [('type','=','day')], 'required': [('type','=','week')]}"/>
+                                <field name="day_end"
+                                       attrs="{'invisible': [('type','=','day')], 'required': [('type','=','week')]}"/>
+                                <field name="day"
+                                       attrs="{'invisible': [('type','=','week')], 'required': [('type','=','day')]}"/>
+                            </group>
+                            <group>
+                                <field name="type" readonly="1"/>
+                                <field name="type_menu"/>
+                                <field name="menu_ids" widget="many2many_tags"/>
+                            </group>
                         </group>
                     </sheet>
                 </form>
@@ -43,7 +52,8 @@
             <field name="name">Thực Đơn Ngày</field>
             <field name="res_model">tigo.menu.setting</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('day_end', '=', 'day')]</field>
+            <field name="domain">[('type','=','day')]</field>
+            <field name="context">{'default_type': 'day'}</field>
         </record>
         <menuitem name="Cấu Hình"
                   id="setting_menu_menu"
@@ -62,7 +72,7 @@
             <field name="arch" type="xml">
                 <tree string="Thực Đơn Tuần">
                     <field name="name"/>
-                    <field name="menu_ids" widget="many2many_tags"/>
+                    <field name="menu_ids"/>
                     <field name="type_menu"/>
                     <field name="day_start"/>
                     <field name="day_end"/>
@@ -84,13 +94,21 @@
                     </header>
                     <sheet>
                         <group>
-                            <field name="name"/>
-                            <field name="day_start"/>
-                            <field name="day_end"/>
-                            <field name="type_menu"/>
-                            <field name="menu_ids"/>
+                            <group>
+                                <field name="name"/>
+                                <field name="day_start"
+                                       attrs="{'invisible': [('type','=','day')], 'required': [('type','=','week')]}"/>
+                                <field name="day_end"
+                                       attrs="{'invisible': [('type','=','day')], 'required': [('type','=','week')]}"/>
+                                <field name="day"
+                                       attrs="{'invisible': [('type','=','week')], 'required': [('type','=','day')]}"/>
+                            </group>
+                            <group>
+                                <field name="type" readonly="1"/>
+                                <field name="type_menu"/>
+                                <field name="menu_ids" widget="many2many_tags"/>
+                            </group>
                         </group>
-
                     </sheet>
                 </form>
             </field>
@@ -99,7 +117,8 @@
             <field name="name">Thực Đơn Tuần</field>
             <field name="res_model">tigo.menu.setting</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[]</field>
+            <field name="domain">[('type','=','week')]</field>
+            <field name="context">{'default_type': 'week'}</field>
         </record>
 
         <menuitem name="Thực Đơn Tuần"

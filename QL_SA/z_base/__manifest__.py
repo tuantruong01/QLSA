@@ -26,6 +26,7 @@
         'views/menu_service.xml',
         'views/quotes.xml',
         'views/room_service.xml',
+        'views/product_product_inherit_views.xml',
 
     ],
     'license': 'LGPL-3',

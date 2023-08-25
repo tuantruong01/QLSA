@@ -16,10 +16,11 @@
                         <group>
                             <group>
                                 <field name="employee_id"/>
-                                <field name="date_register"/>
+                                <field name="partner_id"/>
                             </group>
                             <group>
-
+                                <field name="department"/>
+                                <field name="date_register"/>
                             </group>
                         </group>
                     </sheet>
@@ -30,10 +31,13 @@
             <field name="name">confirm_dish_view_tree</field>
             <field name="model">confirm.dish</field>
             <field name="arch" type="xml">
-                <tree string="Suất ăn">
-                    <field name="name"/>
-                    <field name="employee_id"/>
-                    <field name="date_register"/>
+                <tree string="Suất ăn" editable="bottom">
+                    <field name="name" readonly="1"/>
+                    <field name="employee_id" readonly="1"/>
+                    <field name="partner_id" readonly="1"/>
+                    <field name="department" readonly="1"/>
+                    <field name="date_register" readonly="1"/>
+                    <field name="ate" widget="boolean_toggle"/>
                 </tree>
             </field>
         </record>
