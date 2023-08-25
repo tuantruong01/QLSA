@@ -13,8 +13,8 @@
     'data': [
         'security/qlsa_security.xml',
         'security/ir.model.access.csv',
-        'views/meal_register.xml',
         'datas/sequence.xml',
+        'views/meal_register.xml',
         'views/room.xml',
         'views/service.xml',
         'views/menu_set.xml',

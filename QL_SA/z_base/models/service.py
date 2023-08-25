@@ -13,10 +13,10 @@ class MealRegister(models.Model):
                               readonly=1)
     name = fields.Char(string=_('Mã Đặt Phòng'), readonly=1)
     type = fields.Selection([('sing', 'Hát'), ('eat', 'Ăn uống')], string=_('Kiểu Dịch Vụ'), default="eat")
-    sate = fields.Selection([('draft', 'Chờ'),
-                             ('pay1', 'Đã Thanh Toán Tiền Cọc'),
-                             ('pay2', 'Đã Thanh Toán'),
-                             ('cancel', 'Hủy')])
+    state = fields.Selection([('quotes', 'Báo Giá'),
+                              ('order', 'Đặt Phòng'),
+                              ('pay', 'Thanh Toán'),
+                              ('cancel', 'Hủy')], default='quotes')
     room_id = fields.Many2one('tigo.room', string=_('Phòng'))
     dish_ids = fields.Many2many('tigo.dish', 'service_ref', 'service_id', 'dish_s_id', string=_('Món'), default="")
     start_day = fields.Datetime(string=_("Ngày bắt đầu"))
@@ -33,7 +33,7 @@ class MealRegister(models.Model):
         res['name'] = self.env['ir.sequence'].next_by_code('tigo.service')
         return res
 
-    @api.depends('start_day', 'end_day','type')
+    @api.depends('start_day', 'end_day', 'type')
     def _compute_timeup(self):
         for r in self:
             if r.start_day and r.end_day:
@@ -64,3 +64,15 @@ class MealRegister(models.Model):
                 r.price = sum(r.dish_ids.mapped('price_total'), (r.time_use * 40000))
                 r.deposit = (r.price * 0.2)
                 r.total = r.price - r.deposit
+
+    def action_order(self):
+        for r in self:
+            r.state = 'order'
+
+    def action_pay(self):
+        for r in self:
+            r.state = 'pay'
+
+    def action_cancel(self):
+        for r in self:
+            r.state = 'cancel'

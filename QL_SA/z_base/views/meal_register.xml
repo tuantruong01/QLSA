@@ -9,6 +9,7 @@
                     <field name="register"/>
                     <field name="date"/>
                     <field name="meal_type"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -18,7 +19,11 @@
             <field name="arch" type="xml">
                 <form string="Đăng ký suất ăn">
                     <header>
-                        <button string="Đăng ký" class="oe_highlight" type="object" name="action_register"/>
+                        <field name="state" widget="statusbar"/>
+                        <button string="Hủy Đăng Ký" class="oe_highlight" type="object" name="action_cancel"
+                                attrs="{'invisible': [('state','=','draft')]}"/>
+                        <button string="Đăng ký" class="oe_highlight" type="object" name="action_register"
+                                attrs="{'invisible': [('state','=','done')]}"/>
                     </header>
                     <sheet>
                         <group>

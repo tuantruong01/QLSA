@@ -33,7 +33,7 @@
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
         </record>
-        <record id="sequence_room" model="ir.sequence">
+        <record id="sequence_dish" model="ir.sequence">
             <field name="name">Món ăn</field>
             <field name="code">tigo.dish</field>
             <field name="prefix">MA/</field>
@@ -41,7 +41,7 @@
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
         </record>
-        <record id="sequence_room" model="ir.sequence">
+        <record id="sequence_menu" model="ir.sequence">
             <field name="name">Thực Đơn</field>
             <field name="code">tigo.menu</field>
             <field name="prefix">TD/</field>
@@ -49,7 +49,7 @@
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
         </record>
-        <record id="sequence_room" model="ir.sequence">
+        <record id="sequence_setting" model="ir.sequence">
             <field name="name">Cấu Hình</field>
             <field name="code">tigo.menu.setting</field>
             <field name="prefix">CH/</field>

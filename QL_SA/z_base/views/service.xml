@@ -1,24 +1,34 @@
 <odoo>
     <data>
-        <record model="ir.ui.view" id="tigo_service_tree">
-            <field name="name">Dịch vụ</field>
+        <record model="ir.ui.view" id="order_service_tree">
+            <field name="name">Đặt Phòng</field>
             <field name="model">tigo.service</field>
             <field name="arch" type="xml">
-                <tree string="Dịch vụ">
+                <tree string="Đặt Phòng">
                     <field name="name"/>
                     <field name="name_id"/>
                     <field name="type"/>
                     <field name="room_id"/>
                     <field name="start_day"/>
                     <field name="end_day"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
-        <record model="ir.ui.view" id="service_form">
+        <record model="ir.ui.view" id="order_service_form">
             <field name="name">Dịch Vụ</field>
             <field name="model">tigo.service</field>
             <field name="arch" type="xml">
-                <form string="Dịch vụ">
+                <form string="Đặt Phòng">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                        <button string="Đặt Phòng" class="oe_highlight" type="object" name="action_order"
+                                attrs="{'invisible': [('state','=','order')]}"/>
+                        <button string="Thanh Toán" class="oe_highlight" type="object" name="action_pay"
+                                attrs="{'invisible': [('state','!=','order')]}"/>
+                        <button string="Hủy" class="oe_highlight" type="object" name="action_cancel"
+                                attrs="{'invisible': [('state','=','quotes')]}"/>
+                    </header>
                     <sheet>
                         <group>
                             <group>
@@ -42,11 +52,11 @@
                 </form>
             </field>
         </record>
-        <record id="service_view" model="ir.actions.act_window">
+        <record id="order_service_view" model="ir.actions.act_window">
             <field name="name">Dịch Vụ</field>
             <field name="res_model">tigo.service</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[]</field>
+            <field name="domain">[('state', '=', 'order')]</field>
         </record>
         <menuitem name="Dịch Vụ Ngoài"
                   id="root_service"
@@ -59,7 +69,7 @@
         <menuitem name="Đặt Phòng"
                   id="order_service"
                   parent="z_base.service_menu"
-                  action="service_view"
+                  action="order_service_view"
                   sequence="2"/>
     </data>
 </odoo>

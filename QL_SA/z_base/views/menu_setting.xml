@@ -6,8 +6,9 @@
             <field name="model">tigo.menu.setting</field>
             <field name="arch" type="xml">
                 <tree string="Thực Đơn Ngày">
-                    <field name="id"/>
+                    <field name="name"/>
                     <field name="menu_ids" widget="many2many_tags"/>
+                    <field name="type_menu"/>
                     <field name="day_start"/>
                     <field name="day_end"/>
                     <field name="state"/>
@@ -28,8 +29,10 @@
                     </header>
                     <sheet>
                         <group>
+                            <field name="name"/>
                             <field name="day_start"/>
                             <field name="day_end"/>
+                            <field name="type_menu"/>
                             <field name="menu_ids"/>
                         </group>
                     </sheet>
@@ -40,7 +43,7 @@
             <field name="name">Thực Đơn Ngày</field>
             <field name="res_model">tigo.menu.setting</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[]</field>
+            <field name="domain">[('day_end', '=', 'day')]</field>
         </record>
         <menuitem name="Cấu Hình"
                   id="setting_menu_menu"
@@ -52,14 +55,15 @@
                   action="action_menu_day_view"
                   sequence="1"/>
 
-<!--Cấu Hình Thực Đơn Theo Tuần-->
+        <!--Cấu Hình Thực Đơn Theo Tuần-->
         <record model="ir.ui.view" id="menu_week_tree">
             <field name="name">Thực Đơn Tuần</field>
             <field name="model">tigo.menu.setting</field>
             <field name="arch" type="xml">
                 <tree string="Thực Đơn Tuần">
-                    <field name="id"/>
+                    <field name="name"/>
                     <field name="menu_ids" widget="many2many_tags"/>
+                    <field name="type_menu"/>
                     <field name="day_start"/>
                     <field name="day_end"/>
                     <field name="state"/>
@@ -80,10 +84,13 @@
                     </header>
                     <sheet>
                         <group>
+                            <field name="name"/>
                             <field name="day_start"/>
                             <field name="day_end"/>
+                            <field name="type_menu"/>
                             <field name="menu_ids"/>
                         </group>
+
                     </sheet>
                 </form>
             </field>

@@ -11,14 +11,24 @@
                     <field name="room_id"/>
                     <field name="start_day"/>
                     <field name="end_day"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
-        <record model="ir.ui.view" id="service_form">
+        <record model="ir.ui.view" id="quotes_service_form">
             <field name="name">Báo Giá</field>
             <field name="model">tigo.service</field>
             <field name="arch" type="xml">
                 <form string="Báo Giá">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                        <button string="Đặt Phòng" class="oe_highlight" type="object" name="action_order"
+                                attrs="{'invisible': [('state','=','order')]}"/>
+                        <button string="Thanh Toán" class="oe_highlight" type="object" name="action_pay"
+                                attrs="{'invisible': [('state','!=','order')]}"/>
+                        <button string="Hủy" class="oe_highlight" type="object" name="action_cancel"
+                                attrs="{'invisible': [('state','=','quotes')]}"/>
+                    </header>
                     <sheet>
                         <group>
                             <group>
@@ -46,12 +56,12 @@
             <field name="name">Báo Giá</field>
             <field name="res_model">tigo.service</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[]</field>
+            <field name="domain">[('state', '=', 'quotes')]</field>
         </record>
         <menuitem name="Báo Giá"
                   id="quotes_service"
                   parent="z_base.service_menu"
-                  action="service_view"
+                  action="quotes_service_view"
                   sequence="1"/>
     </data>
 </odoo>
