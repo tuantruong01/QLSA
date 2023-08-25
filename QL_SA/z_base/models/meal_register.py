@@ -17,8 +17,8 @@ class MealRegister(models.Model):
     menu_ids = fields.Many2many('tigo.dish', 'menu_table_ref', 'table_menu', 'dish_table_id', string=_('Thực đơn'))
     employee_mealregister_ids = fields.One2many('tigo.detailed.registration', 'registration_id',
                                                 string="Đăng ký cho nhân viên")
-    # client_mealregister_ids = fields.One2many('tigo.register.client', 'registration_id',
-    #                                           string="Đăng ký cho khách hàng")
+    client_mealregister_ids = fields.One2many('tigo.register.client', 'registration_id',
+                                              string="Đăng ký cho khách hàng")
 
     @api.onchange('menu_ids')
     def onchange_menu(self):
