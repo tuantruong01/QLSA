@@ -16,7 +16,6 @@
                         <group>
                             <group>
                                 <field name="employee_id"/>
-                                <field name="partner_id"/>
                             </group>
                             <group>
                                 <field name="department"/>
@@ -34,7 +33,6 @@
                 <tree string="Suất ăn" editable="bottom">
                     <field name="name" readonly="1"/>
                     <field name="employee_id" readonly="1"/>
-                    <field name="partner_id" readonly="1"/>
                     <field name="department" readonly="1"/>
                     <field name="date_register" readonly="1"/>
                     <field name="ate" widget="boolean_toggle"/>

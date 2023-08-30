@@ -6,9 +6,8 @@ class ConfirmDish(models.Model):
     _description = 'Xác nhận đã nhận suất ăn'
 
     name = fields.Char(string=_('Tên phiếu ăn', readonly=1))
-    employee_id = fields.Many2one('res.users', string=_('Tên nhân viên'))
-    partner_id = fields.Many2one('res.partner', string=_('Tên Khách'))
+    employee_id = fields.Char(string=_('Họ và tên'))
     date_register = fields.Date(string=_('Ngày đăng ký'))
     department = fields.Many2one('hr.department', string="Phòng ban")
     ate = fields.Boolean(string=_('Đã ăn'), default=False)
-
+    mealregister_id = fields.Many2one('tigo.mealregister', string=_('Đăng ký suất ăn'))

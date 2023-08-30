@@ -31,7 +31,7 @@
                             <group>
                                 <field name="name"/>
                                 <field name="day_start"/>
-                                <field name="day_end"/>
+                                <field name="day_end" force_save="1"/>
                             </group>
                             <group>
                                 <field name="type" readonly="1"/>
@@ -47,6 +47,7 @@
             <field name="name">Thực Đơn Tuần</field>
             <field name="res_model">tigo.menu.setting</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="menu_week_tree"/>
             <field name="domain">[('type','=','week')]</field>
             <field name="context">{'default_type': 'week'}</field>
         </record>

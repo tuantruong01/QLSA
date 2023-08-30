@@ -21,16 +21,18 @@
                     <header>
                         <field name="state" widget="statusbar"/>
                         <button string="Hủy Đăng Ký" class="oe_highlight" type="object" name="action_cancel"
-                                attrs="{'invisible': [('state','=','draft')]}"/>
+                                attrs="{'invisible': [('state','!=','done')]}"/>
                         <button string="Đăng ký" class="oe_highlight" type="object" name="action_register"
-                                attrs="{'invisible': [('state','=','done')]}"/>
+                                attrs="{'invisible': [('state','!=','draft')]}"/>
+                        <button string="Đưa về dự thảo" class="oe_highlight" type="object" name="action_back_draft"
+                                attrs="{'invisible': [('state','!=','cancel')]}"/>
                     </header>
                     <sheet>
                         <group>
                             <group>
                                 <field name="name"/>
                                 <field name="register"/>
-                                <field name="meal_type"/>
+                                <field name="meal_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             </group>
                             <group>
                                 <field name="date"/>
@@ -47,7 +49,8 @@
                                         <field name="code"/>
                                         <field name="number_phone"/>
                                         <field name="department_id"/>
-                                        <field name="menu" widget="many2many_tags"/>
+                                        <field name="menu" widget="many2many_tags"
+                                               attrs="{'column_invisible': [('parent.meal_type', '=', 'table')]}"/>
                                     </tree>
                                 </field>
                             </page>

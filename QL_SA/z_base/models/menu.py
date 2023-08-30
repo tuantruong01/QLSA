@@ -58,10 +58,12 @@ class SettingMenu(models.Model):
                 else:
                     r.day_end = r.day_start + timedelta(days=6)
 
-    @api.onchange('type_menu')
+    @api.onchange('menu_ids')
     def onchange_type_menu(self):
         for r in self:
             if r.type_menu == 'set':
-                r.menu_ids = self.env['tigo.menu'].search([('type_menu', '=', 'set')])
+                menu_ids = self.env['tigo.menu'].search([('type_menu', '=', r.type_menu)]).ids
+                return {'domain': {'menu_ids': [('id', 'in', menu_ids)]}}
             else:
-                r.menu_ids = self.env['tigo.menu'].search([('type_menu', '=', 'table')])
+                menu_ids = self.env['tigo.menu'].search([('type_menu', '=', r.type_menu)]).ids
+                return {'domain': {'menu_ids': [('id', 'in', menu_ids)]}}

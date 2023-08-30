@@ -8,11 +8,9 @@
     'category': 'Accounting/Accounting',
     'website': 'https://www.odoo.com/app/invoicing',
     'depends': [
-
-                ],
+        'confirm_dish', 'z_base'
+    ],
     'data': [
-        'security/ir.model.access.csv',
-        'views/confirm_dish.xml'
     ],
     'license': 'LGPL-3',
 }
