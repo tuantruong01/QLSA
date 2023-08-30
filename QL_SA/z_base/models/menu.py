@@ -56,5 +56,12 @@ class SettingMenu(models.Model):
                 if r.day_start.weekday() != 0:
                     raise UserError(_('Bạn phải chọn ngày đầu tuần.'))
                 else:
-                    print('aa')
                     r.day_end = r.day_start + timedelta(days=6)
+
+    @api.onchange('type_menu')
+    def onchange_type_menu(self):
+        for r in self:
+            if r.type_menu == 'set':
+                r.menu_ids = self.env['tigo.menu'].search([('type_menu', '=', 'set')])
+            else:
+                r.menu_ids = self.env['tigo.menu'].search([('type_menu', '=', 'table')])

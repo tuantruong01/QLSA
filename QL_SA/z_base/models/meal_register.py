@@ -53,3 +53,5 @@ class MealRegister(models.Model):
     def action_cancel(self):
         for r in self:
             r.state = 'cancel'
+
+
