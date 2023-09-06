@@ -35,10 +35,10 @@
                                 <field name="meal_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             </group>
                             <group>
-                                <field name="date"/>
-                                <field name="number" attrs="{'invisible': [('meal_type','=','draft')]}"/>
+                                <field name="date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                <field name="number" attrs="{'invisible': [('meal_type','!=','table')]}"/>
                                 <field name="menu_ids" widget="many2many_tags"
-                                       attrs="{'invisible': [('meal_type','=','draft')]}"/>
+                                       attrs="{'invisible': [('meal_type','!=','table')]}"/>
                             </group>
                         </group>
                         <notebook>
@@ -60,7 +60,8 @@
                                         <field name="partner_id"/>
                                         <field name="phone_client"/>
                                         <field name="note"/>
-                                        <field name="menu" widget="many2many_tags"/>
+                                        <field name="menu" widget="many2many_tags"
+                                               attrs="{'column_invisible': [('parent.meal_type', '=', 'table')]}"/>
                                     </tree>
                                 </field>
                             </page>

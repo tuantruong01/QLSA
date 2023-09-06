@@ -11,7 +11,7 @@ class MealRegister(models.Model):
                                default=lambda self: self.env.user,
                                readonly=1)
     number = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người đăng ký'), default="four")
-    meal_type = fields.Selection([('draft', 'Suất'), ('table', 'Bàn')],
+    meal_type = fields.Selection([('set', 'Suất'), ('table', 'Bàn')],
                                  string=_('Hình thức ăn'), default='draft')
     date = fields.Date(string=_('Ngày đăng ký'), required=True)
     menu_ids = fields.Many2many('tigo.dish', 'menu_table_ref', 'table_menu', 'dish_table_id', string=_('Thực đơn'))

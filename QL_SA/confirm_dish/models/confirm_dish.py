@@ -11,3 +11,10 @@ class ConfirmDish(models.Model):
     department = fields.Many2one('hr.department', string="Phòng ban")
     ate = fields.Boolean(string=_('Đã ăn'), default=False)
     mealregister_id = fields.Many2one('tigo.mealregister', string=_('Đăng ký suất ăn'))
+    note = fields.Char(string=_('Ghi Chú'))
+
+    @api.model
+    def create(self, vals_list):
+        res = super(ConfirmDish, self).create(vals_list)
+        res['name'] = self.env['ir.sequence'].next_by_code('confirm.dish')
+        return res

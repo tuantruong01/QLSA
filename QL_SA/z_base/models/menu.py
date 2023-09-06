@@ -11,7 +11,7 @@ class Menu(models.Model):
     code_menu = fields.Char(string=_('Mã thực đơn'), readonly=1)
     name = fields.Char(string=_('Tên thực đơn'), requied=True)
     dish_ids = fields.Many2many('tigo.dish', 'menu_dish_ref', 'menu_id', 'dish_id', string=_('Món ăn'))
-    type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'), default="set")
+    type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'))
 
     @api.model
     def create(self, vals_list):
@@ -31,8 +31,7 @@ class SettingMenu(models.Model):
     day_start = fields.Date(string="Từ ngày")
     day_end = fields.Date(string="Đến ngày", readonly=True)
     type = fields.Selection([('day', 'Ngày'), ('week', 'Tuần')], string="Theo ngày/tuần")
-    type_menu = fields.Selection([('set', 'Suất'), ('table', 'Bàn')], string=_('Kiểu Thực Đơn'),
-                                 default="set")
+    type_menu = fields.Selection([('set', 'Suất'), ('table', 'Bàn')], string=_('Kiểu Thực Đơn'))
     day = fields.Date(string="Ngày")
 
     @api.model
@@ -58,7 +57,7 @@ class SettingMenu(models.Model):
                 else:
                     r.day_end = r.day_start + timedelta(days=6)
 
-    @api.onchange('menu_ids')
+    @api.onchange('menu_ids', 'type_menu')
     def onchange_type_menu(self):
         for r in self:
             if r.type_menu == 'set':

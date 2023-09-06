@@ -23,7 +23,7 @@
                                 <field name="name"/>
                             </group>
                             <group>
-                                <field name="type_menu"/>
+                                <field name="type_menu" readonly="1"/>
                                 <field name="dish_ids" widget="many2many_tags"/>
                             </group>
                         </group>
@@ -36,6 +36,7 @@
             <field name="res_model">tigo.menu</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[("type_menu", '=', 'set')]</field>
+            <field name="context">{'default_type_menu': 'set'}</field>
         </record>
 
         <menuitem name="Quản Lý Thực Đơn"

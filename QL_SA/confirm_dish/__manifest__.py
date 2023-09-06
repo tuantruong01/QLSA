@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name': 'Quản lý suất ăn',
+    'name': 'Xác Nhận Ăn',
     'version': '1.2',
     'summary': 'Invoices & Payments',
     'sequence': 10,
     'category': 'Accounting/Accounting',
     'website': 'https://www.odoo.com/app/invoicing',
     'depends': [
-
-                ],
+    ],
     'data': [
         'security/ir.model.access.csv',
+        'data/sequence.xml',
         'views/confirm_dish.xml'
     ],
     'license': 'LGPL-3',
