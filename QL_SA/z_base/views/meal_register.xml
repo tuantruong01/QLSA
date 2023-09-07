@@ -44,7 +44,9 @@
                                 <field name="number" attrs="{'invisible': [('meal_type','!=','set')]}"/>
                                 <field name="menu_ids" widget="many2many_tags"
                                        attrs="{'invisible': [('meal_type','!=','set')]}"/>
-
+                                <field name="number" attrs="{'invisible': [('meal_type','!=','table')]}"/>
+                                <field name="menu_ids" widget="many2many_tags"
+                                       attrs="{'invisible': [('meal_type','!=','table')]}"/>
                             </group>
                         </group>
                         <notebook>
@@ -52,12 +54,13 @@
                                 <field name="employee_meal_register_ids">
                                     <tree editable="bottom">
                                         <field name="employee_id"
-                                            attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
+                                               attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
                                         <field name="code"/>
                                         <field name="number_phone"/>
                                         <field name="department_id"/>
                                         <field name="menu" widget="many2many_tags"
                                                attrs="{'column_invisible': [('parent.meal_type', '=', 'table')]}"/>
+                                        <field name="note" attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
                                     </tree>
                                 </field>
                             </page>
@@ -69,6 +72,13 @@
                                         <field name="note"/>
                                         <field name="menu" widget="many2many_tags"
                                                attrs="{'column_invisible': [('parent.meal_type', '=', 'table')]}"/>
+                                        <field name="partner_id"
+                                               attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
+                                        <field name="phone_client"
+                                               attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
+                                        <field name="menu" widget="many2many_tags"
+                                               attrs="{'column_invisible': [('parent.meal_type', '=', 'table')]}"/>
+                                        <field name="note" attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
                                     </tree>
                                 </field>
                             </page>
