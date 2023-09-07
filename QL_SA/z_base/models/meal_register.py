@@ -10,7 +10,7 @@ class MealRegister(models.Model):
                                string=_('Người đăng ký'),
                                default=lambda self: self.env.user,
                                readonly=1)
-    number = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người đăng ký'), default="four")
+    number = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người đăng ký'))
     meal_type = fields.Selection([('set', 'Suất'), ('table', 'Bàn')],
                                  string=_('Hình thức ăn'), required=True)
     date = fields.Date(string=_('Ngày đăng ký'), required=True)
