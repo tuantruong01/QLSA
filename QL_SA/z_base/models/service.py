@@ -21,11 +21,11 @@ class MealRegister(models.Model):
     dish_ids = fields.Many2many('tigo.dish', 'service_ref', 'service_id', 'dish_s_id', string=_('Món'), default="")
     start_day = fields.Datetime(string=_("Ngày bắt đầu"))
     end_day = fields.Datetime(string=_('Ngày kết thúc'))
-    deposit = fields.Float(string="Tiền cọc 20% hóa đơn")
-    total = fields.Float(string='Tổng Thanh Toán')
-    price = fields.Float(string='Thành tiền')
+    deposit = fields.Float(string="Tiền cọc 20% hóa đơn", readonly=1)
+    total = fields.Float(string='Số Tiền ', readonly=1)
+    price = fields.Float(string='Tổng Thanh Toán', readonly=1)
     note = fields.Char(string='Ghi Chú')
-    time_use = fields.Float(string='Tổng giờ hát', compute='_compute_timeup')
+    time_use = fields.Float(string='Tổng giờ hát', compute='_compute_time_up')
 
     @api.model
     def create(self, vals_list):
@@ -34,7 +34,7 @@ class MealRegister(models.Model):
         return res
 
     @api.depends('start_day', 'end_day', 'type')
-    def _compute_timeup(self):
+    def _compute_time_up(self):
         for r in self:
             if r.start_day and r.end_day:
                 if r.type == 'sing':
@@ -45,14 +45,26 @@ class MealRegister(models.Model):
             else:
                 r.time_use = 0
 
-    @api.onchange('dish_ids')
-    def onchange_ingredient_ids(self):
+    @api.onchange('room_id')
+    def onchange_dish_ids(self):
         for r in self:
-            r.price = sum(r.dish_ids.mapped('price_total'), (r.time_use * 40000))
+            if r.type == 'eat':
+                dish = self.env['tigo.dish'].search([('|'), ('type_room', '=', 'eat'), ('type_room', '=', 'all')]).ids
+
+                return {'domain': {'dish_ids': [('id', 'in', dish)]}}
+            else:
+                dish = self.env['tigo.dish'].search([('|'), ('type_room', '=', 'sing'), ('type_room', '=', 'all')]).ids
+                return {'domain': {'dish_ids': [('id', 'in', dish)]}}
+
+    @api.onchange('dish_ids')
+    def onchange_dish_id(self):
+        for r in self:
+            price_room = sum(r.room_id.mapped('price'))
+            r.price = sum(r.dish_ids.mapped('price_total'), (r.time_use * price_room))
             r.deposit = (r.price * 0.2)
             r.total = r.price - r.deposit
 
-    @api.onchange('end_day', 'start_day', 'type')
+    @api.onchange('end_day', 'start_day', 'type', 'room_id')
     def onchange_end_day(self):
         for r in self:
             if r.type == 'eat':
@@ -76,3 +88,13 @@ class MealRegister(models.Model):
     def action_cancel(self):
         for r in self:
             r.state = 'cancel'
+
+    @api.onchange('type', 'room_id')
+    def onchange_room_id(self):
+        for r in self:
+            if r.type == 'eat':
+                room = self.env['tigo.room'].search([('type_room', '=', 'eat')]).ids
+                return {'domain': {'room_id': [('id', 'in', room)]}}
+            else:
+                room = self.env['tigo.room'].search([('type_room', '=', 'sing')]).ids
+                return {'domain': {'room_id': [('id', 'in', room)]}}

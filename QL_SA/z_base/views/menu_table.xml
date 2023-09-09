@@ -4,10 +4,12 @@
             <field name="name">Thực đơn bàn</field>
             <field name="model">tigo.menu</field>
             <field name="arch" type="xml">
-                 <tree string="Thực đơn bàn">
+                <tree string="Thực đơn bàn">
                     <field name="code_menu"/>
                     <field name="name"/>
                     <field name="type_menu"/>
+                    <field name="number_of_people"/>
+                    <field name="dish_ids" widget="many2many_tags"/>
                 </tree>
             </field>
         </record>
@@ -23,7 +25,8 @@
                                 <field name="name"/>
                             </group>
                             <group>
-                                <field name="type_menu" readonly="1"/>
+                                <field name="type_menu" />
+                                <field name="number_of_people" attrs="{'invisible': [('type_menu','!=','table')]}"/>
                                 <field name="dish_ids" widget="many2many_tags"/>
                             </group>
                         </group>
@@ -35,6 +38,7 @@
             <field name="name">Thực Đơn Bàn</field>
             <field name="res_model">tigo.menu</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="menu_table_tree_views"/>
             <field name="domain">[("type_menu", '=', 'table')]</field>
             <field name="context">{'default_type_menu': 'table'}</field>
         </record>

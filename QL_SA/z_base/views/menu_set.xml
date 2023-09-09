@@ -8,6 +8,7 @@
                     <field name="code_menu"/>
                     <field name="name"/>
                     <field name="type_menu"/>
+                    <field name="dish_ids" widget="many2many_tags"/>
                 </tree>
             </field>
         </record>
@@ -36,6 +37,7 @@
             <field name="name">Thực Đơn Suất</field>
             <field name="res_model">tigo.menu</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="menu_set_tree_views"/>
             <field name="domain">[("type_menu", '=', 'set')]</field>
             <field name="context">{'default_type_menu': 'set'}</field>
         </record>

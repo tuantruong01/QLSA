@@ -12,6 +12,7 @@ class Menu(models.Model):
     name = fields.Char(string=_('Tên thực đơn'), requied=True)
     dish_ids = fields.Many2many('tigo.dish', 'menu_dish_ref', 'menu_id', 'dish_id', string=_('Món ăn'))
     type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'))
+    number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
 
     @api.model
     def create(self, vals_list):
@@ -33,6 +34,7 @@ class SettingMenu(models.Model):
     type = fields.Selection([('day', 'Ngày'), ('week', 'Tuần')], string="Theo ngày/tuần")
     type_menu = fields.Selection([('set', 'Suất'), ('table', 'Bàn')], string=_('Kiểu Thực Đơn'))
     day = fields.Date(string="Ngày")
+    number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
 
     @api.model
     def create(self, vals_list):
@@ -57,12 +59,19 @@ class SettingMenu(models.Model):
                 else:
                     r.day_end = r.day_start + timedelta(days=6)
 
-    @api.onchange('menu_ids', 'type_menu')
+    @api.onchange('menu_ids', 'type_menu', 'number_of_people')
     def onchange_type_menu(self):
         for r in self:
             if r.type_menu == 'set':
                 menu_ids = self.env['tigo.menu'].search([('type_menu', '=', r.type_menu)]).ids
                 return {'domain': {'menu_ids': [('id', 'in', menu_ids)]}}
             else:
-                menu_ids = self.env['tigo.menu'].search([('type_menu', '=', r.type_menu)]).ids
-                return {'domain': {'menu_ids': [('id', 'in', menu_ids)]}}
+                if r.number_of_people == 'four':
+                    menu_ids = self.env['tigo.menu'].search(
+                        [('type_menu', '=', 'table'), ('number_of_people', '=', 'four')]).ids
+                    return {'domain': {'menu_ids': [('id', 'in', menu_ids)]}}
+                else:
+                    menu_ids = self.env['tigo.menu'].search(
+                        [('type_menu', '=', 'table'), ('number_of_people', '=', 'six')]).ids
+                    return {'domain': {'menu_ids': [('id', 'in', menu_ids)]}}
+

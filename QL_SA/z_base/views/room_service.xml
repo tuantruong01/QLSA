@@ -41,6 +41,7 @@
             <field name="res_model">tigo.room</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('type_room', '=','eat')]</field>
+            <field name="context">{'default_type_room': 'eat'}</field>
         </record>
 
         <menuitem id="room_eat"
@@ -90,6 +91,7 @@
             <field name="res_model">tigo.room</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('type_room', '=','sing')]</field>
+            <field name="context">{'default_type_room': 'sing'}</field>
         </record>
 
         <menuitem id="room_sing"

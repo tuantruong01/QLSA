@@ -4,11 +4,12 @@
             <field name="name">Menu</field>
             <field name="model">tigo.dish</field>
             <field name="arch" type="xml">
-                <tree string="Món ăn">
+                <tree string="Thực Đơn Dịch Vụ Ngoài">
                     <field name="code_dish"/>
                     <field name="name"/>
                     <field name="type_food"/>
                     <field name="price_total"/>
+                    <field name="type_food"/>
                 </tree>
             </field>
         </record>
@@ -16,7 +17,7 @@
             <field name="name">Menu</field>
             <field name="model">tigo.dish</field>
             <field name="arch" type="xml">
-                <form string="Menu">
+                <form string="Món Ăn">
                     <sheet>
                         <group>
                             <group>
@@ -26,6 +27,7 @@
                                 <field name="type_food"/>
                             </group>
                             <group>
+                                <field name="type_room" attrs="{'invisible': [('type_service','!=','service')]}"/>
                                 <field name="wage"/>
                                 <field name="ingredient_ids" widget="many2many_tags"
                                        attrs="{'invisible': [('type_food','=','drink')]}"/>
@@ -37,9 +39,10 @@
             </field>
         </record>
         <record id="action_dish_service_models" model="ir.actions.act_window">
-            <field name="name">Menu</field>
+            <field name="name">Thực Đơn Dịch Vụ Ngoài</field>
             <field name="res_model">tigo.dish</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="dish_service_tree_views"/>
             <field name="domain">[("type_service", '=', 'service')]</field>
         </record>
         <menuitem id="list_service"
@@ -47,7 +50,7 @@
                   parent="z_base.root_service"
                   sequence="3"/>
         <menuitem id="dish_service"
-                  name="Thực Đơn"
+                  name="Thực Đơn Dịch Vụ Ngoài"
                   parent="z_base.list_service"
                   action="action_dish_service_models"
                   sequence="2"/>
@@ -95,6 +98,7 @@
             <field name="res_model">tigo.dish</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[("type_service", '=', 'service'),("type_food", '=', 'drink')]</field>
+            <field name="context">{'default_type_food': 'drink'}</field>
         </record>
 
         <menuitem id="menu_service_menu"
@@ -151,6 +155,7 @@
             <field name="res_model">tigo.dish</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[("type_service", '=', 'service'),("type_food", '=', 'eat')]</field>
+            <field name="context">{'default_type_food': 'eat'}</field>
         </record>
 
         <menuitem id="type_eat"

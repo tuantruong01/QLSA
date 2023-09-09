@@ -1,4 +1,5 @@
 from odoo import models, fields, _, api
+from odoo.exceptions import UserError
 
 
 class MealRegister(models.Model):
@@ -14,7 +15,7 @@ class MealRegister(models.Model):
     meal_type = fields.Selection([('set', 'Suất'), ('table', 'Bàn')],
                                  string=_('Hình thức ăn'), default='draft')
     date = fields.Date(string=_('Ngày đăng ký'), required=True)
-    menu_ids = fields.Many2many('tigo.dish', 'menu_table_ref', 'table_menu', 'dish_table_id', string=_('Thực đơn'))
+    menu_id = fields.Many2one('tigo.menu', string=_('Thực đơn'))
     employee_meal_register_ids = fields.One2many('tigo.detailed.registration', 'registration_id',
                                                  string="Đăng ký cho nhân viên")
     client_meal_register_ids = fields.One2many('tigo.register.client', 'registration_id',
@@ -63,3 +64,15 @@ class MealRegister(models.Model):
     def action_back_draft(self):
         for r in self:
             r.state = 'draft'
+
+    @api.onchange('date', 'menu_id')
+    def onchange_menu_ids(self):
+        for r in self:
+            if r.meal_type == 'table' and r.number == 'four':
+                menu = self.env['tigo.menu.setting'].search(
+                    [('type_menu', '=', 'table'), ('state', '=', 'active'), ('number_of_people', '=', 'four')]).ids
+                return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
+            elif r.meal_type == 'table' and r.number == 'six':
+                menu = self.env['tigo.menu.setting'].search(
+                    [('type_menu', '=', 'table'), ('state', '=', 'active'), ('number_of_people', '=', 'six')]).ids
+                return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}

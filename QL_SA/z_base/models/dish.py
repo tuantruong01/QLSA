@@ -10,10 +10,12 @@ class Dish(models.Model):
                                       string=_('Nguyên liệu'))
     code_dish = fields.Char(string=_('Mã Món'), readonly=1)
     price_total = fields.Float(string=_('Giá'), readonly=1)
-    wage = fields.Float(string=_('Tiền công'))
+    wage = fields.Float(string=_('Chi Phí Khác'))
     type_service = fields.Selection([('service', 'Dịch vụ ngoài'), ('internal', 'Nội bộ')], default='service',
                                     string='Kiểu ')
     type_food = fields.Selection([('eat', 'Đồ ăn'), ('drink', 'Đồ uống')], default='eat', string='Dạng thực phẩm')
+    type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn'), ('all', 'Tất Cả')],
+                                 string=_('Món Phòng Hát/Ăn'))
 
     @api.model
     def create(self, vals_list):

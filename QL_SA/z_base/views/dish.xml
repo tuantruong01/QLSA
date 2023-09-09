@@ -7,7 +7,8 @@
                 <tree string="Món ăn">
                     <field name="code_dish"/>
                     <field name="name"/>
-                    <field name="ingredient_ids" widget="many2many_tags"/>
+                    <field name="type_food"/>
+                    <field name="type_service"/>
                     <field name="price_total"/>
                 </tree>
             </field>
@@ -39,6 +40,7 @@
         <record id="action_dish_models" model="ir.actions.act_window">
             <field name="name">Món ăn</field>
             <field name="res_model">tigo.dish</field>
+            <field name="view_id" ref="tigo_dish_tree_views"/>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
         </record>
