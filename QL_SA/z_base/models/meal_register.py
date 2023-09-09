@@ -80,4 +80,4 @@ class MealRegister(models.Model):
     @api.onchange('menu_id')
     def _onchange_menu_id(self):
         for r in self:
-            r.detail_dish = ','.join([line.name for line in r.menu_id.dish_ids])
+            r.detail_dish = ', '.join([line.name for line in r.menu_id.dish_ids])
