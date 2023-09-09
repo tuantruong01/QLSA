@@ -39,6 +39,8 @@
                                 <field name="number" attrs="{'invisible': [('meal_type','!=','table')]}"/>
                                 <field name="menu_id"
                                        attrs="{'invisible': [('meal_type','!=','table')]}"/>
+                                <field name="detail_dish"
+                                       attrs="{'invisible': [('meal_type','!=','table')]}"/>
                             </group>
                         </group>
                         <notebook>

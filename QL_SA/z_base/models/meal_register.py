@@ -24,11 +24,7 @@ class MealRegister(models.Model):
                               ('done', 'Đã đăng ký'),
                               ('cancel', 'Hủy')], default='draft')
     confirm_dish_ids = fields.One2many('confirm.dish', 'mealregister_id', string=_('Suất ăn'))
-
-    @api.onchange('menu_ids')
-    def onchange_menu(self):
-        for r in self:
-            r.employee_meal_register_ids.menu = r.menu_ids
+    detail_dish = fields.Char(string=_('Chi tiết món'), readonly=True)
 
     @api.model
     def create(self, vals_list):
@@ -65,14 +61,23 @@ class MealRegister(models.Model):
         for r in self:
             r.state = 'draft'
 
-    @api.onchange('date', 'menu_id')
+    @api.onchange('date', 'number', 'meal_type')
     def onchange_menu_ids(self):
         for r in self:
-            if r.meal_type == 'table' and r.number == 'four':
-                menu = self.env['tigo.menu.setting'].search(
-                    [('type_menu', '=', 'table'), ('state', '=', 'active'), ('number_of_people', '=', 'four')]).ids
-                return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
-            elif r.meal_type == 'table' and r.number == 'six':
-                menu = self.env['tigo.menu.setting'].search(
-                    [('type_menu', '=', 'table'), ('state', '=', 'active'), ('number_of_people', '=', 'six')]).ids
-                return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
+            if r.meal_type == 'table' and r.number and r.date:
+                if r.number == 'four':
+                    menu = self.env['tigo.menu.setting'].search(
+                        [('type_menu', '=', r.meal_type), ('state', '=', 'active'),
+                         ('number_of_people', '=', r.number)])
+                    if menu:
+                        return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
+                elif r.number == 'six':
+                    menu = self.env['tigo.menu.setting'].search(
+                        [('type_menu', '=', 'table'), ('state', '=', 'active'), ('number_of_people', '=', r.number)])
+                    if menu:
+                        return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
+
+    @api.onchange('menu_id')
+    def _onchange_menu_id(self):
+        for r in self:
+            r.detail_dish = ','.join([line.name for line in r.menu_id.dish_ids])
