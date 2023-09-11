@@ -46,7 +46,7 @@ class MealRegister(models.Model):
             if r.client_meal_register_ids:
                 for line in r.client_meal_register_ids:
                     self.env['confirm.dish'].create({
-                        'mealregister_id': r.id,
+                        # 'mealregister_id': r.id,
                         'employee_id': line.partner_id.name,
                         'date_register': r.date
                     })
