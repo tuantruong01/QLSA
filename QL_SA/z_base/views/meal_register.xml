@@ -56,6 +56,7 @@
                                         <field name="menu" widget="many2many_tags"
                                                attrs="{'column_invisible': [('parent.meal_type', '=', 'table')]}"/>
                                         <field name="note" attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
+                                        <field name="person"/>
                                     </tree>
                                 </field>
                             </page>
@@ -69,6 +70,7 @@
                                         <field name="menu" widget="many2many_tags"
                                                attrs="{'column_invisible': [('parent.meal_type', '=', 'table')]}"/>
                                         <field name="note" attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
+                                        <field name="person"/>
                                     </tree>
                                 </field>
                             </page>

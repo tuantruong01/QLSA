@@ -12,6 +12,7 @@ class RegisterEmployee(models.Model):
     menu = fields.Many2many('tigo.dish', 'menu_ref', 'register_id', 'dish_register_id', string=_('Thực đơn'))
     department_id = fields.Many2one('hr.department', string="Phòng Ban", related='employee_id.department_id')
     note = fields.Char(string=_('Ghi Chú'))
+    person = fields.Boolean(string=_('Người đại diện'))
 
 
 class Client(models.Model):
@@ -24,3 +25,5 @@ class Client(models.Model):
     partner_id = fields.Many2one('res.partner', string=_('Tên khách hàng'))
     phone_client = fields.Char(string=_('Số điện thoại'))
     note = fields.Char(string="Ghi chú")
+    person = fields.Boolean(string=_('Người đại diện'))
+

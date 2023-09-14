@@ -14,7 +14,7 @@ class Dish(models.Model):
     type_service = fields.Selection([('service', 'Dịch vụ ngoài'), ('internal', 'Nội bộ')], default='service',
                                     string='Kiểu ')
     type_food = fields.Selection([('eat', 'Đồ ăn'), ('drink', 'Đồ uống')], default='eat', string='Dạng thực phẩm')
-    type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn'), ('all', 'Tất Cả')],
+    type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn')],
                                  string=_('Món Phòng Hát/Ăn'))
 
     @api.model

@@ -27,7 +27,8 @@
                                 <field name="type_food"/>
                             </group>
                             <group>
-                                <field name="type_room" attrs="{'invisible': [('type_service','!=','service')]}"/>
+                                <field name="type_room" attrs="{'invisible': [('type_service','!=','service')]}"
+                                       widget="radio" options='{"horizontal": 1}'/>
                                 <field name="wage"/>
                                 <field name="ingredient_ids" widget="many2many_tags"
                                        attrs="{'invisible': [('type_food','=','drink')]}"/>
