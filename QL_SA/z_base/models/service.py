@@ -13,7 +13,7 @@ class MealRegister(models.Model):
     state = fields.Selection([('quotes', 'Báo Giá'),
                               ('order', 'Đặt Phòng'),
                               ('pay', 'Thanh Toán'),
-                              ('payed', 'Thanh Toán'),
+                              ('payed', 'Đã Thanh Toán'),
                               ('cancel', 'Hủy')], string='Trạng Thái', default='quotes')
     room_id = fields.Many2one('tigo.room', string=_('Phòng'))
     dish_ids = fields.Many2many('tigo.dish', 'service_ref', 'service_id', 'dish_s_id', string=_('Món'), default="")

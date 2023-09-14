@@ -25,9 +25,9 @@
                         <button string="Đặt Phòng" class="oe_highlight" type="object" name="action_order"
                                 attrs="{'invisible': [('state','!=','quotes')]}"/>
                         <button string="Thanh Toán" class="oe_highlight" type="object" name="action_pay"
-                                attrs="{'invisible': [('|'), ('state','=','quotes'), ('state','=','payed')]}"/>
+                                attrs="{'invisible': [('state','in',('quotes','pay','payed'))]}"/>
                         <button string="Đã Thanh Toán" class="oe_highlight" type="object" name="action_payed"
-                                attrs="{'invisible': [('|'), ('state','=','quotes'),('state','=','payed')]}"/>
+                                attrs="{'invisible': [('state','in',('quotes','order','payed'))]}"/>
                         <button string="Hủy" class="oe_highlight" type="object" name="action_cancel"
                                 attrs="{'invisible': [('state','!=','order')]}"/>
                     </header>
