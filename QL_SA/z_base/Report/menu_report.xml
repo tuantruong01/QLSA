@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="menu_report"
+                  name="Báo Cáo Thực Đơn"
+                  parent="z_base.root_report"
+                  action="meal_register_view"
+                  sequence="2"/>
+    </data>
+</odoo>

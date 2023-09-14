@@ -18,6 +18,8 @@ access_register_manager,register_manager,model_tigo_mealregister,,1,1,1,1
 
 access_setting_menu,tigo_menu_setting,model_tigo_menu_setting,,1,1,1,1
 access_tigo_register_client,tigo_register_client,model_tigo_register_client,,1,1,1,1
+access_tigo_week,tigo_week,model_tigo_week,,1,1,1,1
+
 
 
 

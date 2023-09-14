@@ -29,12 +29,14 @@ class SettingMenu(models.Model):
     state = fields.Selection([('unactive', 'Chưa kích hoạt'), ('active', 'Đã kích hoạt')], string=_('Trạng Thái'),
                              default="unactive")
     menu_ids = fields.Many2many('tigo.menu', 'setting_menu_ref', 'setting_id', 'menu_id', string=_('Thực Đơn'))
-    day_start = fields.Date(string="Từ ngày")
+    day_start = fields.Date(string="Từ ngày", readonly=True)
     day_end = fields.Date(string="Đến ngày", readonly=True)
     type = fields.Selection([('day', 'Ngày'), ('week', 'Tuần')], string="Theo ngày/tuần")
     type_menu = fields.Selection([('set', 'Suất'), ('table', 'Bàn')], string=_('Kiểu Thực Đơn'))
     day = fields.Date(string="Ngày")
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
+    detail_dish = fields.Char(string=_('Chi tiết món'), readonly=True)
+    week = fields.Many2one('tigo.week', string='Tuần', required=1)
 
     @api.model
     def create(self, vals_list):
@@ -50,14 +52,11 @@ class SettingMenu(models.Model):
         for r in self:
             r.state = "unactive"
 
-    @api.onchange('day_start')
+    @api.onchange('week')
     def onchange_day_start(self):
         for r in self:
-            if r.day_start:
-                if r.day_start.weekday() != 0:
-                    raise UserError(_('Bạn phải chọn ngày đầu tuần.'))
-                else:
-                    r.day_end = r.day_start + timedelta(days=6)
+            r.day_start = r.week.begin
+            r.day_end = r.week.end
 
     @api.onchange('menu_ids', 'type_menu', 'number_of_people')
     def onchange_type_menu(self):
@@ -75,3 +74,7 @@ class SettingMenu(models.Model):
                         [('type_menu', '=', 'table'), ('number_of_people', '=', 'six')]).ids
                     return {'domain': {'menu_ids': [('id', 'in', menu_ids)]}}
 
+    @api.onchange('menu_ids')
+    def _onchange_menu_id(self):
+        for r in self:
+            r.detail_dish = ', '.join([line.name for line in r.menu_ids.dish_ids])

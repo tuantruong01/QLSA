@@ -41,6 +41,7 @@
                                 <field name="type" readonly="1"/>
                                 <field name="type_menu"/>
                                 <field name="menu_ids" widget="many2many_tags"/>
+                                <field name="detail_dish"/>
                             </group>
                         </group>
                     </sheet>

@@ -1,10 +1,10 @@
 <odoo>
     <data>
-        <record model="ir.ui.view" id="quotes_service_tree">
-            <field name="name">Báo Giá</field>
+        <record model="ir.ui.view" id="pay_service_tree">
+            <field name="name">Thanh Toán</field>
             <field name="model">tigo.service</field>
             <field name="arch" type="xml">
-                <tree string="Báo giá">
+                <tree string="Thanh Toán">
                     <field name="name"/>
                     <field name="name_id"/>
                     <field name="type"/>
@@ -15,21 +15,19 @@
                 </tree>
             </field>
         </record>
-        <record model="ir.ui.view" id="quotes_service_form">
-            <field name="name">Báo Giá</field>
+        <record model="ir.ui.view" id="pay_service_form">
+            <field name="name">Thanh Toán</field>
             <field name="model">tigo.service</field>
             <field name="arch" type="xml">
-                <form string="Báo Giá">
+                <form string="Thanh Toán">
                     <header>
                         <field name="state" widget="statusbar"/>
                         <button string="Đặt Phòng" class="oe_highlight" type="object" name="action_order"
-                                attrs="{'invisible': [('state','!=','quotes')]}"/>
+                                attrs="{'invisible': [('state','=','order')]}"/>
                         <button string="Thanh Toán" class="oe_highlight" type="object" name="action_pay"
-                                attrs="{'invisible': [('|'), ('state','=','quotes'), ('state','=','payed')]}"/>
-                        <button string="Đã Thanh Toán" class="oe_highlight" type="object" name="action_payed"
-                                attrs="{'invisible': [('|'), ('state','=','quotes'),('state','=','payed')]}"/>
-                        <button string="Hủy" class="oe_highlight" type="object" name="action_cancel"
                                 attrs="{'invisible': [('state','!=','order')]}"/>
+                        <button string="Hủy" class="oe_highlight" type="object" name="action_cancel"
+                                attrs="{'invisible': [('state','=','quotes')]}"/>
                     </header>
                     <sheet>
                         <group>
@@ -54,16 +52,16 @@
                 </form>
             </field>
         </record>
-        <record id="quotes_service_view" model="ir.actions.act_window">
-            <field name="name">Báo Giá</field>
+        <record id="pay_service_view" model="ir.actions.act_window">
+            <field name="name">Thanh Toán</field>
             <field name="res_model">tigo.service</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('state', '=', 'quotes')]</field>
+            <field name="domain">[('|'), ('state', '=', 'pay'), ('state', '=', 'payed')]</field>
         </record>
-        <menuitem name="Báo Giá"
-                  id="quotes_service"
+        <menuitem name="Thanh Toán"
+                  id="pay_service"
                   parent="z_base.service_menu"
-                  action="quotes_service_view"
-                  sequence="1"/>
+                  action="pay_service_view"
+                  sequence="3"/>
     </data>
 </odoo>

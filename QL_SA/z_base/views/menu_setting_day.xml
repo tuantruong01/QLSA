@@ -31,7 +31,9 @@
                         <group>
                             <group>
                                 <field name="name"/>
-                                <field name="day_start"
+                                <field name="week"
+                                       attrs="{'invisible': [('type','=','day')], 'required': [('type','=','week')]}"/>
+                                <field name="day_start" force_save="1"
                                        attrs="{'invisible': [('type','=','day')], 'required': [('type','=','week')]}"/>
                                 <field name="day_end" force_save="1"
                                        attrs="{'invisible': [('type','=','day')], 'required': [('type','=','week')]}"/>
@@ -44,6 +46,7 @@
                                 <field name="number_of_people"
                                        attrs="{'invisible': [('type_menu','!=','table')]}"/>
                                 <field name="menu_ids" widget="many2many_tags"/>
+                                <field name="detail_dish" force_save="1"/>
                             </group>
                         </group>
                     </sheet>

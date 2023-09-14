@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem name="Bữa Ăn Phụ"
+                  id="pos_inherit"
+                  parent="z_base.meal_manegent_menu"
+                  action="meal_register_view"
+                  sequence="5"/>
+    </data>
+</odoo>

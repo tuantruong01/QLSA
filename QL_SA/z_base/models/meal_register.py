@@ -22,7 +22,7 @@ class MealRegister(models.Model):
                                                string="Đăng ký cho khách hàng")
     state = fields.Selection([('draft', 'Chờ'),
                               ('done', 'Đã đăng ký'),
-                              ('cancel', 'Hủy')], default='draft')
+                              ('cancel', 'Hủy')],string='Trạng Thái', default='draft')
     confirm_dish_ids = fields.One2many('confirm.dish', 'mealregister_id', string=_('Suất ăn'))
     detail_dish = fields.Char(string=_('Chi tiết món'), readonly=True)
 
@@ -46,7 +46,7 @@ class MealRegister(models.Model):
             if r.client_meal_register_ids:
                 for line in r.client_meal_register_ids:
                     self.env['confirm.dish'].create({
-                        # 'mealregister_id': r.id,
+                        'mealregister_id': r.id,
                         'employee_id': line.partner_id.name,
                         'date_register': r.date
                     })

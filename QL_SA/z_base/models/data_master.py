@@ -1,4 +1,7 @@
 from odoo import models, fields, _, api
+from odoo.exceptions import UserError
+from datetime import timedelta
+
 
 
 class Room(models.Model):
@@ -19,3 +22,21 @@ class Room(models.Model):
         res = super(Room, self).create(vals_list)
         res['code_room'] = self.env['ir.sequence'].next_by_code('tigo.room')
         return res
+
+
+class Week(models.Model):
+    _name = 'tigo.week'
+    _description = 'Tuần Trong Năm'
+
+    name = fields.Char(string='Tuần', required=1)
+    begin = fields.Date(string='Từ ngày', required=1)
+    end = fields.Date(string='Đến ngày', readonly=1)
+
+    @api.onchange('begin')
+    def onchange_begin(self):
+        for r in self:
+            if r.begin:
+                if r.begin.weekday() != 0:
+                    raise UserError(_('Bạn phải chọn ngày đầu tuần.'))
+                else:
+                    r.end = r.begin + timedelta(days=6)

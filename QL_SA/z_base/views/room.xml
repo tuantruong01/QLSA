@@ -45,7 +45,7 @@
                   id="root_data_menu"
                   parent="z_base.meal_manegent_menu"
                   groups="group_canteen_manager"
-                  sequence="4"/>
+                  sequence="8"/>
         <menuitem name="Phòng"
                   id="room_menu"
                   parent="z_base.root_data_menu"

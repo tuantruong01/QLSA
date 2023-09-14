@@ -7,24 +7,22 @@ class MealRegister(models.Model):
     _name = 'tigo.service'
     _description = 'Dịch vụ'
 
-    name_id = fields.Many2one('res.users',
-                              string=_('Người đặt'),
-                              default=lambda self: self.env.user,
-                              readonly=1)
+    name_id = fields.Many2one('hr.employee', string=_('Người Đặt'), required=1)
     name = fields.Char(string=_('Mã Đặt Phòng'), readonly=1)
     type = fields.Selection([('sing', 'Hát'), ('eat', 'Ăn uống')], string=_('Kiểu Dịch Vụ'), default="eat")
     state = fields.Selection([('quotes', 'Báo Giá'),
                               ('order', 'Đặt Phòng'),
                               ('pay', 'Thanh Toán'),
-                              ('cancel', 'Hủy')], default='quotes')
+                              ('payed', 'Thanh Toán'),
+                              ('cancel', 'Hủy')], string='Trạng Thái', default='quotes')
     room_id = fields.Many2one('tigo.room', string=_('Phòng'))
     dish_ids = fields.Many2many('tigo.dish', 'service_ref', 'service_id', 'dish_s_id', string=_('Món'), default="")
     start_day = fields.Datetime(string=_("Ngày bắt đầu"))
     end_day = fields.Datetime(string=_('Ngày kết thúc'))
-    deposit = fields.Float(string="Tiền cọc 20% hóa đơn", readonly=1)
-    total = fields.Float(string='Số Tiền ', readonly=1)
-    price = fields.Float(string='Tổng Thanh Toán', readonly=1)
-    note = fields.Char(string='Ghi Chú')
+    deposit = fields.Float(string="Tiền cọc")
+    total = fields.Float(string='Số Tiền Còn Lại Cần Thanh Toán ', readonly=1)
+    price = fields.Float(string='Tổng Số Tiền', readonly=1)
+    note = fields.Text(string='Ghi Chú')
     time_use = fields.Float(string='Tổng giờ hát', compute='_compute_time_up')
 
     @api.model
@@ -56,12 +54,11 @@ class MealRegister(models.Model):
                 dish = self.env['tigo.dish'].search([('|'), ('type_room', '=', 'sing'), ('type_room', '=', 'all')]).ids
                 return {'domain': {'dish_ids': [('id', 'in', dish)]}}
 
-    @api.onchange('dish_ids')
+    @api.onchange('dish_ids', 'deposit')
     def onchange_dish_id(self):
         for r in self:
             price_room = sum(r.room_id.mapped('price'))
             r.price = sum(r.dish_ids.mapped('price_total'), (r.time_use * price_room))
-            r.deposit = (r.price * 0.2)
             r.total = r.price - r.deposit
 
     @api.onchange('end_day', 'start_day', 'type', 'room_id')
@@ -70,11 +67,9 @@ class MealRegister(models.Model):
             if r.type == 'eat':
                 r.time_use = 0
                 r.price = sum(r.dish_ids.mapped('price_total'), (r.time_use * 40000))
-                r.deposit = (r.price * 0.2)
                 r.total = r.price - r.deposit
             elif r.type == 'sing':
                 r.price = sum(r.dish_ids.mapped('price_total'), (r.time_use * 40000))
-                r.deposit = (r.price * 0.2)
                 r.total = r.price - r.deposit
 
     def action_order(self):
@@ -88,6 +83,10 @@ class MealRegister(models.Model):
     def action_cancel(self):
         for r in self:
             r.state = 'cancel'
+
+    def action_payed(self):
+        for r in self:
+            r.state = 'payed'
 
     @api.onchange('type', 'room_id')
     def onchange_room_id(self):
