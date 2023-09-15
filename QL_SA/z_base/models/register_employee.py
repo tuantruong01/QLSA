@@ -1,5 +1,7 @@
 from odoo import models, fields, _, api
 
+from odoo.exceptions import ValidationError
+
 
 class RegisterEmployee(models.Model):
     _name = 'tigo.detailed.registration'
@@ -32,6 +34,22 @@ class RegisterEmployee(models.Model):
                         for line in data.menu_ids:
                             list_menu_ids.append(line.id)
                     return {'domain': {'menu_id': [('id', 'in', tuple(list_menu_ids))]}}
+
+    @api.constrains('employee_id')
+    def check_employee_id(self):
+        for r in self:
+            data = self.env['confirm.dish'].search(
+                [('date_register', '=', r.registration_id.date), ('employee_id', '=', r.employee_id.name)])
+            if len(data) > 0:
+                raise ValidationError(_('Nhân Viên đã đăng ký!'))
+
+    @api.onchange('employee_id')
+    def onchange_emplyee_id(self):
+        for r in self:
+            list_employee = []
+            for i in r.registration_id.employee_meal_register_ids:
+                list_employee.append(i.employee_id.id)
+            return {'domain': {'employee_id': [('id', 'not in', tuple(list_employee))]}}
 
 
 class Client(models.Model):
