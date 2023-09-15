@@ -22,7 +22,7 @@ class MealRegister(models.Model):
                                                string="Đăng ký cho khách hàng")
     state = fields.Selection([('draft', 'Chờ'),
                               ('done', 'Đã đăng ký'),
-                              ('cancel', 'Hủy')],string='Trạng Thái', default='draft')
+                              ('cancel', 'Hủy')], string='Trạng Thái', default='draft')
     confirm_dish_ids = fields.One2many('confirm.dish', 'mealregister_id', string=_('Suất ăn'))
     detail_dish = fields.Char(string=_('Chi tiết món'), readonly=True)
 
@@ -66,14 +66,30 @@ class MealRegister(models.Model):
         for r in self:
             if r.meal_type == 'table' and r.number and r.date:
                 if r.number == 'four':
-                    menu = self.env['tigo.menu.setting'].search(
-                        [('type_menu', '=', r.meal_type), ('state', '=', 'active'),
-                         ('number_of_people', '=', r.number)])
+                    menu_week = self.env['tigo.menu.setting'].search(
+                        [('day_start', '<=', r.date), ('day_end', '>=', r.date),
+                         ('type_menu', '=', r.meal_type), ('state', '=', 'active'),
+                         ('number_of_people', '=', r.number)
+                         ])
+                    menu_day = self.env['tigo.menu.setting'].search(
+                        [('day', '=', r.date),
+                         ('type_menu', '=', r.meal_type), ('state', '=', 'active'),
+                         ('number_of_people', '=', r.number)
+                         ])
+                    menu = menu_week + menu_day
+
                     if menu:
                         return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
                 elif r.number == 'six':
-                    menu = self.env['tigo.menu.setting'].search(
-                        [('type_menu', '=', 'table'), ('state', '=', 'active'), ('number_of_people', '=', r.number)])
+                    menu_week = self.env['tigo.menu.setting'].search(
+                        [('day', '=', r.date),
+                         ('type_menu', '=', 'table'), ('state', '=', 'active'),
+                         ('number_of_people', '=', r.number)])
+                    menu_day = self.env['tigo.menu.setting'].search(
+                        [('day_start', '<=', r.date), ('day_end', '>=', r.date),
+                         ('type_menu', '=', 'table'), ('state', '=', 'active'),
+                         ('number_of_people', '=', r.number)])
+                    menu = menu_week + menu_day
                     if menu:
                         return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
 
