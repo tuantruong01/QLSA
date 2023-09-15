@@ -12,10 +12,11 @@
                 </field>
             </field>
         </record>
+
         <menuitem name="Nhân Viên"
                   id="hr_employee_inherit"
                   parent="z_base.meal_manegent_menu"
-                  action="meal_register_view"
+                  action="hr.open_view_employee_list_my"
                   sequence="7"/>
     </data>
 </odoo>
