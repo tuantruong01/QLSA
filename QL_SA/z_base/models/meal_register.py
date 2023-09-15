@@ -97,3 +97,19 @@ class MealRegister(models.Model):
     def _onchange_menu_id(self):
         for r in self:
             r.detail_dish = ', '.join([line.name for line in r.menu_id.dish_ids])
+
+    @api.onchange('employee_meal_register_ids')
+    def onchange_employee_meal_register_ids(self):
+        for r in self:
+            if r.meal_type == 'set' and r.date:
+                if r.employee_meal_register_ids:
+                    for line in r.employee_meal_register_ids:
+                        menu_week = self.env['tigo.menu.setting'].search(
+                            [('day_start', '<=', r.date), ('day_end', '>=', r.date),
+                             ('type_menu', '=', r.meal_type), ('state', '=', 'active')])
+                        menu_day = self.env['tigo.menu.setting'].search(
+                            [('day', '=', r.date),
+                             ('type_menu', '=', r.meal_type), ('state', '=', 'active')])
+                        menu = menu_week + menu_day
+                        if menu:
+                            return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
