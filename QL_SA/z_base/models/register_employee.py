@@ -14,6 +14,25 @@ class RegisterEmployee(models.Model):
     note = fields.Char(string=_('Ghi Chú'))
     person = fields.Boolean(string=_('Người đại diện'))
 
+    @api.onchange('menu_id')
+    def onchange_employee_meal_register_ids(self):
+        for r in self:
+            if r.registration_id.meal_type == 'set' and r.registration_id.date:
+                menu_week_ids = self.env['tigo.menu.setting'].search([('day_start', '<=', r.registration_id.date),
+                                                                      ('day_end', '>=', r.registration_id.date),
+                                                                      ('type_menu', '=', r.registration_id.meal_type),
+                                                                      ('state', '=', 'active')])
+                menu_day_id = self.env['tigo.menu.setting'].search([('state', '=', 'active'),
+                                                                    ('type_menu', '=', r.registration_id.meal_type),
+                                                                    ('day', '=', r.registration_id.date)])
+                menu_ids = menu_week_ids + menu_day_id
+                if menu_ids:
+                    list_menu_ids = []
+                    for data in menu_ids:
+                        for line in data.menu_ids:
+                            list_menu_ids.append(line.id)
+                    return {'domain': {'menu_id': [('id', 'in', tuple(list_menu_ids))]}}
+
 
 class Client(models.Model):
     _name = 'tigo.register.client'
@@ -26,4 +45,3 @@ class Client(models.Model):
     phone_client = fields.Char(string=_('Số điện thoại'))
     note = fields.Char(string="Ghi chú")
     person = fields.Boolean(string=_('Người đại diện'))
-
