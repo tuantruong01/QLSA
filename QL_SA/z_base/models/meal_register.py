@@ -1,5 +1,6 @@
 from odoo import models, fields, _, api
 from odoo.exceptions import UserError
+from datetime import datetime
 
 
 class MealRegister(models.Model):
@@ -98,3 +99,8 @@ class MealRegister(models.Model):
         for r in self:
             r.detail_dish = ', '.join([line.name for line in r.menu_id.dish_ids])
 
+    @api.onchange('date')
+    def _onchange_date(self):
+        for r in self:
+            if r.date and r.date < fields.Date.today():
+                raise UserError(_('Ngày đăng ký phải lớn hơn hặc bằng ngày hiện tại.'))
