@@ -8,7 +8,7 @@
     'category': 'Accounting/Accounting',
     'website': 'https://www.odoo.com/app/invoicing',
     'depends': [
-        'base', 'hr'
+        'base', 'hr', 'point_of_sale'
     ],
     'data': [
         'security/qlsa_security.xml',
