@@ -1,6 +1,6 @@
 from odoo import models, fields, _, api
 from odoo.exceptions import UserError
-from datetime import datetime
+from datetime import datetime,timedelta
 
 
 class MealRegister(models.Model):
@@ -97,3 +97,19 @@ class MealRegister(models.Model):
             else:
                 room = self.env['tigo.room'].search([('type_room', '=', 'sing')]).ids
                 return {'domain': {'room_id': [('id', 'in', room)]}}
+
+    @api.onchange('start_day')
+    def onchange_day_start(self):
+        for r in self:
+            if r.start_day and r.start_day <= datetime.now():
+                raise UserError(_('Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại.'))
+            elif r.start_day and r.start_day > datetime.now():
+                pass
+            elif r.start_day and r.start_day > r.end_day:
+                raise UserError(_('Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc.'))
+
+    @api.onchange('end_day')
+    def onchange_day_end(self):
+        for r in self:
+            if r.end_day and r.end_day < r.start_day:
+                raise UserError(_('Ngày kết thúc phải lớn hơn ngày hiện tại.'))
