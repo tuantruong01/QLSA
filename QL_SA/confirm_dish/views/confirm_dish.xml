@@ -48,7 +48,7 @@
         </record>
         <!-- This Menu Item must have a parent and an action -->
         <menuitem name="Xác nhận đã ăn"
-                  id="meal_register_menu"
+                  id="confirm_dish_action_menu"
                   parent="z_base.root_meal_menu"
                   action="confirm_dish_action"
                   sequence="2"/>

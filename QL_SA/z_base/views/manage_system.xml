@@ -6,10 +6,5 @@
                   id="manage_system_id"
                   parent="z_base.meal_manegent_menu"
                   sequence="4"/>
-        <menuitem name="Đăng ký ăn trưa"
-                  id="meal_register_menu"
-                  parent="z_base.root_meal_menu"
-                  action="meal_register_view"
-                  sequence="1"/>
     </data>
 </odoo>
