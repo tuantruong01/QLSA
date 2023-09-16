@@ -8,7 +8,7 @@
     'category': 'Accounting/Accounting',
     'website': 'https://www.odoo.com/app/invoicing',
     'depends': [
-        'base', 'hr', 'point_of_sale'
+        'base', 'hr', 'point_of_sale', 'product'
     ],
     'data': [
         'security/qlsa_security.xml',
@@ -32,7 +32,7 @@
         'views/product_product_inherit_views.xml',
         'views/week.xml',
         'views/pay_view.xml',
-
+        'views/confirm_dish.xml',
         'report/meal_register_report_view.xml',
         'report/menu_report.xml',
         'report/service_report.xml'

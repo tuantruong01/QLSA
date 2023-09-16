@@ -57,5 +57,13 @@
             <field name="number_next">1</field>
             <field name="number_increment">1</field>
         </record>
+        <record id="sequence_confirm" model="ir.sequence">
+            <field name="name">Xac nhan an</field>
+            <field name="code">confirm.dish</field>
+            <field name="prefix">XNA/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
     </data>
 </odoo>
