@@ -104,3 +104,4 @@ class MealRegister(models.Model):
         for r in self:
             if r.date and r.date < fields.Date.today():
                 raise UserError(_('Ngày đăng ký phải lớn hơn hặc bằng ngày hiện tại.'))
+

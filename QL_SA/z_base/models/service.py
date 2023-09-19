@@ -1,6 +1,6 @@
 from odoo import models, fields, _, api
 from odoo.exceptions import UserError
-from datetime import datetime,timedelta
+from datetime import datetime, timedelta
 
 
 class MealRegister(models.Model):
@@ -83,6 +83,9 @@ class MealRegister(models.Model):
     def action_cancel(self):
         for r in self:
             r.state = 'cancel'
+            return {
+                'name': _('note'),
+            }
 
     def action_payed(self):
         for r in self:

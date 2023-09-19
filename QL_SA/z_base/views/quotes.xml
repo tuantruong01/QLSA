@@ -25,11 +25,14 @@
                         <button string="Đặt Phòng" class="oe_highlight" type="object" name="action_order"
                                 attrs="{'invisible': [('state','!=','quotes')]}"/>
                         <button string="Thanh Toán" class="oe_highlight" type="object" name="action_pay"
-                                attrs="{'invisible': [('state','in',('quotes','pay','payed'))]}"/>
+                                attrs="{'invisible': [('state','in',('quotes','pay','payed','cancel'))]}"/>
                         <button string="Đã Thanh Toán" class="oe_highlight" type="object" name="action_payed"
-                                attrs="{'invisible': [('state','in',('quotes','order','payed'))]}"/>
+                                attrs="{'invisible': [('state','in',('quotes','order','payed','cancel'))]}"/>
                         <button string="Hủy" class="oe_highlight" type="object" name="action_cancel"
                                 attrs="{'invisible': [('state','!=','order')]}"/>
+                            <xpath expr="//field[@name='image_1920']" position="before">
+                                <widget name="notification_alert"/>
+                            </xpath>
                     </header>
                     <sheet>
                         <group>
@@ -38,7 +41,8 @@
                                 <field name="name_id" attrs="{'readonly': [('state','in',('pay','payed'))]}"/>
                                 <field name="type" attrs="{'readonly': [('state','in',('pay','payed'))]}"/>
                                 <field name="room_id" attrs="{'readonly': [('state','in',('pay','payed'))]}"/>
-                                <field name="dish_ids" widget="many2many_tags" attrs="{'readonly': [('state','=','payed')]}"/>
+                                <field name="dish_ids" widget="many2many_tags"
+                                       attrs="{'readonly': [('state','=','payed')]}"/>
                             </group>
                             <group>
                                 <field name="start_day" attrs="{'readonly': [('state','in',('pay','payed'))]}"/>

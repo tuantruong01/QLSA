@@ -57,9 +57,29 @@ class Client(models.Model):
     _description = 'Đăng ký Khách Hàng'
 
     registration_id = fields.Many2one('tigo.mealregister', string=_('Đăng ký suất ăn'))
-    menu = fields.Many2many('tigo.dish', 'menu_client_ref', 'register_client_id', 'dish_client_id',
-                            string=_('Thực đơn'))
+    menu_id = fields.Many2one('tigo.menu', string=_('Thực đơn'))
     partner_id = fields.Many2one('res.partner', string=_('Tên khách hàng'))
-    phone_client = fields.Char(string=_('Số điện thoại'))
+    phone_client = fields.Char(string=_('Số điện thoại'), related='partner_id.phone')
+    company = fields.Char(string=_('Tên công ty'), related='partner_id.company_id.name')
+    position = fields.Char(string=_('Chức danh'), related='partner_id.function')
     note = fields.Char(string="Ghi chú")
     person = fields.Boolean(string=_('Người đại diện'))
+
+    @api.onchange('menu_id')
+    def onchange_menu_id(self):
+        for r in self:
+            if r.registration_id.meal_type == 'set' and r.registration_id.date:
+                menu_week_ids = self.env['tigo.menu.setting'].search([('day_start', '<=', r.registration_id.date),
+                                                                      ('day_end', '>=', r.registration_id.date),
+                                                                      ('type_menu', '=', r.registration_id.meal_type),
+                                                                      ('state', '=', 'active')])
+                menu_day_id = self.env['tigo.menu.setting'].search([('state', '=', 'active'),
+                                                                    ('type_menu', '=', r.registration_id.meal_type),
+                                                                    ('day', '=', r.registration_id.date)])
+                menu_ids = menu_week_ids + menu_day_id
+                if menu_ids:
+                    list_menu_ids = []
+                    for data in menu_ids:
+                        for line in data.menu_ids:
+                            list_menu_ids.append(line.id)
+                    return {'domain': {'menu_id': [('id', 'in', tuple(list_menu_ids))]}}

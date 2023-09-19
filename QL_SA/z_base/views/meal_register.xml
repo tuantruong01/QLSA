@@ -67,7 +67,9 @@
                                                attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
                                         <field name="phone_client"
                                                attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
-                                        <field name="menu" widget="many2many_tags"
+                                        <field name="company"/>
+                                        <field name="position"/>
+                                        <field name="menu_id"
                                                attrs="{'column_invisible': [('parent.meal_type', '=', 'table')]}"/>
                                         <field name="note" attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
                                         <field name="person"/>
