@@ -30,9 +30,6 @@
                                 attrs="{'invisible': [('state','in',('quotes','order','payed','cancel'))]}"/>
                         <button string="Hủy" class="oe_highlight" type="object" name="action_cancel"
                                 attrs="{'invisible': [('state','!=','order')]}"/>
-                            <xpath expr="//field[@name='image_1920']" position="before">
-                                <widget name="notification_alert"/>
-                            </xpath>
                     </header>
                     <sheet>
                         <group>
@@ -41,19 +38,27 @@
                                 <field name="name_id" attrs="{'readonly': [('state','in',('pay','payed'))]}"/>
                                 <field name="type" attrs="{'readonly': [('state','in',('pay','payed'))]}"/>
                                 <field name="room_id" attrs="{'readonly': [('state','in',('pay','payed'))]}"/>
-                                <field name="dish_ids" widget="many2many_tags"
-                                       attrs="{'readonly': [('state','=','payed')]}"/>
                             </group>
                             <group>
                                 <field name="start_day" attrs="{'readonly': [('state','in',('pay','payed'))]}"/>
                                 <field name="end_day" attrs="{'readonly': [('state','=','payed')]}"/>
-                                <field name="time_use" attrs="{'invisible': [('type','=','eat')]}"/>
+                                <field name="time_use"/>
                                 <field name="price" force_save="1"/>
                                 <field name="deposit" attrs="{'readonly': [('state','in',('pay','payed'))]}"/>
-                                <field name="total" force_save="1"/>
-                                <field name="note"/>
                             </group>
                         </group>
+                        <notebook>
+                            <page string="Đặt Món Ăn">
+                                <field name="order_dish_ids" attrs="{'readonly': [('state','=','payed')]}">
+                                    <tree editable="bottom">
+                                        <field name="dish_id"/>
+                                        <field name="number"/>
+                                        <field name="price_unit"/>
+                                        <field name="price" force_save="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>

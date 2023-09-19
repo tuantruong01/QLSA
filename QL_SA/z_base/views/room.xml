@@ -23,11 +23,11 @@
                             <group>
                                 <field name="code_room"/>
                                 <field name="name"/>
-                                <field name="price" attrs="{'invisible': [('type_room','=','eat')]}"/>
+                                <field name="price"/>
                             </group>
                             <group>
                                 <field name="type_room" />
-                                <field name="level" attrs="{'invisible': [('type_room','=','eat')]}"/>
+                                <field name="level"/>
                                 <field name="sate"/>
                             </group>
                         </group>
