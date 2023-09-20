@@ -29,12 +29,18 @@ class MealRegister(models.Model):
         res['name'] = self.env['ir.sequence'].next_by_code('tigo.service')
         return res
 
-    @api.depends('start_day', 'end_day', 'type', 'room_id')
+    @api.depends('start_day', 'end_day', 'type', 'room_id', 'price')
     def _compute_time_up(self):
         for r in self:
-            time_up = r.end_day - r.start_day
-            r.time_use = time_up.total_seconds() / 3600
-            r.price = r.time_use * r.room_id.price
+            if r.start_day and r.end_day and r.room_id:
+                if r.type == 'sing' or r.type == 'eat':
+                    time_up = r.end_day - r.start_day
+                    r.time_use = time_up.total_seconds() / 3600
+                    r.price = r.room_id.price * r.time_use
+                else:
+                    r.time_use = 0
+            else:
+                r.time_use = 0
 
     def action_order(self):
         for r in self:
@@ -68,15 +74,16 @@ class MealRegister(models.Model):
     @api.onchange('start_day')
     def onchange_day_start(self):
         for r in self:
-            if r.start_day and r.start_day <= datetime.now():
+            if r.start_day and r.start_day < datetime.now() - timedelta(days=1):
                 raise UserError(_('Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại.'))
-            elif r.start_day and r.start_day > datetime.now():
+            else:
                 pass
-            elif r.start_day and r.start_day > r.end_day:
-                raise UserError(_('Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc.'))
 
     @api.onchange('end_day')
     def onchange_day_end(self):
         for r in self:
-            if r.end_day and r.end_day < r.start_day:
-                raise UserError(_('Ngày kết thúc phải lớn hơn ngày hiện tại.'))
+            if r.start_day and r.end_day:
+                if r.end_day and r.end_day < r.start_day:
+                    raise UserError(_('Ngày kết thúc phải lớn hơn ngày hiện tại.'))
+                else:
+                    pass

@@ -1,7 +1,5 @@
 from odoo import models, fields, _, api
 
-from odoo.exceptions import ValidationError
-
 
 class OrderDish(models.Model):
     _name = 'tigo.dish.order'
@@ -13,3 +11,10 @@ class OrderDish(models.Model):
     price = fields.Float(string=_('Thành Tiền'))
     price_unit = fields.Float(string=_('Đơn Giá'))
     note = fields.Text(string='Ghi Chú')
+
+    @api.onchange('dish_id', 'number')
+    def onchange_dish_id(self):
+        for r in self:
+            if r.number and r.dish_id:
+                r.price_unit = r.dish_id.price_total
+                r.price = r.price_unit * r.number

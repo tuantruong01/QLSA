@@ -3,7 +3,6 @@ from odoo.exceptions import UserError
 from datetime import timedelta
 
 
-
 class Room(models.Model):
     _name = 'tigo.room'
     _description = 'Phòng'

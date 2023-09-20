@@ -9,13 +9,13 @@ class Dish(models.Model):
     ingredient_ids = fields.Many2many('product.template', 'dish_product_ref', 'dish_id', 'ptml_id',
                                       string=_('Nguyên liệu'))
     code_dish = fields.Char(string=_('Mã Món'), readonly=1)
-    price_total = fields.Float(string=_('Giá'), readonly=1)
+    price_total = fields.Float(string=_('Giá'))
     wage = fields.Float(string=_('Chi Phí Khác'))
-    type_service = fields.Selection([('service', 'Dịch vụ ngoài'), ('internal', 'Nội bộ')], default='service',
-                                    string='Kiểu ')
+    type_service = fields.Selection([('service', 'Dịch vụ ngoài'), ('internal', 'Nội bộ')], string='Kiểu ')
     type_food = fields.Selection([('eat', 'Đồ ăn'), ('drink', 'Đồ uống')], default='eat', string='Dạng thực phẩm')
-    type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn')],
+    type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn'), ('all', 'Tất Cả')],
                                  string=_('Món Phòng Hát/Ăn'))
+    img = fields.Binary(string='Hình ảnh')
 
     @api.model
     def create(self, vals_list):

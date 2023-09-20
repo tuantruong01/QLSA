@@ -19,20 +19,27 @@
             <field name="arch" type="xml">
                 <form string="Món Ăn">
                     <sheet>
+                        <field name="img" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
                         <group>
                             <group>
                                 <field name="code_dish"/>
-                                <field name="name"/>
                                 <field name="type_service"/>
                                 <field name="type_food"/>
                             </group>
                             <group>
                                 <field name="type_room" attrs="{'invisible': [('type_service','!=','service')]}"
                                        widget="radio" options='{"horizontal": 1}'/>
-                                <field name="wage"/>
+                                <field name="wage" attrs="{'invisible': [('type_food','=','drink')]}"/>
                                 <field name="ingredient_ids" widget="many2many_tags"
                                        attrs="{'invisible': [('type_food','=','drink')]}"/>
-                                <field name="price_total" force_save="1"/>
+                                <field name="price_total" force_save="1"
+                                       attrs="{'readonly': [('type_food','!=','drink')]}"/>
                             </group>
                         </group>
                     </sheet>
