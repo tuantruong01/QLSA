@@ -22,7 +22,7 @@ class MealRegister(models.Model):
     price = fields.Float(string='Tiền Phòng', readonly=1)
     time_use = fields.Float(string='Giờ Sử Dụng', compute='_compute_time_up')
     order_dish_ids = fields.One2many('tigo.dish.order', 'order_dish_id', string=_('Đặt Món Ăn'))
-    total_price = fields.Float(string=_('Tổng Giá'), readonly=1)
+    total_price = fields.Float(string=_('Tổng Giá'), readonly=1, compute='_compute_total_price')
     note = fields.Text(string=_('Ghi Chú'))
 
     @api.model
@@ -40,6 +40,9 @@ class MealRegister(models.Model):
                     r.time_use = time_up.total_seconds() / 3600
                     r.price = r.room_id.price * r.time_use
                     r.total_price = r.price - r.deposit
+                    if r.order_dish_ids:
+                        for line in r.order_dish_ids:
+                            r.total_price = r.total_price + line.price
                 else:
                     r.time_use = 0
             else:
@@ -95,3 +98,13 @@ class MealRegister(models.Model):
     def _onchange_total_price(self):
         for r in self:
             r.total_price = r.price - r.deposit
+            if r.order_dish_ids:
+                for line in r.order_dish_ids:
+                    r.total_price = r.total_price + line.price
+
+    @api.depends('order_dish_ids.dish_id', 'order_dish_ids.number')
+    def _compute_total_price(self):
+        for r in self:
+            if r.order_dish_ids:
+                for line in r.order_dish_ids:
+                    r.total_price = r.total_price + line.price
