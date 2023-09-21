@@ -49,8 +49,8 @@
         <record id="action_dish_models" model="ir.actions.act_window">
             <field name="name">Món ăn</field>
             <field name="res_model">tigo.dish</field>
-            <field name="view_id" ref="tigo_dish_tree_views"/>
-            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="dish_service_kanban"/>
+            <field name="view_mode">kanban,tree,form</field>
             <field name="domain">[]</field>
         </record>
         <menuitem id="dish_menu"

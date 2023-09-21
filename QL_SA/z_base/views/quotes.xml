@@ -57,6 +57,20 @@
                                         <field name="price" force_save="1"/>
                                     </tree>
                                 </field>
+                                <group name="note_group" col="6" class="mt-2 mt-md-0">
+                                    <group colspan="4">
+                                        <field name="note" class="oe-bordered-editor" nolabel="1"
+                                               placeholder="Terms and conditions..."/>
+                                    </group>
+                                    <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                        <div>
+                                            <b>
+                                                Tổng:<field name="total_price" colspan="2" force_save="1"/>
+                                            </b>
+                                        </div>
+                                    </group>
+                                    <div class="oe_clear"/>
+                                </group>
                             </page>
                         </notebook>
                     </sheet>
