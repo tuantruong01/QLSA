@@ -1,5 +1,7 @@
 from odoo import models, fields, _, api
 from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
+
 from datetime import datetime
 
 
@@ -105,3 +107,16 @@ class MealRegister(models.Model):
             if r.date and r.date < fields.Date.today():
                 raise UserError(_('Ngày đăng ký phải lớn hơn hặc bằng ngày hiện tại.'))
 
+    # @api.constrains('client_meal_register_ids', 'employee_meal_register_ids')
+    # def check_number(self):
+    #     for r in self:
+    #         if r.number == 'four':
+    #             if r.client_meal_register_ids:
+    #                 count_client = r.client_meal_register_ids.search_count([])
+    #             if r.employee_meal_register_ids:
+    #                 count_employee = r.employee_meal_register_ids.search_count([])
+    #             number_1 = count_client + count_employee
+    #             if number_1 > r.number:
+    #                 raise ValidationError(_('Số Người Đăng Ký Phải Bằng Số Nguời/Bàn Đặt'))
+    #             elif number_1 < r.number:
+    #                 raise ValidationError(_('Số Người Đăng Ký Phải Bằng Số Nguời/Bàn Đặt'))

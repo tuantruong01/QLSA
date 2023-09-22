@@ -36,11 +36,11 @@
                             </group>
                             <group>
                                 <field name="date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                                <field name="number" attrs="{'invisible': [('meal_type','!=','table')]}"/>
+                                <field name="number" attrs="{'invisible': [('meal_type','!=','table')], 'readonly': [('state', '!=', 'draft')]}"/>
                                 <field name="menu_id"
-                                       attrs="{'invisible': [('meal_type','!=','table')]}"/>
+                                       attrs="{'invisible': [('meal_type','!=','table')], 'readonly': [('state', '!=', 'draft')]}"/>
                                 <field name="detail_dish"
-                                       attrs="{'invisible': [('meal_type','!=','table')]}"
+                                       attrs="{'invisible': [('meal_type','!=','table')], 'readonly': [('state', '!=', 'draft')]}"
                                        force_save="1"/>
                             </group>
                         </group>
@@ -58,8 +58,8 @@
                                     </tree>
                                 </field>
                             </page>
-                            <page string="Đăng ký cho khách hàng" attrs="{'readonly': [('state', '!=', 'draft')]}">
-                                <field name="client_meal_register_ids">
+                            <page string="Đăng ký cho khách hàng">
+                                <field name="client_meal_register_ids" attrs="{'readonly': [('state', '!=', 'draft')]}">
                                     <tree editable="bottom">
                                         <field name="partner_id"/>
                                         <field name="phone_client"/>
