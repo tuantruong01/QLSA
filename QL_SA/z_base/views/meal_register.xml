@@ -36,43 +36,38 @@
                             </group>
                             <group>
                                 <field name="date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
-                                <field name="number" attrs="{'invisible': [('meal_type','!=','table')]}"/>
+                                <field name="number" attrs="{'invisible': [('meal_type','!=','table')], 'readonly': [('state', '!=', 'draft')]}"/>
                                 <field name="menu_id"
-                                       attrs="{'invisible': [('meal_type','!=','table')]}"/>
+                                       attrs="{'invisible': [('meal_type','!=','table')], 'readonly': [('state', '!=', 'draft')]}"/>
                                 <field name="detail_dish"
-                                       attrs="{'invisible': [('meal_type','!=','table')]}"
+                                       attrs="{'invisible': [('meal_type','!=','table')], 'readonly': [('state', '!=', 'draft')]}"
                                        force_save="1"/>
                             </group>
                         </group>
                         <notebook>
                             <page string="Đăng ký cho nhân viên">
-                                <field name="employee_meal_register_ids">
+                                <field name="employee_meal_register_ids" attrs="{'readonly': [('state', '!=', 'draft')]}">
                                     <tree editable="bottom">
-                                        <field name="employee_id"
-                                               attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
+                                        <field name="employee_id"/>
                                         <field name="code"/>
                                         <field name="number_phone"/>
                                         <field name="department_id"/>
-                                        <field name="menu_id"
-                                               attrs="{'column_invisible': [('parent.meal_type', '=', 'table')]}"/>
-                                        <field name="note" attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
-                                        <field name="person"/>
+                                        <field name="menu_id" attrs="{'column_invisible': [('parent.meal_type', '=', 'table')]}"/>
+                                        <field name="note"/>
+                                        <field name="person"  attrs="{'column_invisible': [('parent.meal_type', '!=', 'table')]}"/>
                                     </tree>
                                 </field>
                             </page>
                             <page string="Đăng ký cho khách hàng">
-                                <field name="client_meal_register_ids">
+                                <field name="client_meal_register_ids" attrs="{'readonly': [('state', '!=', 'draft')]}">
                                     <tree editable="bottom">
-                                        <field name="partner_id"
-                                               attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
-                                        <field name="phone_client"
-                                               attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
+                                        <field name="partner_id"/>
+                                        <field name="phone_client"/>
                                         <field name="company"/>
                                         <field name="position"/>
-                                        <field name="menu_id"
-                                               attrs="{'column_invisible': [('parent.meal_type', '=', 'table')]}"/>
-                                        <field name="note" attrs="{'readonly': [('parent.state', '!=', 'draft')]}"/>
-                                        <field name="person"/>
+                                        <field name="menu_id" attrs="{'column_invisible': [('parent.meal_type', '=', 'table')]}"/>
+                                        <field name="note"/>
+                                        <field name="person" attrs="{'column_invisible': [('parent.meal_type', '!=', 'table')]}"/>
                                     </tree>
                                 </field>
                             </page>

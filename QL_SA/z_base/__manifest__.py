@@ -33,6 +33,7 @@
         'views/week.xml',
         'views/pay_view.xml',
         'views/confirm_dish.xml',
+        'views/popup.xml',
         'report/meal_register_report_view.xml',
         'report/menu_report.xml',
         'report/service_report.xml'

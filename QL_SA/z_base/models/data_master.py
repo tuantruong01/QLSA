@@ -22,6 +22,8 @@ class Room(models.Model):
         res['code_room'] = self.env['ir.sequence'].next_by_code('tigo.room')
         return res
 
+    _sql_constraints = [('name', 'unique(name)', 'Không Được Đặt Trùng Tên Phòng')]
+
 
 class Week(models.Model):
     _name = 'tigo.week'

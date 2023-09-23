@@ -22,6 +22,8 @@ class MealRegister(models.Model):
     price = fields.Float(string='Tiền Phòng', readonly=1)
     time_use = fields.Float(string='Giờ Sử Dụng', compute='_compute_time_up')
     order_dish_ids = fields.One2many('tigo.dish.order', 'order_dish_id', string=_('Đặt Món Ăn'))
+    total_price = fields.Float(string=_('Tổng Giá'), readonly=1, compute='_compute_total_price')
+    comment = fields.Text(string=_('Ghi Chú'))
 
     @api.model
     def create(self, vals_list):
@@ -29,7 +31,7 @@ class MealRegister(models.Model):
         res['name'] = self.env['ir.sequence'].next_by_code('tigo.service')
         return res
 
-    @api.depends('start_day', 'end_day', 'type', 'room_id', 'price')
+    @api.depends('start_day', 'end_day', 'type', 'room_id', 'price', 'total_price')
     def _compute_time_up(self):
         for r in self:
             if r.start_day and r.end_day and r.room_id:
@@ -37,6 +39,10 @@ class MealRegister(models.Model):
                     time_up = r.end_day - r.start_day
                     r.time_use = time_up.total_seconds() / 3600
                     r.price = r.room_id.price * r.time_use
+                    r.total_price = r.price - r.deposit
+                    if r.order_dish_ids:
+                        for line in r.order_dish_ids:
+                            r.total_price = r.total_price + line.price
                 else:
                     r.time_use = 0
             else:
@@ -54,8 +60,14 @@ class MealRegister(models.Model):
         for r in self:
             r.state = 'cancel'
             return {
-                'name': _('note'),
-            }
+                'type': 'ir.actions.act_window',
+                'name': 'Nhận Xét',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'popup.cmt',
+                'views': [(self.env.ref('z_base.popup_cmt_view').id, 'form')],
+                'target': 'new',
+                }
 
     def action_payed(self):
         for r in self:
@@ -87,3 +99,18 @@ class MealRegister(models.Model):
                     raise UserError(_('Ngày kết thúc phải lớn hơn ngày hiện tại.'))
                 else:
                     pass
+
+    @api.onchange('deposit')
+    def _onchange_total_price(self):
+        for r in self:
+            r.total_price = r.price - r.deposit
+            if r.order_dish_ids:
+                for line in r.order_dish_ids:
+                    r.total_price = r.total_price + line.price
+
+    @api.depends('order_dish_ids.dish_id', 'order_dish_ids.number')
+    def _compute_total_price(self):
+        for r in self:
+            if r.order_dish_ids:
+                for line in r.order_dish_ids:
+                    r.total_price = r.total_price + line.price

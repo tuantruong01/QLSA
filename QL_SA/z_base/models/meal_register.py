@@ -1,5 +1,7 @@
 from odoo import models, fields, _, api
 from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
+
 from datetime import datetime
 
 
@@ -35,6 +37,18 @@ class MealRegister(models.Model):
 
     def action_register(self):
         for r in self:
+            if r.number == 'four':
+                total = len(r.client_meal_register_ids) + len(r.employee_meal_register_ids)
+                if total > 4:
+                    raise ValidationError(_('Số Người Đăng Ký Phải Bằng Số Nguời/Bàn Đặt'))
+                elif total < 4:
+                    raise ValidationError(_('Số Người Đăng Ký Phải Bằng Số Nguời/Bàn Đặt'))
+            elif r.number == 'six':
+                total = len(r.client_meal_register_ids) + len(r.employee_meal_register_ids)
+                if total > 6:
+                    raise ValidationError(_('Số Người Đăng Ký Phải Bằng Số Nguời/Bàn Đặt'))
+                elif total < 6:
+                    raise ValidationError(_('Số Người Đăng Ký Phải Bằng Số Nguời/Bàn Đặt'))
             r.state = 'done'
             if r.employee_meal_register_ids:
                 for line in r.employee_meal_register_ids:
@@ -104,4 +118,3 @@ class MealRegister(models.Model):
         for r in self:
             if r.date and r.date < fields.Date.today():
                 raise UserError(_('Ngày đăng ký phải lớn hơn hặc bằng ngày hiện tại.'))
-
