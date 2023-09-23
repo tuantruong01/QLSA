@@ -13,6 +13,7 @@ class Menu(models.Model):
     dish_ids = fields.Many2many('tigo.dish', 'menu_dish_ref', 'menu_id', 'dish_id', string=_('Món ăn'))
     type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'))
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
+    image = fields.Binary(string='Hình Thực Đơn')
 
     @api.model
     def create(self, vals_list):

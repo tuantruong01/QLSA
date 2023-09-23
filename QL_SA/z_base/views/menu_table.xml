@@ -25,7 +25,7 @@
                                 <field name="name"/>
                             </group>
                             <group>
-                                <field name="type_menu" />
+                                <field name="type_menu"/>
                                 <field name="number_of_people" attrs="{'invisible': [('type_menu','!=','table')]}"/>
                                 <field name="dish_ids" widget="many2many_tags"/>
                             </group>
@@ -37,7 +37,7 @@
         <record id="action_menu_table_models" model="ir.actions.act_window">
             <field name="name">Thực Đơn Bàn</field>
             <field name="res_model">tigo.menu</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">kanban, tree,form</field>
             <field name="view_id" ref="menu_table_tree_views"/>
             <field name="domain">[("type_menu", '=', 'table')]</field>
             <field name="context">{'default_type_menu': 'table'}</field>
