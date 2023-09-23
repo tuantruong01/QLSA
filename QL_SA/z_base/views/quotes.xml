@@ -35,21 +35,21 @@
                         <group>
                             <group>
                                 <field name="name"/>
-                                <field name="name_id" attrs="{'readonly': [('state','in',('pay','payed'))]}"/>
-                                <field name="type" attrs="{'readonly': [('state','in',('pay','payed'))]}"/>
-                                <field name="room_id" attrs="{'readonly': [('state','in',('pay','payed'))]}"/>
+                                <field name="name_id" attrs="{'readonly': [('state','in',('pay','payed','cancel'))]}"/>
+                                <field name="type" attrs="{'readonly': [('state','in',('pay','payed','cancel'))]}"/>
+                                <field name="room_id" attrs="{'readonly': [('state','in',('pay','payed','cancel'))]}"/>
                             </group>
                             <group>
-                                <field name="start_day" attrs="{'readonly': [('state','in',('pay','payed'))]}"/>
-                                <field name="end_day" attrs="{'readonly': [('state','=','payed')]}"/>
+                                <field name="start_day" attrs="{'readonly': [('state','in',('pay','payed','cancel'))]}"/>
+                                <field name="end_day" attrs="{'readonly': [('state','in',('cancel','payed'))]}"/>
                                 <field name="time_use"/>
                                 <field name="price" force_save="1"/>
-                                <field name="deposit" attrs="{'readonly': [('state','in',('pay','payed'))]}"/>
+                                <field name="deposit" attrs="{'readonly': [('state','in',('cancel','payed'))]}"/>
                             </group>
                         </group>
                         <notebook>
                             <page string="Đặt Món Ăn">
-                                <field name="order_dish_ids" attrs="{'readonly': [('state','=','payed')]}">
+                                <field name="order_dish_ids" attrs="{'readonly': [('state','in',('cancel','payed'))]}">
                                     <tree editable="bottom">
                                         <field name="dish_id"/>
                                         <field name="number"/>
@@ -61,7 +61,7 @@
                                     <group colspan="4">
                                         <div>
                                             Ghi Chú:
-                                            <field name="note" class="oe-bordered-editor" nolabel="1"
+                                            <field name="comment" class="oe-bordered-editor" nolabel="1"
                                                    placeholder="Terms and conditions..."/>
                                         </div>
                                     </group>
@@ -85,7 +85,7 @@
             <field name="name">Báo Giá</field>
             <field name="res_model">tigo.service</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('state', '=', 'quotes')]</field>
+            <field name="domain">[('|'), ('state', '=', 'cancel'), ('state', '=', 'quotes')]</field>
         </record>
         <menuitem name="Báo Giá"
                   id="quotes_service"

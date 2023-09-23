@@ -23,7 +23,7 @@ class MealRegister(models.Model):
     time_use = fields.Float(string='Giờ Sử Dụng', compute='_compute_time_up')
     order_dish_ids = fields.One2many('tigo.dish.order', 'order_dish_id', string=_('Đặt Món Ăn'))
     total_price = fields.Float(string=_('Tổng Giá'), readonly=1, compute='_compute_total_price')
-    note = fields.Text(string=_('Ghi Chú'))
+    comment = fields.Text(string=_('Ghi Chú'))
 
     @api.model
     def create(self, vals_list):
@@ -60,8 +60,14 @@ class MealRegister(models.Model):
         for r in self:
             r.state = 'cancel'
             return {
-                'name': _('note'),
-            }
+                'type': 'ir.actions.act_window',
+                'name': 'Nhận Xét',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'popup.cmt',
+                'views': [(self.env.ref('z_base.popup_cmt_view').id, 'form')],
+                'target': 'new',
+                }
 
     def action_payed(self):
         for r in self:
