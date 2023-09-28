@@ -41,7 +41,7 @@
                                        attrs="{'invisible': [('type','=','week')], 'required': [('type','=','day')]}"/>
                             </group>
                             <group>
-                                <field name="type" readonly="1"/>
+                                <field name="type" attrs="{'readonly': [('type','in',('day','week'))]}"/>
                                 <field name="type_menu"/>
                                 <field name="number_of_people"
                                        attrs="{'invisible': [('type_menu','!=','table')]}"/>

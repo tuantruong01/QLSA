@@ -9,9 +9,9 @@ class Menu(models.Model):
     _description = 'Menu'
 
     code_menu = fields.Char(string=_('Mã thực đơn'), readonly=1)
-    name = fields.Char(string=_('Tên thực đơn'), requied=True)
-    dish_ids = fields.Many2many('tigo.dish', 'menu_dish_ref', 'menu_id', 'dish_id', string=_('Món ăn'))
-    type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'))
+    name = fields.Char(string=_('Tên thực đơn'), required=True)
+    dish_ids = fields.Many2many('tigo.dish', 'menu_dish_ref', 'menu_id', 'dish_id', string=_('Món ăn'), required=True)
+    type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'),  required=True)
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
     image = fields.Binary(string='Hình Thực Đơn')
 
@@ -37,7 +37,7 @@ class SettingMenu(models.Model):
     day = fields.Date(string="Ngày")
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
     detail_dish = fields.Char(string=_('Chi tiết món'), readonly=True)
-    week = fields.Many2one('tigo.week', string='Tuần', required=1)
+    week = fields.Many2one('tigo.week', string='Tuần')
 
     @api.model
     def create(self, vals_list):

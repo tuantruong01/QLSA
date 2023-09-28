@@ -27,7 +27,7 @@ class MealRegister(models.Model):
                               ('done', 'Đã đăng ký'),
                               ('cancel', 'Hủy')], string='Trạng Thái', default='draft')
     confirm_dish_ids = fields.One2many('confirm.dish', 'mealregister_id', string=_('Suất ăn'))
-    detail_dish = fields.Char(string=_('Chi tiết món'), readonly=True)
+    detail_dish = fields.Char(string=_('Chi tiết món'), readonly=1)
 
     @api.model
     def create(self, vals_list):
@@ -76,7 +76,7 @@ class MealRegister(models.Model):
         for r in self:
             r.state = 'draft'
 
-    @api.onchange('date', 'number', 'meal_type')
+    @api.onchange('date', 'number', 'meal_type', 'menu_id')
     def onchange_menu_ids(self):
         for r in self:
             if r.meal_type == 'table' and r.number and r.date:
@@ -91,10 +91,12 @@ class MealRegister(models.Model):
                          ('type_menu', '=', r.meal_type), ('state', '=', 'active'),
                          ('number_of_people', '=', r.number)
                          ])
-                    menu = menu_week + menu_day
-
-                    if menu:
-                        return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
+                    if not menu_week and not menu_day:
+                        r.menu_id = []
+                    else:
+                        menu = menu_week + menu_day
+                        if menu:
+                            return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
                 elif r.number == 'six':
                     menu_week = self.env['tigo.menu.setting'].search(
                         [('day', '=', r.date),
@@ -107,14 +109,20 @@ class MealRegister(models.Model):
                     menu = menu_week + menu_day
                     if menu:
                         return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
+                else:
+                    r.menu_id = []
+            else:
+                r.menu_id = []
 
-    @api.onchange('menu_id')
-    def _onchange_menu_id(self):
-        for r in self:
-            r.detail_dish = ', '.join([line.name for line in r.menu_id.dish_ids])
 
-    @api.onchange('date')
-    def _onchange_date(self):
-        for r in self:
-            if r.date and r.date < fields.Date.today():
-                raise UserError(_('Ngày đăng ký phải lớn hơn hặc bằng ngày hiện tại.'))
+@api.onchange('menu_id')
+def _onchange_menu_id(self):
+    for r in self:
+        r.detail_dish = ', '.join([line.name for line in r.menu_id.dish_ids])
+
+
+@api.onchange('date')
+def _onchange_date(self):
+    for r in self:
+        if r.date and r.date < fields.Date.today():
+            raise UserError(_('Ngày đăng ký phải lớn hơn hặc bằng ngày hiện tại.'))

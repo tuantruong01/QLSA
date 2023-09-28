@@ -4,7 +4,7 @@ from odoo import models, fields, _, api
 class HrEmployeeInherit(models.Model):
     _inherit = "hr.employee"
 
-    code_employee = fields.Char(string=_('Mã nhân viên'))
+    code_employee = fields.Char(string=_('Mã nhân viên'), required=True)
 
     _sql_constraints = [('code_employee', 'unique(code_employee)', 'Không Được Đặt Trùng Mã Nhân Viên')]
 

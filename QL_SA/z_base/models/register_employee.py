@@ -16,7 +16,7 @@ class RegisterEmployee(models.Model):
     note = fields.Char(string=_('Ghi Chú'))
     person = fields.Boolean(string=_('Người đại diện'))
 
-    @api.onchange('menu_id')
+    @api.onchange('menu_id', 'registration_id.meal_type')
     def onchange_employee_meal_register_ids(self):
         for r in self:
             if r.registration_id.meal_type == 'set' and r.registration_id.date:
@@ -35,7 +35,7 @@ class RegisterEmployee(models.Model):
                             list_menu_ids.append(line.id)
                     return {'domain': {'menu_id': [('id', 'in', tuple(list_menu_ids))]}}
             else:
-                False
+                self.clear()
 
     @api.constrains('employee_id')
     def check_employee_id(self):

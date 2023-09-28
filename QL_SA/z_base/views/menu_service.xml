@@ -29,15 +29,15 @@
                         <group>
                             <group>
                                 <field name="code_dish"/>
-                                <field name="type_service"/>
+                                <field name="type_service" attrs="{'readonly': [('type_service','=','service')]}"/>
                                 <field name="type_food"/>
                             </group>
                             <group>
                                 <field name="type_room" attrs="{'invisible': [('type_service','!=','service')]}"
                                        widget="radio" options='{"horizontal": 1}'/>
-                                <field name="wage" attrs="{'invisible': [('type_food','=','drink')]}"/>
+                                <field name="wage" attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_service','=','service')]}"/>
                                 <field name="ingredient_ids" widget="many2many_tags"
-                                       attrs="{'invisible': [('type_food','=','drink')]}"/>
+                                       attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_food','=','eat')]}"/>
                                 <field name="price_total" force_save="1"
                                        attrs="{'readonly': [('type_food','!=','drink')]}"/>
                             </group>
@@ -52,6 +52,7 @@
             <field name="view_mode">kanban,tree,form</field>
             <field name="view_id" ref="dish_service_kanban"/>
             <field name="domain">[("type_service", '=', 'service')]</field>
+            <field name="context">{'default_type_service': 'service'}</field>
         </record>
         <menuitem id="list_service"
                   name="Danh Mục"
@@ -107,7 +108,7 @@
             <field name="view_id" ref="dish_service_kanban"/>
             <field name="view_mode">kanban,tree,form</field>
             <field name="domain">[("type_service", '=', 'service'),("type_food", '=', 'drink')]</field>
-            <field name="context">{'default_type_food': 'drink'}</field>
+            <field name="context">{'default_type_food': 'drink', 'default_type_service': 'service'}</field>
         </record>
 
         <menuitem id="menu_service_menu"
@@ -165,9 +166,8 @@
             <field name="view_id" ref="dish_service_kanban"/>
             <field name="view_mode">kanban,tree,form</field>
             <field name="domain">[("type_service", '=', 'service'),("type_food", '=', 'eat')]</field>
-            <field name="context">{'default_type_food': 'eat'}</field>
+            <field name="context">{'default_type_food': 'eat', 'default_type_service': 'service'}</field>
         </record>
-
         <menuitem id="type_eat"
                   name="Đồ ăn"
                   parent="z_base.menu_service_menu"

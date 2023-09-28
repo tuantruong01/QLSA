@@ -9,13 +9,13 @@ class MealRegister(models.Model):
 
     name_id = fields.Many2one('hr.employee', string=_('Người Đặt'), required=1)
     name = fields.Char(string=_('Mã Đặt Phòng'), readonly=1)
-    type = fields.Selection([('sing', 'Hát'), ('eat', 'Ăn uống')], string=_('Kiểu Dịch Vụ'), default="eat")
+    type = fields.Selection([('sing', 'Hát'), ('eat', 'Ăn uống')], string=_('Kiểu Dịch Vụ'), default="eat", required=True)
     state = fields.Selection([('quotes', 'Báo Giá'),
                               ('order', 'Đặt Phòng'),
                               ('pay', 'Thanh Toán'),
                               ('payed', 'Đã Thanh Toán'),
                               ('cancel', 'Hủy')], string='Trạng Thái', default='quotes')
-    room_id = fields.Many2one('tigo.room', string=_('Phòng'))
+    room_id = fields.Many2one('tigo.room', string=_('Phòng'), required=True)
     start_day = fields.Datetime(string=_("Ngày bắt đầu"), required=True)
     end_day = fields.Datetime(string=_('Ngày kết thúc'), required=True)
     deposit = fields.Float(string="Tiền cọc")

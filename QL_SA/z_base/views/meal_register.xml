@@ -40,7 +40,7 @@
                                 <field name="menu_id"
                                        attrs="{'invisible': [('meal_type','!=','table')], 'readonly': [('state', '!=', 'draft')]}"/>
                                 <field name="detail_dish"
-                                       attrs="{'invisible': [('meal_type','!=','table')], 'readonly': [('state', '!=', 'draft')]}"
+                                       attrs="{'invisible': [('meal_type','!=','table')]}"
                                        force_save="1"/>
                             </group>
                         </group>
