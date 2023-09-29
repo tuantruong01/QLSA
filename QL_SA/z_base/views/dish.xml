@@ -125,6 +125,6 @@
                   name="Món ăn"
                   parent="z_base.menu_ingredient"
                   action="action_dish_models"
-                  sequence="3"/>
+                  sequence="4"/>
     </data>
 </odoo>

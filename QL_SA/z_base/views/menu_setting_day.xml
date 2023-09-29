@@ -68,6 +68,6 @@
                   id="menu_day"
                   parent="z_base.setting_menu_menu"
                   action="action_menu_day_view"
-                  sequence="1"/>
+                  sequence="2"/>
     </data>
 </odoo>

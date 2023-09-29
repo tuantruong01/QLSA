@@ -61,6 +61,6 @@
                   id="menu_week"
                   parent="z_base.setting_menu_menu"
                   action="action_menu_week_view"
-                  sequence="2"/>
+                  sequence="3"/>
     </data>
 </odoo>

@@ -80,6 +80,6 @@
                   id="menu_table"
                   parent="z_base.menu_ingredient"
                   action="action_menu_table_models"
-                  sequence="2"/>
+                  sequence="3"/>
     </data>
 </odoo>

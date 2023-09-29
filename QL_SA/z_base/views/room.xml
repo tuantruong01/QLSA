@@ -41,14 +41,9 @@
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
         </record>
-        <menuitem name="Danh Mục"
-                  id="root_data_menu"
-                  parent="z_base.meal_manegent_menu"
-                  groups="group_canteen_manager"
-                  sequence="8"/>
         <menuitem name="Phòng"
                   id="room_menu"
-                  parent="z_base.root_data_menu"
+                  parent="z_base.list_service"
                   action="room_view"
                   sequence="1"/>
     </data>
