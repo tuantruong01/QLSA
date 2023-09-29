@@ -74,7 +74,12 @@
                             <group>
                                 <field name="code_room"/>
                                 <field name="name"/>
-                                <field name="price" attrs="{'invisible': [('type_room','=','eat')]}"/>
+                                <label for="price"/>
+                                <div class="o_row">
+                                    <field name="price" attrs="{'invisible': [('type_room','=','eat')]}"
+                                           class="oe_inline"/>
+                                    <span>VNĐ</span>
+                                </div>
                             </group>
                             <group>
                                 <field name="type_room"/>

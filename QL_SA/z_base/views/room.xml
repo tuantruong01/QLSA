@@ -23,10 +23,14 @@
                             <group>
                                 <field name="code_room"/>
                                 <field name="name"/>
-                                <field name="price"/>
+                                <label for="price"/>
+                                <div class="o_row">
+                                    <field name="price" class="oe_inline"/>
+                                    <span>VNĐ</span>
+                                </div>
                             </group>
                             <group>
-                                <field name="type_room" />
+                                <field name="type_room"/>
                                 <field name="level"/>
                                 <field name="sate"/>
                             </group>

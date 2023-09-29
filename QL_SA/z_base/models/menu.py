@@ -11,7 +11,7 @@ class Menu(models.Model):
     code_menu = fields.Char(string=_('Mã thực đơn'), readonly=1)
     name = fields.Char(string=_('Tên thực đơn'), required=True)
     dish_ids = fields.Many2many('tigo.dish', 'menu_dish_ref', 'menu_id', 'dish_id', string=_('Món ăn'), required=True)
-    type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'),  required=True)
+    type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'), required=True)
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
     image = fields.Binary(string='Hình Thực Đơn')
 
@@ -78,4 +78,7 @@ class SettingMenu(models.Model):
     @api.onchange('menu_ids')
     def _onchange_menu_id(self):
         for r in self:
-            r.detail_dish = ', '.join([line.name for line in r.menu_ids.dish_ids])
+            datas = ''
+            for line in r.menu_ids:
+                datas += line.name + ":" + ', '.join([line.name for line in r.dish_ids]) + '; '
+            r.detail_dish = datas
