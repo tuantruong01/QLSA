@@ -29,7 +29,7 @@
                         <group>
                             <group>
                                 <field name="code_dish"/>
-                                <field name="type_service" attrs="{'readonly': [('type_service','=','service')]}"/>
+                                <field name="type_service"/>
                                 <field name="type_food"/>
                             </group>
                             <group>

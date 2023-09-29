@@ -11,7 +11,9 @@ class Dish(models.Model):
     code_dish = fields.Char(string=_('Mã Món'), readonly=1)
     price_total = fields.Float(string=_('Giá'))
     wage = fields.Float(string=_('Chi Phí Khác'))
-    type_service = fields.Selection([('service', 'Dịch vụ ngoài'), ('internal', 'Nội bộ')], string='Kiểu', required=True)
+    type_service = fields.Selection([('all', 'Tất cả'),
+                                     ('service', 'Dịch vụ ngoài'),
+                                     ('internal', 'Nội bộ')], string='Kiểu', required=True)
     type_food = fields.Selection([('eat', 'Đồ ăn'), ('drink', 'Đồ uống')], default='eat', string='Dạng thực phẩm')
     type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn'), ('all', 'Tất Cả')],
                                  string=_('Món Phòng Hát/Ăn'))
