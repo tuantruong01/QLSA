@@ -13,7 +13,7 @@
     'data': [
         'security/qlsa_security.xml',
         'security/ir.model.access.csv',
-        'datas/sequence.xml',
+        'views/manage_system.xml',
         'views/meal_register.xml',
         'views/room.xml',
         'views/service.xml',
@@ -28,7 +28,6 @@
         'views/quotes.xml',
         'views/room_service.xml',
         'views/pos_inherit.xml',
-        'views/manage_system.xml',
         'views/product_product_inherit_views.xml',
         'views/week.xml',
         'views/pay_view.xml',
@@ -36,7 +35,8 @@
         'views/popup.xml',
         'report/meal_register_report_view.xml',
         'report/menu_report.xml',
-        'report/service_report.xml'
+        'report/service_report.xml',
+        'datas/sequence.xml',
 
     ],
     'license': 'LGPL-3',

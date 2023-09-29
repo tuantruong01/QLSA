@@ -36,8 +36,8 @@
         </record>
         <menuitem name="Tuần Trong Năm"
                   id="week_menu"
-                  parent="z_base.root_data_menu"
+                  parent="z_base.setting_menu_menu"
                   action="act_week_id"
-                  sequence="3"/>
+                  sequence="1"/>
     </data>
 </odoo>

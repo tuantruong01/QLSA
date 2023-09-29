@@ -75,7 +75,7 @@
         </record>
         <menuitem name="Thực Đơn"
                   id="menu_tigo_menu"
-                  parent="z_base.root_data_menu"
+                  parent="z_base.menu_ingredient"
                   action="menu_view"
                   sequence="1"/>
     </data>
