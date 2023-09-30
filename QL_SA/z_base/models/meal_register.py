@@ -38,7 +38,7 @@ class MealRegister(models.Model):
     @api.onchange('date')
     def onchange_day_start(self):
         for r in self:
-            if r.start_day and r.start_day < datetime.today():
+            if r.date and r.date < fields.Date.today():
                 raise UserError(_('Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại.'))
             else:
                 pass
