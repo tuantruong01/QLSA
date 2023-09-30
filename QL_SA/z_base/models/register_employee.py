@@ -34,8 +34,6 @@ class RegisterEmployee(models.Model):
                         for line in data.menu_ids:
                             list_menu_ids.append(line.id)
                     return {'domain': {'menu_id': [('id', 'in', tuple(list_menu_ids))]}}
-            else:
-                self.clear()
 
     @api.constrains('employee_id')
     def check_employee_id(self):
@@ -85,4 +83,3 @@ class Client(models.Model):
                         for line in data.menu_ids:
                             list_menu_ids.append(line.id)
                     return {'domain': {'menu_id': [('id', 'in', tuple(list_menu_ids))]}}
-
