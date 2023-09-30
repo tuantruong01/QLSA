@@ -35,6 +35,14 @@ class MealRegister(models.Model):
         res['name'] = self.env['ir.sequence'].next_by_code('tigo.mealregister')
         return res
 
+    @api.onchange('date')
+    def onchange_day_start(self):
+        for r in self:
+            if r.start_day and r.start_day < datetime.today():
+                raise UserError(_('Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại.'))
+            else:
+                pass
+
     def action_register(self):
         for r in self:
             if r.number == 'four':
@@ -109,20 +117,8 @@ class MealRegister(models.Model):
                     menu = menu_week + menu_day
                     if menu:
                         return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
-                else:
-                    r.menu_id = []
-            else:
-                r.menu_id = []
 
-
-@api.onchange('menu_id')
-def _onchange_menu_id(self):
-    for r in self:
-        r.detail_dish = ', '.join([line.name for line in r.menu_id.dish_ids])
-
-
-@api.onchange('date')
-def _onchange_date(self):
-    for r in self:
-        if r.date and r.date < fields.Date.today():
-            raise UserError(_('Ngày đăng ký phải lớn hơn hặc bằng ngày hiện tại.'))
+    @api.onchange('menu_id')
+    def _onchange_menu_id(self):
+        for r in self:
+            r.detail_dish = ', '.join([line.name for line in r.menu_id.dish_ids])
