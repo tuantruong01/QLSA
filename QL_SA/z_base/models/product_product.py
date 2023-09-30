@@ -11,5 +11,5 @@ class ProductTemplateInherit(models.Model):
     def constrains_name(self):
         for r in self:
             product_template_id = self.env['product.template'].search([('name', '=', r.name)])
-            if len(product_template_id) > 0:
+            if len(product_template_id) > 1:
                 raise ValidationError(_('Sản phẩm đã tồn tại!'))
