@@ -19,7 +19,6 @@
             <field name="arch" type="xml">
                 <form string="Món Ăn">
                     <sheet>
-                        <field name="img" widget="image" class="oe_avatar"/>
                         <div class="oe_title">
                             <label for="name"/>
                             <h1>
@@ -33,13 +32,23 @@
                                 <field name="type_food"/>
                             </group>
                             <group>
-                                <field name="type_room" attrs="{'invisible': [('type_service','!=','service')]}"
+                                <field name="type_room"
+                                       attrs="{'invisible': [('type_service','=','internal')], 'required': [('type_service','in',('service', 'all'))]}"
                                        widget="radio" options='{"horizontal": 1}'/>
-                                <field name="wage" attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_service','=','service')]}"/>
+                                <label for="wage"/>
+                                <div class="o_row">
+                                    <field name="wage" class="oe_inline"
+                                           attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_service','=','service')]}"/>
+                                    <span>VNĐ</span>
+                                </div>
                                 <field name="ingredient_ids" widget="many2many_tags"
                                        attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_food','=','eat')]}"/>
-                                <field name="price_total" force_save="1"
-                                       attrs="{'readonly': [('type_food','!=','drink')]}"/>
+                                <label for="price_total"/>
+                                <div class="o_row">
+                                    <field name="price_total" force_save="1" class="oe_inline"
+                                           attrs="{'readonly': [('type_food','!=','drink')]}"/>
+                                    <span>VNĐ</span>
+                                </div>
                             </group>
                         </group>
                     </sheet>

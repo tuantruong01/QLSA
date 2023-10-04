@@ -1,7 +1,7 @@
 from odoo import models, fields, _, api
 from datetime import timedelta
 
-from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
 
 
 class Menu(models.Model):
@@ -11,15 +11,20 @@ class Menu(models.Model):
     code_menu = fields.Char(string=_('Mã thực đơn'), readonly=1)
     name = fields.Char(string=_('Tên thực đơn'), required=True)
     dish_ids = fields.Many2many('tigo.dish', 'menu_dish_ref', 'menu_id', 'dish_id', string=_('Món ăn'), required=True)
-    type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'),  required=True)
+    type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'), required=True)
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
-    image = fields.Binary(string='Hình Thực Đơn')
 
     @api.model
     def create(self, vals_list):
         res = super(Menu, self).create(vals_list)
         res['code_menu'] = self.env['ir.sequence'].next_by_code('tigo.menu')
         return res
+
+    def unlink(self):
+        detailed_registration_ids = self.env['tigo.detailed.registration'].search([('menu_id', '=', self.id)])
+        if len(detailed_registration_ids) > 0:
+            raise ValidationError(_('Sản phẩm này đã được đăng ký trong suất ăn!'))
+        return super(Menu, self).unlink()
 
 
 class SettingMenu(models.Model):
@@ -78,4 +83,7 @@ class SettingMenu(models.Model):
     @api.onchange('menu_ids')
     def _onchange_menu_id(self):
         for r in self:
-            r.detail_dish = ', '.join([line.name for line in r.menu_ids.dish_ids])
+            datas = ''
+            for line in r.menu_ids:
+                datas += line.name + ":" + ', '.join([line.name for line in r.dish_ids]) + '; '
+            r.detail_dish = datas
