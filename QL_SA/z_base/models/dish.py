@@ -9,8 +9,8 @@ class Dish(models.Model):
     ingredient_ids = fields.Many2many('product.template', 'dish_product_ref', 'dish_id', 'ptml_id',
                                       string=_('Nguyên liệu'))
     code_dish = fields.Char(string=_('Mã Món'), readonly=1)
-    price_total = fields.Float(string=_('Giá'))
-    wage = fields.Float(string=_('Chi Phí Khác'))
+    price_total = fields.Float(string=_('Giá'), group_operator="avg")
+    wage = fields.Float(string=_('Chi Phí Khác'), group_operator="avg")
     type_service = fields.Selection([('all', 'Tất cả'),
                                      ('service', 'Dịch vụ ngoài'),
                                      ('internal', 'Nội bộ')], string='Kiểu', required=True, default='all')

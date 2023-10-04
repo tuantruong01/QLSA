@@ -32,13 +32,21 @@
                                 <field name="type_food"/>
                             </group>
                             <group>
-                                <field name="type_room" attrs="{'invisible': [('type_service','=','internal')], 'required': [('type_service','in',('service', 'all'))]}"
+                                <field name="type_room"
+                                       attrs="{'invisible': [('type_service','=','internal')], 'required': [('type_service','in',('service', 'all'))]}"
                                        widget="radio" options='{"horizontal": 1}'/>
-                                <field name="wage" attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_service','=','service')]}"/>
+                                <div class="o_row">
+                                    <field name="wage" class="oe_inline"
+                                           attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_service','=','service')]}"/>
+                                    <span>VNĐ</span>
+                                </div>
                                 <field name="ingredient_ids" widget="many2many_tags"
                                        attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_food','=','eat')]}"/>
-                                <field name="price_total" force_save="1"
-                                       attrs="{'readonly': [('type_food','!=','drink')]}"/>
+                                <div class="o_row">
+                                    <field name="price_total" force_save="1" class="oe_inline"
+                                           attrs="{'readonly': [('type_food','!=','drink')]}"/>
+                                    <span>VNĐ</span>
+                                </div>
                             </group>
                         </group>
                     </sheet>
