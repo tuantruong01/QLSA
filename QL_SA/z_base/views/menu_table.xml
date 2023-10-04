@@ -31,7 +31,7 @@
                                 <field name="dish_ids" widget="many2many_tags"/>
                             </group>
                             <group>
-                                <field name="type_menu" readonly="1"/>
+                                <field name="type_menu"/>
                                 <field name="number_of_people" attrs="{'invisible': [('type_menu','!=','table')]}"/>
                             </group>
                         </group>
@@ -45,7 +45,6 @@
             <field name="arch" type="xml">
                 <kanban>
                     <field name="name"/>
-                    <field name="image"/>
                     <field name="id"/>
                     <templates>
                         <t t-name="kanban-box">

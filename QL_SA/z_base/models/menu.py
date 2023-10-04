@@ -1,7 +1,7 @@
 from odoo import models, fields, _, api
 from datetime import timedelta
 
-from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
 
 
 class Menu(models.Model):
@@ -19,6 +19,12 @@ class Menu(models.Model):
         res = super(Menu, self).create(vals_list)
         res['code_menu'] = self.env['ir.sequence'].next_by_code('tigo.menu')
         return res
+
+    def unlink(self):
+        detailed_registration_ids = self.env['tigo.detailed.registration'].search([('menu_id', '=', self.id)])
+        if len(detailed_registration_ids) > 0:
+            raise ValidationError(_('Sản phẩm này đã được đăng ký trong suất ăn!'))
+        return super(Menu, self).unlink()
 
 
 class SettingMenu(models.Model):
