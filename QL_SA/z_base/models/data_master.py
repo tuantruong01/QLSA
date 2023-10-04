@@ -8,13 +8,13 @@ class Room(models.Model):
     _description = 'Phòng'
 
     code_room = fields.Char(string=_('Mã Phòng'), readonly=1)
-    name = fields.Char(string=_('Tên Phòng'), requied=True)
-    type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn')], string=_('Dạng'))
+    name = fields.Char(string=_('Tên Phòng'), required=True)
+    type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn')], string=_('Dạng'), required=True)
     sate = fields.Selection([('unoccupied', 'Trống'), ('occupied', 'Sử dụng')], string=_('Trạng Thái'),
                             default="unoccupied", readonly=1)
     price = fields.Integer(string=_('Giá Phòng / Giờ'))
     level = fields.Selection([('normal', 'Phòng thường'), ('vip', 'Phòng VIP')], string=_('Kiểu Phòng'),
-                             default="normal")
+                             default="normal", required=True)
 
     @api.model
     def create(self, vals_list):
@@ -22,7 +22,7 @@ class Room(models.Model):
         res['code_room'] = self.env['ir.sequence'].next_by_code('tigo.room')
         return res
 
-    _sql_constraints = [('name', 'unique(name)', 'Không Được Đặt Trùng Tên Phòng')]
+    _sql_constraints = [('name', 'unique(name)', 'Phòng Đã Tồn Tại')]
 
 
 class Week(models.Model):
