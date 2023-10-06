@@ -5,7 +5,11 @@ from odoo.exceptions import ValidationError
 class ProductTemplateInherit(models.Model):
     _inherit = 'product.template'
 
-    detailed_type = fields.Selection(selection_add=[('food', 'Thực phẩm')], ondelete={'food': 'set default'})
+    product_type = fields.Selection([
+        ('consu', 'Tiêu dùng'),
+        ('service', 'Dịch vụ'),
+        ('product', 'Sản phẩm lưu kho'),
+        ('food', 'Thực phẩm')], string='Loại sản phẩm', default='consu', required=True)
 
     @api.constrains('name')
     def constrains_name(self):
