@@ -17,7 +17,6 @@
         'views/hr_employee_inherit_view.xml',
         'views/menu_set.xml',
         'views/service.xml',
-        'views/menu.xml',
         'views/menu_setting_day.xml',
         'views/menu_setting_week.xml',
         'views/menu_table.xml',
