@@ -151,7 +151,7 @@
             <field name="res_model">tigo.dish</field>
             <field name="view_id" ref="dish_service_kanban"/>
             <field name="view_mode">kanban,tree,form</field>
-            <field name="domain">[("type_service", 'in', ('service', 'all')gi),("type_food", '=', 'drink')]</field>
+            <field name="domain">[("type_service", 'in', ('service', 'all')),("type_food", '=', 'drink')]</field>
             <field name="context">{'default_type_food': 'drink', 'default_type_service': 'service'}</field>
         </record>
 
@@ -164,7 +164,6 @@
                   parent="z_base.menu_service_menu"
                   action="action_type_food_drink_models"
                   sequence="1"/>
-
     </data>
 
     <data>
