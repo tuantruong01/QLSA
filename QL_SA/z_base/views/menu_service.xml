@@ -19,6 +19,7 @@
             <field name="arch" type="xml">
                 <form string="Món Ăn">
                     <sheet>
+                        <field name="img" widget="image" class="oe_avatar"/>
                         <div class="oe_title">
                             <label for="name"/>
                             <h1>

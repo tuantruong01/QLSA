@@ -82,6 +82,10 @@
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
         </record>
+        <menuitem name="Quản Lý Suất Ăn"
+                  id="meal_manegent_menu"
+                  web_icon="D:\QLSA\QLSA\QL_SA\z_base\static\description\icon.png"
+                  sequence="1"/>
         <menuitem name="Quản Lý Ăn Trưa"
                   id="root_meal_menu"
                   parent="z_base.meal_manegent_menu"

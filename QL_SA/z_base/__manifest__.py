@@ -13,9 +13,8 @@
     'data': [
         'security/qlsa_security.xml',
         'security/ir.model.access.csv',
-        'views/manage_system.xml',
-        'views/hr_employee_inherit_view.xml',
         'views/meal_register.xml',
+        'views/hr_employee_inherit_view.xml',
         'views/menu_set.xml',
         'views/service.xml',
         'views/menu.xml',
@@ -27,7 +26,6 @@
         'views/room.xml',
         'views/quotes.xml',
         'views/room_service.xml',
-        'views/pos_inherit.xml',
         'views/product_product_inherit_views.xml',
         'views/week.xml',
         'views/pay_view.xml',

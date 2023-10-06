@@ -17,7 +17,7 @@
             <field name="name">Thực Đơn Bàn</field>
             <field name="model">tigo.menu</field>
             <field name="arch" type="xml">
-                <form string="Thực Đơn Bàn">
+                <form string="Thuc Don Ban">
                     <sheet>
                         <div class="oe_title">
                             <label for="name"/>
@@ -32,7 +32,7 @@
                             </group>
                             <group>
                                 <field name="type_menu"/>
-                                <field name="number_of_people" attrs="{'invisible': [('type_menu','!=','table')]}"/>
+                                <field name="number_of_people" attrs="{'invisible': [('type_menu','!=','table')], 'required': [('type_menu','=','table')]}"/>
                             </group>
                         </group>
                     </sheet>
