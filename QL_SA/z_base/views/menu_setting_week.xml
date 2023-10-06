@@ -8,6 +8,7 @@
                     <field name="name"/>
                     <field name="menu_ids" widget="many2many_tags"/>
                     <field name="type_menu"/>
+                    <field name="detail_dish"/>
                     <field name="day_start"/>
                     <field name="day_end"/>
                     <field name="state"/>
