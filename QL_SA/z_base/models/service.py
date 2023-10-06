@@ -61,7 +61,7 @@ class MealRegister(models.Model):
             r.state = 'cancel'
             return {
                 'type': 'ir.actions.act_window',
-                'name': 'Nhận Xét',
+                'name': 'Lý Do Từ Chối',
                 'view_type': 'form',
                 'view_mode': 'form',
                 'res_model': 'popup.cmt',
