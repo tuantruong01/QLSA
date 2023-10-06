@@ -5,7 +5,7 @@
             <field name="name">Popup Cmt</field>
             <field name="model">popup.cmt</field>
             <field name="arch" type="xml">
-                <form string="Nhận Xét">
+                <form string="Lý Do Từ Chối">
                     <group>
                         <field name="comment"/>
                     </group>

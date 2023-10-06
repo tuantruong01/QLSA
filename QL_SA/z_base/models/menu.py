@@ -13,6 +13,7 @@ class Menu(models.Model):
     dish_ids = fields.Many2many('tigo.dish', 'menu_dish_ref', 'menu_id', 'dish_id', string=_('Món ăn'), required=True)
     type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'), required=True)
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
+    img = fields.Binary(string='Hình ảnh')
 
     @api.model
     def create(self, vals_list):
@@ -34,11 +35,11 @@ class SettingMenu(models.Model):
     name = fields.Char(string=_('Mã Cấu Hình'), readonly=1)
     state = fields.Selection([('unactive', 'Chưa kích hoạt'), ('active', 'Đã kích hoạt')], string=_('Trạng Thái'),
                              default="unactive")
-    menu_ids = fields.Many2many('tigo.menu', 'setting_menu_ref', 'setting_id', 'menu_id', string=_('Thực Đơn'))
+    menu_ids = fields.Many2many('tigo.menu', 'setting_menu_ref', 'setting_id', 'menu_id', string=_('Thực Đơn'), required=1)
     day_start = fields.Date(string="Từ ngày", readonly=True)
     day_end = fields.Date(string="Đến ngày", readonly=True)
     type = fields.Selection([('day', 'Ngày'), ('week', 'Tuần')], string="Theo ngày/tuần")
-    type_menu = fields.Selection([('set', 'Suất'), ('table', 'Bàn')], string=_('Kiểu Thực Đơn'))
+    type_menu = fields.Selection([('set', 'Suất'), ('table', 'Bàn')], string=_('Kiểu Thực Đơn'), required=1)
     day = fields.Date(string="Ngày")
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
     detail_dish = fields.Char(string=_('Chi tiết món'), readonly=True)
@@ -85,5 +86,5 @@ class SettingMenu(models.Model):
         for r in self:
             datas = ''
             for line in r.menu_ids:
-                datas += line.name + ":" + ', '.join([line.name for line in r.dish_ids]) + '; '
+                datas += line.name + ":" + ', '.join([line.name for line in r.menu_ids.dish_ids]) + "; "
             r.detail_dish = datas

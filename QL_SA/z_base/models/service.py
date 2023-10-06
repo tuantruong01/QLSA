@@ -18,8 +18,8 @@ class MealRegister(models.Model):
     room_id = fields.Many2one('tigo.room', string=_('Phòng'), required=True)
     start_day = fields.Datetime(string=_("Ngày bắt đầu"), required=True)
     end_day = fields.Datetime(string=_('Ngày kết thúc'), required=True)
-    deposit = fields.Float(string="Tiền cọc")
-    price = fields.Float(string='Tiền Phòng', readonly=1)
+    deposit = fields.Float(string="Tiền cọc", group_operator="avg")
+    price = fields.Float(string='Tiền Phòng', readonly=1, group_operator="avg")
     time_use = fields.Float(string='Giờ Sử Dụng', compute='_compute_time_up')
     order_dish_ids = fields.One2many('tigo.dish.order', 'order_dish_id', string=_('Đặt Món Ăn'))
     total_price = fields.Float(string=_('Tổng Giá'), readonly=1, compute='_compute_total_price')
@@ -61,7 +61,7 @@ class MealRegister(models.Model):
             r.state = 'cancel'
             return {
                 'type': 'ir.actions.act_window',
-                'name': 'Nhận Xét',
+                'name': 'Lý Do Từ Chối',
                 'view_type': 'form',
                 'view_mode': 'form',
                 'res_model': 'popup.cmt',

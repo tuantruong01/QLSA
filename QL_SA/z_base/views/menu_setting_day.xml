@@ -44,7 +44,7 @@
                                 <field name="type" attrs="{'readonly': [('type','in',('day','week'))]}"/>
                                 <field name="type_menu"/>
                                 <field name="number_of_people"
-                                       attrs="{'invisible': [('type_menu','!=','table')]}"/>
+                                       attrs="{'invisible': [('type_menu','!=','table')], 'required': [('type_menu','=','table')]}"/>
                                 <field name="menu_ids" widget="many2many_tags"/>
                                 <field name="detail_dish" force_save="1"/>
                             </group>
