@@ -21,7 +21,8 @@
                     <sheet>
                         <field name="img" widget="image" class="oe_avatar"/>
                         <div class="oe_title">
-                            <label for="name"/>
+                            <label for="name" string="Tên đồ uống" attrs="{'invisible': [('type_food','!=','drink')]}"/>
+                            <label for="name" string="Tên đồ ăn" attrs="{'invisible': [('type_food','=','drink')]}"/>
                             <h1>
                                 <field name="name"/>
                             </h1>
@@ -131,6 +132,8 @@
                         <group>
                             <group>
                                 <field name="code_dish"/>
+                                <label for="name" string="Đồ uống" attrs="{'invisible': [('type_food','!=','drink')]}"/>
+                                <label for="name" string="Đồ ăn" attrs="{'invisible': [('type_food','=','drink')]}"/>
                                 <field name="name"/>
                                 <field name="type_service"/>
                                 <field name="type_food"/>
