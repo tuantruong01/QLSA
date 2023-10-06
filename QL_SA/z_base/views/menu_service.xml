@@ -21,7 +21,8 @@
                     <sheet>
                         <field name="img" widget="image" class="oe_avatar"/>
                         <div class="oe_title">
-                            <label for="name"/>
+                            <label for="name" string="Tên đồ uống" attrs="{'invisible': [('type_food','!=','drink')]}"/>
+                            <label for="name" string="Tên đồ ăn" attrs="{'invisible': [('type_food','=','drink')]}"/>
                             <h1>
                                 <field name="name"/>
                             </h1>
@@ -131,6 +132,8 @@
                         <group>
                             <group>
                                 <field name="code_dish"/>
+                                <label for="name" string="Đồ uống" attrs="{'invisible': [('type_food','!=','drink')]}"/>
+                                <label for="name" string="Đồ ăn" attrs="{'invisible': [('type_food','=','drink')]}"/>
                                 <field name="name"/>
                                 <field name="type_service"/>
                                 <field name="type_food"/>
@@ -151,7 +154,7 @@
             <field name="res_model">tigo.dish</field>
             <field name="view_id" ref="dish_service_kanban"/>
             <field name="view_mode">kanban,tree,form</field>
-            <field name="domain">[("type_service", 'in', ('service', 'all')gi),("type_food", '=', 'drink')]</field>
+            <field name="domain">[("type_service", 'in', ('service', 'all')),("type_food", '=', 'drink')]</field>
             <field name="context">{'default_type_food': 'drink', 'default_type_service': 'service'}</field>
         </record>
 
