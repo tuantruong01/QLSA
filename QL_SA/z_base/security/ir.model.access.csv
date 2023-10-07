@@ -19,7 +19,7 @@ access_register_manager,register_manager,model_tigo_mealregister,,1,1,1,1
 access_setting_menu,tigo_menu_setting,model_tigo_menu_setting,,1,1,1,1
 access_tigo_register_client,tigo_register_client,model_tigo_register_client,,1,1,1,1
 access_tigo_week,tigo_week,model_tigo_week,,1,1,1,1
-access_confirm_dish,confirm_dish,model_confirm_dish,,1,1,1,1
+access_confirm_dish,confirm_dish,model_confirm_dish,,1,1,0,1
 access_tigo_dish_order,tigo_dish_order,model_tigo_dish_order,,1,1,1,1
 access_popup,popup,model_popup_cmt,,1,1,1,1
 

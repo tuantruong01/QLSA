@@ -123,3 +123,10 @@ class MealRegister(models.Model):
     def _onchange_menu_id(self):
         for r in self:
             r.detail_dish = ', '.join([line.name for line in r.menu_id.dish_ids])
+
+    @api.constrains('register')
+    def _check_employee_meal_register_ids(self):
+        for r in self:
+            total = len(r.employee_meal_register_ids) + len(r.client_meal_register_ids)
+            if total == 0:
+                raise ValidationError(_('Bạn Chưa Đăng Ký Bữa ăn'))
