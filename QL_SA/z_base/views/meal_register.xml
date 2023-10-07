@@ -52,7 +52,7 @@
                                         <field name="code"/>
                                         <field name="number_phone"/>
                                         <field name="department_id"/>
-                                        <field name="menu_id" attrs="{'column_invisible': [('parent.meal_type', '=', 'table')]}"/>
+                                        <field name="menu_id" attrs="{'column_invisible': [('parent.meal_type', '=', 'table')], 'required': [('parent.meal_type', '=', 'set')]}"/>
                                         <field name="note"/>
                                         <field name="person"  attrs="{'column_invisible': [('parent.meal_type', '!=', 'table')]}"/>
                                     </tree>
@@ -65,7 +65,7 @@
                                         <field name="phone_client"/>
                                         <field name="company"/>
                                         <field name="position"/>
-                                        <field name="menu_id" attrs="{'column_invisible': [('parent.meal_type', '=', 'table')]}"/>
+                                        <field name="menu_id" attrs="{'column_invisible': [('parent.meal_type', '=', 'table')], 'required': [('parent.meal_type', '=', 'set')]}"/>
                                         <field name="note"/>
                                         <field name="person" attrs="{'column_invisible': [('parent.meal_type', '!=', 'table')]}"/>
                                     </tree>

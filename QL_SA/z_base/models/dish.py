@@ -1,4 +1,6 @@
 from odoo import api, models, fields, _
+from odoo.exceptions import ValidationError
+
 
 
 class Dish(models.Model):
@@ -39,3 +41,14 @@ class Dish(models.Model):
     def onchange_wage(self):
         for r in self:
             r.price_total = sum(r.ingredient_ids.mapped('list_price'), r.wage)
+
+    @api.constrains('name')
+    def check_name(self):
+        for r in self:
+            if len(r.name) > 50:
+                raise ValidationError(_('Tên món ăn không được nhỏ hơn 50 ký tự'))
+            data = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=', '{', '}', '[', ']', ]
+            for i in data:
+                if i in r.name:
+                    raise ValidationError(_('Tên món ăn không được chứa ký tự đặc biệt'))
+
