@@ -5,7 +5,7 @@
             <field name="name">confirm_dish_view_form</field>
             <field name="model">confirm.dish</field>
             <field name="arch" type="xml">
-                <form string="Suất ăn">
+                <form string="Suất ăn" create="false" edit="false">
                     <sheet>
                         <div class="oe_title oe_inline">
                             <label for="name"/>
@@ -30,7 +30,7 @@
             <field name="name">confirm_dish_view_tree</field>
             <field name="model">confirm.dish</field>
             <field name="arch" type="xml">
-                <tree string="Suất ăn" editable="bottom">
+                <tree string="Suất ăn" editable="bottom" create="false">
                     <field name="name" readonly="1"/>
                     <field name="employee_id" readonly="1"/>
                     <field name="department" readonly="1"/>
