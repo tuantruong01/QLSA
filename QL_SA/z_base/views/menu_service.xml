@@ -9,7 +9,6 @@
                     <field name="name"/>
                     <field name="type_food"/>
                     <field name="price_total"/>
-                    <field name="type_food"/>
                 </tree>
             </field>
         </record>

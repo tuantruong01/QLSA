@@ -40,7 +40,7 @@ class MealRegister(models.Model):
     def onchange_day_start(self):
         for r in self:
             if r.date and r.date < fields.Date.today():
-                raise UserError(_('Ngày bắt đầu phải lớn hơn hoặc bằng ngày hiện tại.'))
+                raise UserError(_('Ngày Đăng Ký Phải Lớn Hơn Hoặc Bằng Ngày Hiện Tại.'))
             else:
                 pass
 
@@ -129,4 +129,4 @@ class MealRegister(models.Model):
         for r in self:
             total = len(r.employee_meal_register_ids) + len(r.client_meal_register_ids)
             if total == 0:
-                raise ValidationError(_('Bạn Chưa Đăng Ký Bữa ăn'))
+                raise ValidationError(_('Bạn Chưa Đăng Ký Bữa Ăn'))
