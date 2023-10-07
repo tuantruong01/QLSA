@@ -14,6 +14,12 @@ class ProductTemplateInherit(models.Model):
     @api.constrains('name')
     def constrains_name(self):
         for r in self:
+            if len(r.name) > 50:
+                raise ValidationError(_('Tên nguyên liệu không được nhỏ hơn 50 ký tự'))
+            data = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=', '{', '}', '[', ']', ]
+            for i in data:
+                if i in r.name:
+                    raise ValidationError(_('Tên nguyên liệu không được chứa ký tự đặc biệt'))
             product_template_id = self.env['product.template'].search([('name', '=', r.name)])
             if len(product_template_id) > 1:
-                raise ValidationError(_('Sản phẩm đã tồn tại!'))
+                raise ValidationError(_('Nguyên liệu đã tồn tại!'))

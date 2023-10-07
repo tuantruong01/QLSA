@@ -2,7 +2,6 @@ from odoo import api, models, fields, _
 from odoo.exceptions import ValidationError
 
 
-
 class Dish(models.Model):
     _name = 'tigo.dish'
     _description = 'Dish'
@@ -21,10 +20,6 @@ class Dish(models.Model):
     type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn'), ('all', 'Tất Cả')],
                                  string=_('Món Phòng Hát/Ăn'))
     img = fields.Binary(string='Hình ảnh')
-
-    _sql_constraints = [
-        ('name', 'unique(name)', 'Món Ăn Đã Tôn Tại!'),
-    ]
 
     @api.model
     def create(self, vals_list):
@@ -45,6 +40,9 @@ class Dish(models.Model):
     @api.constrains('name')
     def check_name(self):
         for r in self:
+            dish_id = self.env['tigo.dish'].search([('name', '=', r.name)])
+            if len(dish_id) > 1:
+                raise ValidationError(_('Món ăn đã tồn tại!'))
             if len(r.name) > 50:
                 raise ValidationError(_('Tên món ăn không được nhỏ hơn 50 ký tự'))
             data = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=', '{', '}', '[', ']', ]
