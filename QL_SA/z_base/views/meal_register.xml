@@ -9,6 +9,7 @@
                     <field name="register"/>
                     <field name="date"/>
                     <field name="meal_type"/>
+                    <field name="dish_view"/>
                     <field name="state"/>
                 </tree>
             </field>
@@ -79,6 +80,7 @@
         <record id="meal_register_view" model="ir.actions.act_window">
             <field name="name">Đăng ký suất ăn</field>
             <field name="res_model">tigo.mealregister</field>
+            <field name="view_id" ref="meal_register_tree"/>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
         </record>

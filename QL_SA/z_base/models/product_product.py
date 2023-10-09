@@ -23,3 +23,12 @@ class ProductTemplateInherit(models.Model):
             product_template_id = self.env['product.template'].search([('name', '=', r.name)])
             if len(product_template_id) > 1:
                 raise ValidationError(_('Nguyên liệu đã tồn tại!'))
+
+    @api.onchange('product_type')
+    def constrains_product_type(self):
+        for r in self:
+            if r.product_type in ['consu', 'service', 'product', 'food']:
+                r.purchase_ok = False
+                r.sale_ok = False
+
+

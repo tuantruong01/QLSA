@@ -65,6 +65,7 @@
                                         <field name="number"/>
                                         <field name="price_unit"/>
                                         <field name="price" force_save="1"/>
+                                        <field name="note"/>
                                     </tree>
                                 </field>
                                 <group name="note_group" col="6" class="mt-2 mt-md-0">

@@ -24,7 +24,7 @@ class Menu(models.Model):
     def unlink(self):
         detailed_registration_ids = self.env['tigo.detailed.registration'].search([('menu_id', '=', self.id)])
         if len(detailed_registration_ids) > 0:
-            raise ValidationError(_('Sản phẩm này đã được đăng ký trong suất ăn!'))
+            raise ValidationError(_('Thực đơn này đã được đăng ký trong suất ăn!'))
         return super(Menu, self).unlink()
 
 
@@ -88,3 +88,8 @@ class SettingMenu(models.Model):
             for line in r.menu_ids:
                 datas += line.name + ":" + ', '.join([line.name for line in r.menu_ids.dish_ids]) + "; "
             r.detail_dish = datas
+
+    def unlink(self):
+        if self.state == 'active':
+            raise ValidationError(_('Thực đơn này đã được đăng ký trong suất ăn!'))
+        return super(SettingMenu, self).unlink()
