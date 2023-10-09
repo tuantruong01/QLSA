@@ -9,7 +9,6 @@
                     <field name="register"/>
                     <field name="date"/>
                     <field name="meal_type"/>
-                    <field name="dish_view"/>
                     <field name="state"/>
                 </tree>
             </field>
