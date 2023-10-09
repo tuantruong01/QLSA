@@ -31,6 +31,9 @@
                 <xpath expr="//field[@name='sale_ok']" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </xpath>
+                <xpath expr="//field[@name='company_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
             </field>
         </record>
         <record id="product_inherit_dish_form_view" model="ir.ui.view">
