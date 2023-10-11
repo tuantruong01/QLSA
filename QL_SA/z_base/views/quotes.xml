@@ -49,7 +49,7 @@
                                     <field name="price" force_save="1"/>
                                     <span>VNĐ</span>
                                 </div>
-                                <label for="price"/>
+                                <label for="deposit"/>
                                 <div class="o_row">
                                     <field name="deposit" class="oe_inline"
                                            attrs="{'readonly': [('state','in',('cancel','payed'))]}"/>

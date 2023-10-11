@@ -36,10 +36,9 @@
                                 <field name="type_room"
                                        attrs="{'invisible': [('type_service','=','internal')], 'required': [('type_service','in',('service', 'all'))]}"
                                        widget="radio" options='{"horizontal": 1}'/>
-                                <label for="wage"/>
-                                <div class="o_row">
-                                    <field name="wage" class="oe_inline"
-                                           attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_service','=','service')]}"/>
+                                <label for="wage" attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_service','=','service')]}"/>
+                                <div class="o_row" attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_service','=','service')]}">
+                                    <field name="wage" class="oe_inline"/>
                                     <span>VNĐ</span>
                                 </div>
                                 <field name="ingredient_ids" widget="many2many_tags"
