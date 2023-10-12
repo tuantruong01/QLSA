@@ -41,3 +41,10 @@ class Week(models.Model):
                     raise UserError(_('Bạn phải chọn ngày đầu tuần.'))
                 else:
                     r.end = r.begin + timedelta(days=6)
+
+    def name_get(self):
+        result = []
+        for record in self:
+            name = record.name + " (" + str(record.begin) + " đến " + str(record.end) + ")"
+            result.append((record.id, name))
+        return result

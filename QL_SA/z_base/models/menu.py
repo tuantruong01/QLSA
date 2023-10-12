@@ -60,8 +60,15 @@ class SettingMenu(models.Model):
         for r in self:
             r.state = "unactive"
 
+    # @api.onchange('week')
+    # def onchange_day_start(self):
+    #     data_week = self.env['tigo.week'].search([])
+    #     for i in data_week:
+    #         i.name = i.name + " (" + str(i.begin) + " đến " + str(i.end) + ")"
+    #     return {'domain': {'week': [('id', 'in', data_week.ids)]}}
+
     @api.onchange('week')
-    def onchange_day_start(self):
+    def _onchange_week(self):
         for r in self:
             r.day_start = r.week.begin
             r.day_end = r.week.end
