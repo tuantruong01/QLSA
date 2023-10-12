@@ -41,11 +41,3 @@ class Week(models.Model):
                     raise UserError(_('Bạn phải chọn ngày đầu tuần.'))
                 else:
                     r.end = r.begin + timedelta(days=6)
-
-    @api.onchange('begin')
-    def onchange_name(self):
-        for r in self:
-            if r.name and r.begin:
-                str_begin = str(r.begin)
-                str_end = str(r.end)
-                r.name = r.name + ' ( ' + str_begin + ' đến ' + str_end + ' )'
