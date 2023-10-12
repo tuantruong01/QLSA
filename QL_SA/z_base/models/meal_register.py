@@ -29,7 +29,6 @@ class MealRegister(models.Model):
                               ('cancel', 'Hủy')], string='Trạng Thái', default='draft')
     confirm_dish_ids = fields.One2many('confirm.dish', 'mealregister_id', string=_('Suất ăn'))
     detail_dish = fields.Char(string=_('Chi tiết món'), readonly=1)
-    dish_view = fields.Char(string=_('Món Ăn'), readonly=1)
 
     @api.model
     def create(self, vals_list):
@@ -101,12 +100,13 @@ class MealRegister(models.Model):
                          ('type_menu', '=', r.meal_type), ('state', '=', 'active'),
                          ('number_of_people', '=', r.number)
                          ])
-                    # if not menu_week and not menu_day:
-                    #     r.menu_id = []
-                    # else:
-                    #     menu = menu_week + menu_day
-                    #     if menu:
-                    #         return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
+                    if not menu_week and not menu_day:
+                        menu = []
+                        return {'domain': {'menu_id': [('id', 'in', menu)]}}
+                    else:
+                        menu = menu_week + menu_day
+                        if menu:
+                            return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
                 elif r.number == 'six':
                     menu_week = self.env['tigo.menu.setting'].search(
                         [('day', '=', r.date),
@@ -116,9 +116,16 @@ class MealRegister(models.Model):
                         [('day_start', '<=', r.date), ('day_end', '>=', r.date),
                          ('type_menu', '=', 'table'), ('state', '=', 'active'),
                          ('number_of_people', '=', r.number)])
-                    menu = menu_week + menu_day
-                    if menu:
-                        return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
+                    if not menu_week and not menu_day:
+                        menu = []
+                        return {'domain': {'menu_id': [('id', 'in', menu)]}}
+                    else:
+                        menu = menu_week + menu_day
+                        if menu:
+                            return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
+            else:
+                menu = []
+                return {'domain': {'menu_id': [('id', 'in', menu)]}}
 
     @api.onchange('menu_id')
     def _onchange_menu_id(self):
@@ -131,13 +138,3 @@ class MealRegister(models.Model):
             total = len(r.employee_meal_register_ids) + len(r.client_meal_register_ids)
             if total == 0:
                 raise ValidationError(_('Bạn Chưa Đăng Ký Bữa Ăn'))
-
-    @api.onchange('meal_type', 'menu_id', 'client_meal_register_ids.menu_id', 'employee_meal_register_ids.menu_id')
-    def _onchange_meal_type(self):
-        for r in self:
-            if r.meal_type == 'table' and r.menu_id:
-                r.dish_view = ', '.join([line.name for line in r.menu_id.dish_ids])
-            else:
-                datas = self.env['tigo.detailed.registration'].search([('1', '=', '1')]) + self.env[
-                    'tigo.register.client'].search([('1', '=', '1')])
-                r.dish_view = datas
