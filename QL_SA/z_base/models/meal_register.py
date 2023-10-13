@@ -142,7 +142,7 @@ class MealRegister(models.Model):
     @api.depends('register')
     def _compute_code_employee(self):
         for r in self:
-            employee_id = self.env['hr.employee'].search([('user_id', '=', r.register.id)])
+            employee_id = self.env['hr.employee'].search([('user_id', '=', r.register.id)], limit=1)
             if employee_id:
                 r.code_employee = employee_id.code_employee
             else:
