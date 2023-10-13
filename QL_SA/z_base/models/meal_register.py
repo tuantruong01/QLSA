@@ -14,7 +14,7 @@ class MealRegister(models.Model):
                                string=_('Người đăng ký'),
                                default=lambda self: self.env.user,
                                readonly=1)
-
+    code_employee = fields.Char(string=_('Mã Nhân Viên'), compute='_compute_code_employee')
     number = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người đăng ký'))
     meal_type = fields.Selection([('set', 'Suất'), ('table', 'Bàn')],
                                  string=_('Hình thức ăn'), default='set', required=1)
@@ -138,3 +138,12 @@ class MealRegister(models.Model):
             total = len(r.employee_meal_register_ids) + len(r.client_meal_register_ids)
             if total == 0:
                 raise ValidationError(_('Bạn Chưa Đăng Ký Bữa Ăn'))
+
+    @api.depends('register')
+    def _compute_code_employee(self):
+        for r in self:
+            employee_id = self.env['hr.employee'].search([('user_id', '=', r.register.id)])
+            if employee_id:
+                r.code_employee = employee_id.code_employee
+            else:
+                r.code_employee = False

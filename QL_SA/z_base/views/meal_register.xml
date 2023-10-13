@@ -7,6 +7,7 @@
                 <tree string="Đăng ký suất ăn">
                     <field name="name"/>
                     <field name="register"/>
+                    <field name="code_employee"/>
                     <field name="date"/>
                     <field name="meal_type"/>
                     <field name="state"/>
@@ -32,6 +33,7 @@
                             <group>
                                 <field name="name"/>
                                 <field name="register"/>
+                                <field name="code_employee"/>
                                 <field name="meal_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                             </group>
                             <group>
