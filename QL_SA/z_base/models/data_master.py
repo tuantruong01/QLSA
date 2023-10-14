@@ -12,7 +12,7 @@ class Room(models.Model):
     type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn')], string=_('Dạng'), required=True)
     sate = fields.Selection([('unoccupied', 'Trống'), ('occupied', 'Sử dụng')], string=_('Trạng Thái'),
                             default="unoccupied", readonly=1)
-    price = fields.Float(string=_('Giá Phòng / Giờ'), group_operator="avg")
+    price = fields.Integer(string=_('Giá Phòng / Giờ'), group_operator="avg")
     level = fields.Selection([('normal', 'Phòng thường'), ('vip', 'Phòng VIP')], string=_('Kiểu Phòng'),
                              default="normal", required=True)
 
