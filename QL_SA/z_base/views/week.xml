@@ -34,9 +34,13 @@
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
         </record>
-        <menuitem name="Tuần Trong Năm"
+        <menuitem name="2.3 Danh Mục"
+                  id="category_menu"
+                  parent="z_base.root_menu"
+                  sequence="3"/>
+        <menuitem name="2.3.1 Tuần Trong Năm"
                   id="week_menu"
-                  parent="z_base.setting_menu_menu"
+                  parent="z_base.category_menu"
                   action="act_week_id"
                   sequence="1"/>
     </data>

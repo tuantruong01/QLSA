@@ -89,11 +89,11 @@
                   id="meal_manegent_menu"
                   web_icon="D:\QLSA\QLSA\QL_SA\z_base\static\description\icon.png"
                   sequence="1"/>
-        <menuitem name="Quản Lý Ăn Trưa"
+        <menuitem name="1. Quản Lý Ăn Trưa"
                   id="root_meal_menu"
                   parent="z_base.meal_manegent_menu"
                   sequence="3"/>
-        <menuitem name="Đăng ký ăn trưa"
+        <menuitem name="1.1 Đăng ký ăn trưa"
                   id="meal_register_menu"
                   parent="z_base.root_meal_menu"
                   action="meal_register_view"

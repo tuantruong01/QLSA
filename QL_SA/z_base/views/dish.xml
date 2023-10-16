@@ -86,9 +86,9 @@
             <field name="domain">[("type_service", 'in', ('internal', 'all'))]</field>
         </record>
         <menuitem id="dish_menu"
-                  name="Món ăn"
-                  parent="z_base.menu_ingredient"
+                  name="2.3.3 Món ăn"
+                  parent="z_base.category_menu"
                   action="action_dish_models"
-                  sequence="4"/>
+                  sequence="3"/>
     </data>
 </odoo>

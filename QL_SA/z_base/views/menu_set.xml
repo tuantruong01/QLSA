@@ -79,16 +79,16 @@
             <field name="context">{'default_type_menu': 'set'}</field>
         </record>
 
-        <menuitem name="Quản Lý Thực Đơn"
+        <menuitem name="2. Quản Lý Thực Đơn"
                   id="root_menu"
                   parent="z_base.meal_manegent_menu"
                   sequence="4"/>
-        <menuitem name="Thực đơn / Nguyên vật liệu"
+        <menuitem name="2.1 Thực đơn"
                   id="menu_ingredient"
                   parent="z_base.root_menu"
                   sequence="1"/>
 
-        <menuitem name="Thực Đơn Suất"
+        <menuitem name="2.1.1 Thực Đơn Suất"
                   id="menu_set"
                   parent="z_base.menu_ingredient"
                   action="action_menu_set_models"

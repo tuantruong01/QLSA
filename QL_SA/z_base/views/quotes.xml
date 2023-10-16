@@ -98,7 +98,7 @@
             <field name="view_mode">tree,form</field>
             <field name="domain">[('|'), ('state', '=', 'cancel'), ('state', '=', 'quotes')]</field>
         </record>
-        <menuitem name="Báo Giá"
+        <menuitem name="3.1.1 Báo Giá"
                   id="quotes_service"
                   parent="z_base.service_menu"
                   action="quotes_service_view"

@@ -61,11 +61,11 @@
             <field name="domain">[('type','=','day')]</field>
             <field name="context">{'default_type': 'day'}</field>
         </record>
-        <menuitem name="Cấu Hình"
+        <menuitem name="1.2 Cấu Hình"
                   id="setting_menu_menu"
                   parent="z_base.root_menu"
-                  sequence="3"/>
-        <menuitem name="Thực Đơn Ngày"
+                  sequence="2"/>
+        <menuitem name="1.2.1 Thực Đơn Ngày"
                   id="menu_day"
                   parent="z_base.setting_menu_menu"
                   action="action_menu_day_view"
