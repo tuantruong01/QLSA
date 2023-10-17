@@ -58,7 +58,7 @@
             <field name="context">{'default_type': 'week'}</field>
         </record>
 
-        <menuitem name="1.2.2 Thực Đơn Tuần"
+        <menuitem name="2.2.2 Thực Đơn Tuần"
                   id="menu_week"
                   parent="z_base.setting_menu_menu"
                   action="action_menu_week_view"
