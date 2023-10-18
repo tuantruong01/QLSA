@@ -92,7 +92,7 @@
         <menuitem name="1. Quản Lý Ăn Trưa"
                   id="root_meal_menu"
                   parent="z_base.meal_manegent_menu"
-                  sequence="3"/>
+                  sequence="1"/>
         <menuitem name="1.1 Đăng ký ăn trưa"
                   id="meal_register_menu"
                   parent="z_base.root_meal_menu"

@@ -1,9 +1,9 @@
 <odoo>
     <data>
-        <menuitem name="Báo Cáo"
+        <menuitem name="4. Báo Cáo"
                   id="root_report"
                   parent="z_base.meal_manegent_menu"
-                  sequence="6"/>
+                  sequence="4"/>
         <menuitem id="meal_register_report"
                   name="Báo Cáo Suất Ăn"
                   parent="z_base.root_report"

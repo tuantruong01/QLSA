@@ -131,16 +131,6 @@
             <field name="domain">[("type_service", 'in', ('service', 'all')),("type_food", '=', 'drink')]</field>
             <field name="context">{'default_type_food': 'drink', 'default_type_service': 'service'}</field>
         </record>
-        <menuitem id="menu_service_menu"
-                  name="3.2 Thực Đơn"
-                  parent="z_base.root_service"
-                  sequence="2"/>
-        <menuitem id="type_drink"
-                  name="3.2.1 Đồ uống"
-                  parent="z_base.menu_service_menu"
-                  action="action_type_food_drink_models"
-                  sequence="1"/>
-
         <record model="ir.ui.view" id="type_food_eat_tree_views">
             <field name="name">Đồ ăn</field>
             <field name="model">tigo.dish</field>
@@ -185,11 +175,6 @@
             <field name="domain">[("type_service", 'in', ('service', 'all')),("type_food", '=', 'eat')]</field>
             <field name="context">{'default_type_food': 'eat', 'default_type_service': 'service'}</field>
         </record>
-        <menuitem id="type_eat"
-                  name="3.2.2 Đồ ăn"
-                  parent="z_base.menu_service_menu"
-                  action="action_type_food_eat_models"
-                  sequence="2"/>
     </data>
 </odoo>
 

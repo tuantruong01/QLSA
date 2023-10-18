@@ -43,15 +43,7 @@
             <field name="domain">[('type_room', '=','eat')]</field>
             <field name="context">{'default_type_room': 'eat'}</field>
         </record>
-        <menuitem id="room_id"
-                  name="3.3 Phòng"
-                  parent="z_base.root_service"
-                  sequence="3"/>
-        <menuitem id="room_eat"
-                  name="3.3.1 Phòng Ăn"
-                  parent="z_base.room_id"
-                  action="action_room_eat_models"
-                  sequence="2"/>
+
 
         <!--        Phòng Hát-->
         <record model="ir.ui.view" id="tigo_room_sing_tree">
@@ -101,10 +93,6 @@
             <field name="domain">[('type_room', '=','sing')]</field>
             <field name="context">{'default_type_room': 'sing'}</field>
         </record>
-        <menuitem id="room_sing"
-                  name="3.3.2 Phòng Hát"
-                  parent="z_base.room_id"
-                  action="action_room_sing_models"
-                  sequence="2"/>
+
     </data>
 </odoo>
