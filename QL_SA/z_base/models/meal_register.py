@@ -1,6 +1,7 @@
 from odoo import models, fields, _, api
 from odoo.exceptions import UserError
 from odoo.exceptions import ValidationError
+import string, random
 
 from datetime import datetime
 
@@ -9,7 +10,7 @@ class MealRegister(models.Model):
     _name = 'tigo.mealregister'
     _description = 'Đăng ký bữa ăn'
 
-    name = fields.Char(string=_('Mã suất ăn'), readonly=1)
+    name = fields.Char(string=_('Mã suất ăn'), default=lambda self: self._generate_ma_ban_ghi(), readonly=True)
     register = fields.Many2one('res.users',
                                string=_('Người đăng ký'),
                                default=lambda self: self.env.user,
@@ -30,11 +31,16 @@ class MealRegister(models.Model):
     confirm_dish_ids = fields.One2many('confirm.dish', 'mealregister_id', string=_('Suất ăn'))
     detail_dish = fields.Char(string=_('Chi tiết món'), readonly=1)
 
-    @api.model
-    def create(self, vals_list):
-        res = super(MealRegister, self).create(vals_list)
-        res['name'] = self.env['ir.sequence'].next_by_code('tigo.mealregister')
-        return res
+    # @api.model
+    # def create(self, vals_list):
+    #     res = super(MealRegister, self).create(vals_list)
+    #     res['name'] = self.env['ir.sequence'].next_by_code('tigo.mealregister')
+    #     return res
+    @staticmethod
+    def _generate_ma_ban_ghi():
+        chars = string.ascii_letters + string.digits
+        name = ''.join(random.choice(chars) for _ in range(8))
+        return name
 
     @api.onchange('date')
     def onchange_day_start(self):
