@@ -27,6 +27,14 @@ class Menu(models.Model):
             raise ValidationError(_('Thực đơn này đã được đăng ký trong suất ăn!'))
         return super(Menu, self).unlink()
 
+    def write(self, vals):
+        result = super(Menu, self).write(vals)
+        if self.code_menu:
+            return result
+        else:
+            self.code_menu = self.env['ir.sequence'].next_by_code('tigo.menu')
+            return result
+
 
 class SettingMenu(models.Model):
     _name = 'tigo.menu.setting'
