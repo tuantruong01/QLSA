@@ -10,6 +10,7 @@ class ProductTemplateInherit(models.Model):
         ('service', 'Dịch vụ'),
         ('product', 'Sản phẩm lưu kho'),
         ('food', 'Thực phẩm')], string='Loại sản phẩm', default='consu', required=True)
+    list_price = fields.Integer(string=_('Giá'), group_operator="avg")
 
     @api.constrains('name')
     def constrains_name(self):

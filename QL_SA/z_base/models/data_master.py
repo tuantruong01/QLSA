@@ -12,7 +12,7 @@ class Room(models.Model):
     type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn')], string=_('Dạng'), required=True)
     sate = fields.Selection([('unoccupied', 'Trống'), ('occupied', 'Sử dụng')], string=_('Trạng Thái'),
                             default="unoccupied", readonly=1)
-    price = fields.Float(string=_('Giá Phòng / Giờ'), group_operator="avg")
+    price = fields.Integer(string=_('Giá Phòng / Giờ'), group_operator="avg")
     level = fields.Selection([('normal', 'Phòng thường'), ('vip', 'Phòng VIP')], string=_('Kiểu Phòng'),
                              default="normal", required=True)
 
@@ -42,10 +42,9 @@ class Week(models.Model):
                 else:
                     r.end = r.begin + timedelta(days=6)
 
-    @api.onchange('begin')
-    def onchange_name(self):
-        for r in self:
-            if r.name and r.begin:
-                str_begin = str(r.begin)
-                str_end = str(r.end)
-                r.name = r.name + ' ( ' + str_begin + ' đến ' + str_end + ' )'
+    def name_get(self):
+        result = []
+        for record in self:
+            name = record.name + " (" + str(record.begin) + " đến " + str(record.end) + ")"
+            result.append((record.id, name))
+        return result

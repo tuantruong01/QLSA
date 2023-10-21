@@ -35,7 +35,8 @@ class SettingMenu(models.Model):
     name = fields.Char(string=_('Mã Cấu Hình'), readonly=1)
     state = fields.Selection([('unactive', 'Chưa kích hoạt'), ('active', 'Đã kích hoạt')], string=_('Trạng Thái'),
                              default="unactive")
-    menu_ids = fields.Many2many('tigo.menu', 'setting_menu_ref', 'setting_id', 'menu_id', string=_('Thực Đơn'), required=1)
+    menu_ids = fields.Many2many('tigo.menu', 'setting_menu_ref', 'setting_id', 'menu_id', string=_('Thực Đơn'),
+                                required=1)
     day_start = fields.Date(string="Từ ngày", readonly=True)
     day_end = fields.Date(string="Đến ngày", readonly=True)
     type = fields.Selection([('day', 'Ngày'), ('week', 'Tuần')], string="Theo ngày/tuần")
@@ -59,8 +60,15 @@ class SettingMenu(models.Model):
         for r in self:
             r.state = "unactive"
 
+    # @api.onchange('week')
+    # def onchange_day_start(self):
+    #     data_week = self.env['tigo.week'].search([])
+    #     for i in data_week:
+    #         i.name = i.name + " (" + str(i.begin) + " đến " + str(i.end) + ")"
+    #     return {'domain': {'week': [('id', 'in', data_week.ids)]}}
+
     @api.onchange('week')
-    def onchange_day_start(self):
+    def _onchange_week(self):
         for r in self:
             r.day_start = r.week.begin
             r.day_end = r.week.end
@@ -79,7 +87,6 @@ class SettingMenu(models.Model):
                 else:
                     menu_ids = self.env['tigo.menu'].search(
                         [('type_menu', '=', 'table'), ('number_of_people', '=', 'six')]).ids
-                    return {'domain': {'menu_ids': [('id', 'in', menu_ids)]}}
 
     @api.onchange('menu_ids')
     def _onchange_menu_id(self):

@@ -69,9 +69,9 @@
             <field name="view_mode">tree,form</field>
             <field name="domain">[('|'), ('state', '=', 'pay'), ('state', '=', 'payed')]</field>
         </record>
-        <menuitem name="Thanh Toán"
+        <menuitem name="3.3 Thanh Toán"
                   id="pay_service"
-                  parent="z_base.service_menu"
+                  parent="z_base.root_service"
                   action="pay_service_view"
                   sequence="3"/>
     </data>

@@ -47,7 +47,7 @@
             <field name="domain">[('date_register', '=', context_today().strftime('%Y-%m-%d'))]</field>
         </record>
         <!-- This Menu Item must have a parent and an action -->
-        <menuitem name="Xác nhận đã ăn"
+        <menuitem name="1.2 Xác nhận đã ăn"
                   id="confirm_dish_action_menu"
                   parent="z_base.root_meal_menu"
                   action="confirm_dish_action"

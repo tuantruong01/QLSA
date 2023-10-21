@@ -44,11 +44,6 @@
             <field name="context">{'default_type_room': 'eat'}</field>
         </record>
 
-        <menuitem id="room_eat"
-                  name="Phòng Ăn"
-                  parent="z_base.list_service"
-                  action="action_room_eat_models"
-                  sequence="2"/>
 
         <!--        Phòng Hát-->
         <record model="ir.ui.view" id="tigo_room_sing_tree">
@@ -99,10 +94,5 @@
             <field name="context">{'default_type_room': 'sing'}</field>
         </record>
 
-        <menuitem id="room_sing"
-                  name="Phòng Hát"
-                  parent="z_base.list_service"
-                  action="action_room_sing_models"
-                  sequence="3"/>
     </data>
 </odoo>

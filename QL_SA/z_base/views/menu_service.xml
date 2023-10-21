@@ -30,19 +30,22 @@
                             <group>
                                 <field name="code_dish"/>
                                 <field name="type_service"/>
-                                <field name="type_food"/>
+                                <field name="type_food"
+                                       attrs="{'readonly': [('type_service','=','service')]}"/>
                             </group>
                             <group>
                                 <field name="type_room"
                                        attrs="{'invisible': [('type_service','=','internal')], 'required': [('type_service','in',('service', 'all'))]}"
                                        widget="radio" options='{"horizontal": 1}'/>
-                                <label for="wage" attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_service','=','service')]}"/>
-                                <div class="o_row" attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_service','=','service')]}">
+                                <label for="wage"
+                                       attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_service','=','service')]}"/>
+                                <div class="o_row"
+                                     attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_service','=','service')]}">
                                     <field name="wage" class="oe_inline"/>
                                     <span>VNĐ</span>
                                 </div>
                                 <field name="ingredient_ids" widget="many2many_tags"
-                                       attrs="{'invisible': [('type_food','=','drink')], 'required': [('type_food','=','eat')]}"/>
+                                       attrs="{'required': [('type_food','=','eat')]}"/>
                                 <label for="price_total"/>
                                 <div class="o_row">
                                     <field name="price_total" force_save="1" class="oe_inline"
@@ -97,18 +100,7 @@
             <field name="domain">[("type_service", 'in', ('service', 'all'))]</field>
             <field name="context">{'default_type_service': 'service'}</field>
         </record>
-        <menuitem id="list_service"
-                  name="Danh Mục"
-                  parent="z_base.root_service"
-                  sequence="3"/>
-        <menuitem id="dish_service"
-                  name="Thực Đơn Dịch Vụ Ngoài"
-                  parent="z_base.list_service"
-                  action="action_dish_service_models"
-                  sequence="2"/>
-    </data>
 
-    <data>
         <record model="ir.ui.view" id="type_food_tree_views">
             <field name="name">Đồ uống</field>
             <field name="model">tigo.dish</field>
@@ -121,30 +113,14 @@
                 </tree>
             </field>
         </record>
-        <record model="ir.ui.view" id="type_drink_form">
-            <field name="name">Đồ uống</field>
+        <record id="dish_inherit_form_view" model="ir.ui.view">
+            <field name="name">Đồ Uống</field>
             <field name="model">tigo.dish</field>
+            <field name="inherit_id" ref="z_base.dish_service_form"/>
             <field name="arch" type="xml">
-                <form string="Đồ uống">
-                    <sheet>
-                        <group>
-                            <group>
-                                <field name="code_dish"/>
-                                <label for="name" string="Đồ uống" attrs="{'invisible': [('type_food','!=','drink')]}"/>
-                                <label for="name" string="Đồ ăn" attrs="{'invisible': [('type_food','=','drink')]}"/>
-                                <field name="name"/>
-                                <field name="type_service"/>
-                                <field name="type_food"/>
-                            </group>
-                            <group>
-                                <field name="wage"/>
-                                <field name="ingredient_ids" widget="many2many_tags"
-                                       attrs="{'invisible': [('type_food','=','drink')]}"/>
-                                <field name="price_total" force_save="1"/>
-                            </group>
-                        </group>
-                    </sheet>
-                </form>
+                <xpath expr="//field[@name='type_food']" position="attributes">
+                    <attribute name="readonly">0</attribute>
+                </xpath>
             </field>
         </record>
         <record id="action_type_food_drink_models" model="ir.actions.act_window">
@@ -155,19 +131,6 @@
             <field name="domain">[("type_service", 'in', ('service', 'all')),("type_food", '=', 'drink')]</field>
             <field name="context">{'default_type_food': 'drink', 'default_type_service': 'service'}</field>
         </record>
-
-        <menuitem id="menu_service_menu"
-                  name="Thực Đơn"
-                  parent="z_base.root_service"
-                  sequence="2"/>
-        <menuitem id="type_drink"
-                  name="Đồ uống"
-                  parent="z_base.menu_service_menu"
-                  action="action_type_food_drink_models"
-                  sequence="1"/>
-    </data>
-
-    <data>
         <record model="ir.ui.view" id="type_food_eat_tree_views">
             <field name="name">Đồ ăn</field>
             <field name="model">tigo.dish</field>
@@ -212,12 +175,6 @@
             <field name="domain">[("type_service", 'in', ('service', 'all')),("type_food", '=', 'eat')]</field>
             <field name="context">{'default_type_food': 'eat', 'default_type_service': 'service'}</field>
         </record>
-        <menuitem id="type_eat"
-                  name="Đồ ăn"
-                  parent="z_base.menu_service_menu"
-                  action="action_type_food_eat_models"
-                  sequence="1"/>
     </data>
-
 </odoo>
 
