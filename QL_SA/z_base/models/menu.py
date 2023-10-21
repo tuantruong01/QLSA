@@ -59,7 +59,7 @@ class SettingMenu(models.Model):
         if self.name:
             return result
         else:
-            self.name = self.env['ir.sequence'].next_by_code('tigo.menu')
+            self.name = self.env['ir.sequence'].next_by_code('tigo.menu.setting')
             return result
 
     @api.model
