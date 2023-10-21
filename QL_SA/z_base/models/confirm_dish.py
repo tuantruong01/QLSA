@@ -18,3 +18,11 @@ class ConfirmDish(models.Model):
         res = super(ConfirmDish, self).create(vals_list)
         res['name'] = self.env['ir.sequence'].next_by_code('confirm.dish')
         return res
+
+    def write(self, vals):
+        result = super(ConfirmDish, self).write(vals)
+        if self.name:
+            return result
+        else:
+            self.name = self.env['ir.sequence'].next_by_code('confirm.dish')
+            return result
