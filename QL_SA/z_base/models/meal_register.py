@@ -31,11 +31,11 @@ class MealRegister(models.Model):
     confirm_dish_ids = fields.One2many('confirm.dish', 'mealregister_id', string=_('Suất ăn'))
     detail_dish = fields.Char(string=_('Chi tiết món'), readonly=1)
 
-    # @api.model
-    # def create(self, vals_list):
-    #     res = super(MealRegister, self).create(vals_list)
-    #     res['name'] = self.env['ir.sequence'].next_by_code('tigo.mealregister')
-    #     return res
+    @api.model
+    def create(self, vals_list):
+        res = super(MealRegister, self).create(vals_list)
+        res['name'] = self.env['ir.sequence'].next_by_code('tigo.mealregister')
+        return res
 
     @api.onchange('date')
     def onchange_day_start(self):
