@@ -37,6 +37,7 @@
         'datas/sequence.xml',
         'wizard/popup_report_menu_oder.xml',
         'report/report_menu_order.xml',
+        'wizard/popup_report_ingredient.xml',
 
     ],
     'license': 'LGPL-3',

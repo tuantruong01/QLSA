@@ -23,7 +23,7 @@
             </field>
         </record>
         <record id="report_menu_order_action" model="ir.actions.act_window">
-            <field name="name">report_menu_order_action</field>
+            <field name="name">Báo cáo thực đơn đã đặt</field>
             <field name="res_model">popup.report.menu.oder</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
