@@ -23,6 +23,8 @@ access_confirm_dish,confirm_dish,model_confirm_dish,,1,1,1,1
 access_tigo_dish_order,tigo_dish_order,model_tigo_dish_order,,1,1,1,1
 access_popup,popup,model_popup_cmt,,1,1,1,1
 access_popup_report_menu_oder,popup_report_menu_oder,model_popup_report_menu_oder,,1,1,1,1
+access_popup_report_ingredient,popup_report_ingredient,model_popup_report_ingredient,,1,1,1,1
+
 
 
 

@@ -9,7 +9,7 @@ class Room(models.Model):
 
     code_room = fields.Char(string=_('Mã Phòng'), readonly=1)
     name = fields.Char(string=_('Tên Phòng'), required=True)
-    type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn')], string=_('Dạng'), required=True)
+    type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn')], string=_('Dạng'), readonly=1)
     sate = fields.Selection([('unoccupied', 'Trống'), ('occupied', 'Sử dụng')], string=_('Trạng Thái'),
                             default="unoccupied", readonly=1)
     price = fields.Integer(string=_('Giá Phòng / Giờ'), group_operator="avg")
