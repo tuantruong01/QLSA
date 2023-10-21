@@ -13,3 +13,11 @@ class HrEmployeeInherit(models.Model):
         res = super(HrEmployeeInherit, self).create(vals_list)
         res['code_employee'] = self.env['ir.sequence'].next_by_code('hr.employee')
         return res
+
+    def write(self, vals):
+        result = super(HrEmployeeInherit, self).write(vals)
+        if self.code_employee:
+            return result
+        else:
+            self.code_employee = self.env['ir.sequence'].next_by_code('hr.employee')
+            return result

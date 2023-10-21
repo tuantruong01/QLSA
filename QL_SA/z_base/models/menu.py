@@ -27,6 +27,14 @@ class Menu(models.Model):
             raise ValidationError(_('Thực đơn này đã được đăng ký trong suất ăn!'))
         return super(Menu, self).unlink()
 
+    def write(self, vals):
+        result = super(Menu, self).write(vals)
+        if self.code_menu:
+            return result
+        else:
+            self.code_menu = self.env['ir.sequence'].next_by_code('tigo.menu')
+            return result
+
 
 class SettingMenu(models.Model):
     _name = 'tigo.menu.setting'
@@ -60,13 +68,6 @@ class SettingMenu(models.Model):
         for r in self:
             r.state = "unactive"
 
-    # @api.onchange('week')
-    # def onchange_day_start(self):
-    #     data_week = self.env['tigo.week'].search([])
-    #     for i in data_week:
-    #         i.name = i.name + " (" + str(i.begin) + " đến " + str(i.end) + ")"
-    #     return {'domain': {'week': [('id', 'in', data_week.ids)]}}
-
     @api.onchange('week')
     def _onchange_week(self):
         for r in self:
@@ -97,6 +98,7 @@ class SettingMenu(models.Model):
             r.detail_dish = datas
 
     def unlink(self):
-        if self.state == 'active':
-            raise ValidationError(_('Thực đơn này đã được đăng ký trong suất ăn!'))
+        for r in self:
+            if r.state == 'active':
+                raise ValidationError(_('Thực đơn này đã được đăng ký trong suất ăn!'))
         return super(SettingMenu, self).unlink()

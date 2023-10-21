@@ -25,6 +25,14 @@ class MealRegister(models.Model):
     total_price = fields.Integer(string=_('Tổng Giá'), readonly=1, compute='_compute_total_price')
     comment = fields.Text(string=_('Ghi Chú'))
 
+    def write(self, vals):
+        result = super(MealRegister, self).write(vals)
+        if self.name:
+            return result
+        else:
+            self.name = self.env['ir.sequence'].next_by_code('tigo.service')
+            return result
+
     @api.model
     def create(self, vals_list):
         res = super(MealRegister, self).create(vals_list)
