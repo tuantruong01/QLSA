@@ -27,6 +27,14 @@ class Dish(models.Model):
         res['code_dish'] = self.env['ir.sequence'].next_by_code('tigo.dish')
         return res
 
+    def write(self, vals):
+        result = super(Dish, self).write(vals)
+        if self.code_dish:
+            return result
+        else:
+            self.code_dish = self.env['ir.sequence'].next_by_code('tigo.dish')
+            return result
+
     @api.onchange('ingredient_ids')
     def onchange_ingredient_ids(self):
         for r in self:

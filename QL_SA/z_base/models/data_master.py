@@ -22,6 +22,13 @@ class Room(models.Model):
         res['code_room'] = self.env['ir.sequence'].next_by_code('tigo.room')
         return res
 
+    def write(self, vals):
+        result = super(Room, self).write(vals)
+        if self.code_room:
+            return result
+        else:
+            self.code_room = self.env['ir.sequence'].next_by_code('tigo.room')
+            return result
     _sql_constraints = [('name', 'unique(name)', 'Phòng Đã Tồn Tại')]
 
 

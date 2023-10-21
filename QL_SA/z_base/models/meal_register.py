@@ -148,3 +148,11 @@ class MealRegister(models.Model):
                 r.code_employee = employee_id.code_employee
             else:
                 r.code_employee = False
+
+    def write(self, vals):
+        result = super(MealRegister, self).write(vals)
+        if self.name:
+            return result
+        else:
+            self.name = self.env['ir.sequence'].next_by_code('tigo.mealregister')
+            return result
