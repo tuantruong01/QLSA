@@ -54,6 +54,14 @@ class SettingMenu(models.Model):
     detail_dish = fields.Char(string=_('Chi tiết món'), readonly=True)
     week = fields.Many2one('tigo.week', string='Tuần')
 
+    def write(self, vals):
+        result = super(SettingMenu, self).write(vals)
+        if self.name:
+            return result
+        else:
+            self.name = self.env['ir.sequence'].next_by_code('tigo.menu.setting')
+            return result
+
     @api.model
     def create(self, vals_list):
         res = super(SettingMenu, self).create(vals_list)
