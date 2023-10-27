@@ -38,6 +38,10 @@
         'wizard/popup_report_menu_oder.xml',
         'report/report_menu_order.xml',
         'wizard/popup_report_ingredient.xml',
+        'wizard/pop_qty_department.xml',
+        'report/report_qty_department.xml',
+        'wizard/pop_report_menu_list.xml',
+        'report/report_menu_list.xml',
 
     ],
     'license': 'LGPL-3',
