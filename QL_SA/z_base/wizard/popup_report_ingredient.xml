@@ -8,7 +8,10 @@
                 <form string="Báo cáo nguyên liệu">
                    <group>
                        <group>
-                           <field name="categ_id"/>
+                           <field name="categ_ids" widget="many2many_tags"/>
+                       </group>
+                       <group>
+                           <field name="all"/>
                        </group>
                    </group>
                     <footer>
