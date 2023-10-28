@@ -24,6 +24,7 @@ class MealRegister(models.Model):
     order_dish_ids = fields.One2many('tigo.dish.order', 'order_dish_id', string=_('Đặt Món Ăn'))
     total_price = fields.Integer(string=_('Tổng Giá'), readonly=1, compute='_compute_total_price')
     comment = fields.Text(string=_('Ghi Chú'))
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
 
     def write(self, vals):
         result = super(MealRegister, self).write(vals)

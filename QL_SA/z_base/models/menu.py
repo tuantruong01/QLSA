@@ -14,6 +14,7 @@ class Menu(models.Model):
     type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'), required=True)
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
     img = fields.Binary(string='Hình ảnh')
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
 
     @api.model
     def create(self, vals_list):
@@ -53,6 +54,7 @@ class SettingMenu(models.Model):
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
     detail_dish = fields.Char(string=_('Chi tiết món'), readonly=True)
     week = fields.Many2one('tigo.week', string='Tuần')
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
 
     def write(self, vals):
         result = super(SettingMenu, self).write(vals)

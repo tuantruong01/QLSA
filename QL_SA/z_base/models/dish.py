@@ -20,6 +20,7 @@ class Dish(models.Model):
     type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn'), ('all', 'Tất Cả')],
                                  string=_('Món Phòng Hát/Ăn'))
     img = fields.Binary(string='Hình ảnh')
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
 
     @api.model
     def create(self, vals_list):
