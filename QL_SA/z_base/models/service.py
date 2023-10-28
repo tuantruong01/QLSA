@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 class MealRegister(models.Model):
     _name = 'tigo.service'
     _description = 'Dịch vụ'
+    _check_company_auto = True
 
     name_id = fields.Many2one('hr.employee', string=_('Người Đặt'), required=1)
     name = fields.Char(string=_('Mã Đặt Phòng'), readonly=1)

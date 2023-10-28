@@ -4,6 +4,7 @@ from odoo import models, fields, _, api
 class OrderDish(models.Model):
     _name = 'tigo.dish.order'
     _description = 'Đặt Món'
+    _check_company_auto = True
 
     order_dish_id = fields.Many2one('tigo.service', string=_('Đặt Món Ăn'))
     dish_id = fields.Many2one('tigo.dish', string=_('Tên Món'))

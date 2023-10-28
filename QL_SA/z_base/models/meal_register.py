@@ -9,6 +9,7 @@ from datetime import datetime
 class MealRegister(models.Model):
     _name = 'tigo.mealregister'
     _description = 'Đăng ký bữa ăn'
+    _check_company_auto = True
 
     name = fields.Char(string=_('Mã suất ăn'), readonly=True)
     register = fields.Many2one('res.users',

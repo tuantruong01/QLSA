@@ -7,6 +7,7 @@ from odoo.exceptions import ValidationError
 class Menu(models.Model):
     _name = 'tigo.menu'
     _description = 'Menu'
+    _check_company_auto = True
 
     code_menu = fields.Char(string=_('Mã thực đơn'), readonly=1)
     name = fields.Char(string=_('Tên thực đơn'), required=True)
@@ -40,6 +41,7 @@ class Menu(models.Model):
 class SettingMenu(models.Model):
     _name = 'tigo.menu.setting'
     _description = 'Cấu Hình'
+    _check_company_auto = True
 
     name = fields.Char(string=_('Mã Cấu Hình'), readonly=1)
     state = fields.Selection([('unactive', 'Chưa kích hoạt'), ('active', 'Đã kích hoạt')], string=_('Trạng Thái'),
