@@ -45,6 +45,15 @@ class ReportMenuOrder(models.AbstractModel):
             'font_name': 'Times New Roman',
             'font_size': 11
         })
+        table_left = workbook.add_format({
+            'bold': 0,
+            'text_wrap': 1,
+            'align': 'left',
+            'valign': 'vcenter',
+            'border': 1,
+            'font_name': 'Times New Roman',
+            'font_size': 11
+        })
         header_content = workbook.add_format({
             'bold': 1,
             'text_wrap': 1,
@@ -81,9 +90,9 @@ class ReportMenuOrder(models.AbstractModel):
             else:
                 check = 'Chưa ăn'
             ws.write(row, 0, stt, table_content)
-            ws.write(row, 1, data.get('name', ''), table_content)
-            ws.write(row, 2, data.get('employee_id', ''), table_content)
-            ws.write(row, 3, data.get('phong_ban', ''), table_content)
+            ws.write(row, 1, data.get('name', ''), table_left)
+            ws.write(row, 2, data.get('employee_id', ''), table_left)
+            ws.write(row, 3, data.get('phong_ban', ''), table_left)
             ws.write(row, 4, data.get('date_register', '').strftime("%d-%m-%Y"), table_content)
             ws.write(row, 5, check, table_content)
             row += 1
