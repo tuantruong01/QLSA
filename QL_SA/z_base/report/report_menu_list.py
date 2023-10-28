@@ -69,6 +69,24 @@ class ReportMenuList(models.AbstractModel):
             'font_size': 11,
             'italic': 1
         })
+        table_left = workbook.add_format({
+            'bold': 0,
+            'text_wrap': 1,
+            'align': 'left',
+            'valign': 'vcenter',
+            'border': 1,
+            'font_name': 'Times New Roman',
+            'font_size': 11
+        })
+        table_right = workbook.add_format({
+            'bold': 0,
+            'text_wrap': 1,
+            'align': 'right',
+            'valign': 'vcenter',
+            'border': 1,
+            'font_name': 'Times New Roman',
+            'font_size': 11
+        })
         ws.set_column(0, 0, 30)
         ws.set_column(1, 1, 30)
         ws.set_column(2, 2, 30)
@@ -91,9 +109,9 @@ class ReportMenuList(models.AbstractModel):
         stt = 1
         for data in datas:
             ws.write(row, 1, stt, table_content)
-            ws.write(row, 2, data.get('code_menu', ''), table_content)
-            ws.write(row, 3, data.get('name', ''), table_content)
+            ws.write(row, 2, data.get('code_menu', ''), table_left)
+            ws.write(row, 3, data.get('name', ''), table_left)
             ws.write(row, 4, data.get('type', ''), table_content)
-            ws.write(row, 5, data.get('sl', ''), table_content)
+            ws.write(row, 5, data.get('sl', ''), table_right)
             row += 1
             stt += 1
