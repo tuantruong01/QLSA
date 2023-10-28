@@ -12,6 +12,7 @@ class ConfirmDish(models.Model):
     ate = fields.Boolean(string=_('Đã ăn'), default=False)
     mealregister_id = fields.Many2one('tigo.mealregister', string=_('Đăng ký suất ăn'))
     note = fields.Char(string=_('Ghi Chú'))
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
 
     @api.model
     def create(self, vals_list):

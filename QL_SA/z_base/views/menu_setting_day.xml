@@ -44,6 +44,7 @@
                             <group>
                                 <field name="type" attrs="{'readonly': [('type','in',('day','week'))]}"/>
                                 <field name="type_menu"/>
+                                <field name="company_id" invisible="1"/>
                                 <field name="number_of_people"
                                        attrs="{'invisible': [('type_menu','!=','table')], 'required': [('type_menu','=','table')]}"/>
                                 <field name="menu_ids" widget="many2many_tags"/>

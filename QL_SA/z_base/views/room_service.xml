@@ -22,6 +22,7 @@
                     <sheet>
                         <group>
                             <group>
+                                <field name="company_id" invisible="1"/>
                                 <field name="code_room"/>
                                 <field name="name"/>
                                 <field name="price" attrs="{'invisible': [('type_room','=','eat')]}"/>

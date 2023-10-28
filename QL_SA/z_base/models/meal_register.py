@@ -30,6 +30,7 @@ class MealRegister(models.Model):
                               ('cancel', 'Hủy')], string='Trạng Thái', default='draft')
     confirm_dish_ids = fields.One2many('confirm.dish', 'mealregister_id', string=_('Suất ăn'))
     detail_dish = fields.Char(string=_('Chi tiết món'), readonly=1)
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
 
     @api.model
     def create(self, vals_list):

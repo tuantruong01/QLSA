@@ -15,6 +15,7 @@ class RegisterEmployee(models.Model):
     department_id = fields.Many2one('hr.department', string="Phòng Ban", related='employee_id.department_id', store=True)
     note = fields.Char(string=_('Ghi Chú'))
     person = fields.Boolean(string=_('Người đại diện'))
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
 
     @api.onchange('menu_id', 'registration_id.meal_type', 'registration_id.date')
     def onchange_employee_meal_register_ids(self):
