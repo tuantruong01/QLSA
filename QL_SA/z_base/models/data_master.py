@@ -36,6 +36,7 @@ class Room(models.Model):
 class Week(models.Model):
     _name = 'tigo.week'
     _description = 'Tuần Trong Năm'
+    _check_company_auto = True
 
     name = fields.Char(string='Tuần', required=1)
     begin = fields.Date(string='Từ ngày', required=1)

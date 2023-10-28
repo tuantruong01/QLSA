@@ -6,6 +6,7 @@ from odoo.exceptions import ValidationError
 class RegisterEmployee(models.Model):
     _name = 'tigo.detailed.registration'
     _description = 'Đăng ký Nhân Viên'
+    _check_company_auto = True
 
     registration_id = fields.Many2one('tigo.mealregister', string=_('Đăng ký suất ăn'))
     employee_id = fields.Many2one('hr.employee', string='Tên Nhân Viên')
@@ -59,6 +60,7 @@ class RegisterEmployee(models.Model):
 class Client(models.Model):
     _name = 'tigo.register.client'
     _description = 'Đăng ký Khách Hàng'
+    _check_company_auto = True
 
     registration_id = fields.Many2one('tigo.mealregister', string=_('Đăng ký suất ăn'))
     menu_id = fields.Many2one('tigo.menu', string=_('Thực đơn'))

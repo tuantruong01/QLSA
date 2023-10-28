@@ -4,6 +4,7 @@ from odoo import api, fields, models, _
 class ConfirmDish(models.Model):
     _name = 'confirm.dish'
     _description = 'Xác nhận đã nhận suất ăn'
+    _check_company_auto = True
 
     name = fields.Char(string=_('Tên phiếu ăn', readonly=1))
     employee_id = fields.Char(string=_('Họ và tên'), required=True)

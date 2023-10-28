@@ -5,6 +5,7 @@ from odoo.exceptions import ValidationError
 class Dish(models.Model):
     _name = 'tigo.dish'
     _description = 'Dish'
+    _check_company_auto = True
 
     name = fields.Char(string=_('Tên món ăn'), required=True)
     ingredient_ids = fields.Many2many('product.template', 'dish_product_ref', 'dish_id', 'ptml_id',
