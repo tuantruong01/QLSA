@@ -9,8 +9,7 @@
                     <field name="menu_ids" widget="many2many_tags"/>
                     <field name="type_menu"/>
                     <field name="detail_dish"/>
-                    <field name="day_start"/>
-                    <field name="day_end"/>
+                    <field name="week"/>
                     <field name="state"/>
                 </tree>
             </field>
@@ -32,6 +31,8 @@
                             <group>
                                 <field name="name"/>
                                 <field name="company_id" invisible="1"/>
+                                <field name="week"
+                                       attrs="{'invisible': [('type','=','day')], 'required': [('type','=','week')]}"/>
                                 <field name="day_start"
                                        attrs="{'invisible': [('type','=','day')], 'required': [('type','=','week')]}"/>
                                 <field name="day_end" force_save="1"
