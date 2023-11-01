@@ -126,3 +126,4 @@ class MealRegister(models.Model):
                 r.total_price = sum(r.order_dish_ids.mapped('price'))
             else:
                 r.total_price = 0
+
