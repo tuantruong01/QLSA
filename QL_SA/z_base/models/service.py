@@ -124,3 +124,4 @@ class MealRegister(models.Model):
             if r.order_dish_ids:
                 for line in r.order_dish_ids:
                     r.total_price = r.total_price + line.price
+
