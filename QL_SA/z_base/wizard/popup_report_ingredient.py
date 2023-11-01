@@ -1,5 +1,4 @@
 from odoo import api, fields, models
-from odoo.exceptions import ValidationError
 
 
 class PopupReportIngredient(models.TransientModel):
@@ -11,7 +10,8 @@ class PopupReportIngredient(models.TransientModel):
     all = fields.Boolean(string='Tất Cả')
 
     def action_print(self):
-        return self.env.ref('z_base.report_menu_order').report_action(self)
+        self.ensure_one()
+        return self.env.ref('z_base.report_ingredient_xlsx').report_action(self)
 
     @api.onchange('all')
     def onchange_all(self):

@@ -106,11 +106,12 @@ class SettingMenu(models.Model):
                 else:
                     menu_ids = self.env['tigo.menu'].search(
                         [('type_menu', '=', 'table'), ('number_of_people', '=', 'six')]).ids
+                    return {'domain': {'menu_ids': [('id', 'in', menu_ids)]}}
 
     @api.onchange('menu_ids')
     def _onchange_menu_id(self):
         for r in self:
-            datas = ''
+            datas = {}
             for line in r.menu_ids:
                 datas += line.name + ":" + ', '.join([line.name for line in r.menu_ids.dish_ids]) + "; "
             r.detail_dish = datas
