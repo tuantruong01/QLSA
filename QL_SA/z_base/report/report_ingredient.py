@@ -9,10 +9,20 @@ class ReportIngredient(models.AbstractModel):
     def generate_xlsx_report(self, workbook, data, records):
         name = "Sheet"
         ws = workbook.add_worksheet(name)
+        category = '1=1'
+        if records.categ_ids:
+            if len(records.categ_ids) > 1:
+                category += ' and pt.categ_id in (' + ','.join(map(str, records.categ_ids.ids)) + ')'
+            else:
+                category += ' and pt.categ_id = ' + str(records.categ_ids.ids[0])
+        else:
+            category += ''
 
         sql = f"""
-             SELECT pt.name, pt.categ_id, pt.list_price
+             SELECT pt.name as ten_nl, pc.name, pt.list_price
              FROM product_template pt
+             Left join product_category pc on pc.id = pt.categ_id
+             where {category}
         """
         self.env.cr.execute(sql)
         datas = self.env.cr.dictfetchall()
@@ -74,13 +84,18 @@ class ReportIngredient(models.AbstractModel):
         ws.write(row, 2, "Nhóm Nguyên Liệu", table_header)
         ws.write(row, 3, "Giá Nguyên Liệu", table_header)
         row += 1
+        stt = 1
         total = 0
-        for i in range(len(datas)):
-            ws.write(row, 0, i + 1, table_content)
-            ws.write(row, 1, datas[i]['name'], table_content)
-            ws.write(row, 2, datas[i]['categ_id'], table_content)
-            ws.write(row, 3, datas[i]['list_price'], table_content)
-            total += datas[i]['list_price']
+        for r in datas:
+            ws.write(row, 0, stt, table_content)
+            ws.write(row, 1, r.get('ten_nl', ''), table_content)
+            ws.write(row, 2, r.get("name", ''), table_content)
+            ws.write(row, 3, r.get("list_price", 0), table_content)
+            if r['list_price']:
+                total += r.get("list_price", 0)
+            else:
+                total += 0
             row += 1
+            stt += 1
 
         ws.merge_range(row, 0, row, 3, total)
