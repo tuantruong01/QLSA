@@ -60,7 +60,7 @@ class SettingMenu(models.Model):
     type_menu = fields.Selection([('set', 'Suất'), ('table', 'Bàn')], string=_('Kiểu Thực Đơn'), required=1)
     day = fields.Date(string="Ngày")
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
-    detail_dish = fields.Char(string=_('Chi tiết món'), readonly=True)
+    detail_dish = fields.Html(string=_('Chi tiết món'), readonly=True)
     week = fields.Many2one('tigo.week', string='Tuần')
     company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
 
@@ -113,7 +113,7 @@ class SettingMenu(models.Model):
         for r in self:
             datas = ''
             for line in r.menu_ids:
-                datas += line.name + ":" + ', '.join([line.name for line in r.menu_ids.dish_ids]) + "; "
+                datas += '<p>' + line.name + ":" + ','.join(map(str, line.dish_ids.mapped('name'))) + "</p>"
             r.detail_dish = datas
 
     def unlink(self):
