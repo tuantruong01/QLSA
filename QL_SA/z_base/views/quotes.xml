@@ -11,6 +11,7 @@
                     <field name="room_id"/>
                     <field name="start_day"/>
                     <field name="end_day"/>
+                    <field name="total_price"/>
                     <field name="state"/>
                 </tree>
             </field>
