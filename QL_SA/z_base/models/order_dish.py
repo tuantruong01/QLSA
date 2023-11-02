@@ -17,7 +17,7 @@ class OrderDish(models.Model):
     @api.onchange('dish_id', 'number')
     def onchange_dish_id(self):
         for r in self:
+            r.price_unit = r.dish_id.price_total
             if r.number and r.dish_id:
-                r.price_unit = r.dish_id.price_total
                 r.price = r.price_unit * r.number
 
