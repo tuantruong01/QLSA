@@ -8,16 +8,15 @@ class MealRegister(models.Model):
     _description = 'Dịch vụ'
     _check_company_auto = True
 
-    name_id = fields.Many2one('hr.employee', string=_('Người Đặt'), required=1)
-    name = fields.Char(string=_('Mã Hóa Đơn'), readonly=1)
-    type = fields.Selection([('sing', 'Hát'), ('eat', 'Ăn uống')], string=_('Kiểu Dịch Vụ'), default="eat",
-                            required=True)
+    name_id = fields.Many2one('hr.employee', string=_('Người Đặt'), required=1, check_company=True)
+    name = fields.Char(string=_('Mã Đặt Phòng'), readonly=1)
+    type = fields.Selection([('sing', 'Hát'), ('eat', 'Ăn uống')], string=_('Kiểu Dịch Vụ'), default="eat", required=True)
     state = fields.Selection([('quotes', 'Báo Giá'),
                               ('order', 'Đặt Phòng'),
                               ('pay', 'Thanh Toán'),
                               ('payed', 'Đã Thanh Toán'),
                               ('cancel', 'Hủy')], string='Trạng Thái', default='quotes')
-    room_id = fields.Many2one('tigo.room', string=_('Phòng'), required=True)
+    room_id = fields.Many2one('tigo.room', string=_('Phòng'), required=True, check_company=True)
     start_day = fields.Datetime(string=_("Ngày bắt đầu"), required=True)
     end_day = fields.Datetime(string=_('Ngày kết thúc'), required=True)
     deposit = fields.Integer(string="Tiền cọc", group_operator="avg")
@@ -26,7 +25,7 @@ class MealRegister(models.Model):
     order_dish_ids = fields.One2many('tigo.dish.order', 'order_dish_id', string=_('Đặt Món Ăn'))
     total_price = fields.Integer(string=_('Tổng Giá'), readonly=1, compute='_compute_total_price',store=True)
     comment = fields.Text(string=_('Ghi Chú'))
-    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company, store=True)
 
     def write(self, vals):
         result = super(MealRegister, self).write(vals)

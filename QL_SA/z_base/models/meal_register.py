@@ -15,7 +15,7 @@ class MealRegister(models.Model):
     register = fields.Many2one('res.users',
                                string=_('Người đăng ký'),
                                default=lambda self: self.env.user,
-                               readonly=1)
+                               readonly=1, check_company=True)
     code_employee = fields.Char(string=_('Mã Nhân Viên'), compute='_compute_code_employee')
     number = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người đăng ký'))
     meal_type = fields.Selection([('set', 'Suất'), ('table', 'Bàn')],
@@ -31,7 +31,7 @@ class MealRegister(models.Model):
                               ('cancel', 'Hủy')], string='Trạng Thái', default='draft')
     confirm_dish_ids = fields.One2many('confirm.dish', 'mealregister_id', string=_('Suất ăn'))
     detail_dish = fields.Char(string=_('Chi tiết món'), readonly=1)
-    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company, store=True)
 
     @api.model
     def create(self, vals_list):
