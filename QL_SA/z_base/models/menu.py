@@ -15,13 +15,9 @@ class Menu(models.Model):
     type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'), required=True)
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
     img = fields.Binary(string='Hình ảnh')
-<<<<<<< HEAD
-    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
-    price = fields.Integer(string=_('Giá/Người'), group_operator="avg")
-=======
     company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company, store=True)
     price = fields.Integer(string=_('Giá'), group_operator="avg")
->>>>>>> 09537afabfb2e2b832f8708e7fe56d63cf0ea1f3
+
 
     @api.model
     def create(self, vals_list):
