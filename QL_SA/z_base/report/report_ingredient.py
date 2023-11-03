@@ -97,5 +97,5 @@ class ReportIngredient(models.AbstractModel):
                 total += 0
             row += 1
             stt += 1
-
-        ws.merge_range(row, 0, row, 3, total)
+        ws.merge_range(row, 0, row, 1, 'Tổng', table_header)
+        ws.write(row, 3, total)

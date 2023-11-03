@@ -43,6 +43,10 @@
         'report/report_qty_department.xml',
         'wizard/pop_report_menu_list.xml',
         'report/report_menu_list.xml',
+        'wizard/pop_report_menu.xml',
+        'report/report_menu.xml',
+        'wizard/pop_service_invoice.xml',
+        'report/report_service_invoice.xml',
 
     ],
     'license': 'LGPL-3',

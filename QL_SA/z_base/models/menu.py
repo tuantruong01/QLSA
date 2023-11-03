@@ -16,7 +16,7 @@ class Menu(models.Model):
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
     img = fields.Binary(string='Hình ảnh')
     company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
-    price = fields.Integer(string=_('Giá'), group_operator="avg")
+    price = fields.Integer(string=_('Giá/Người'), group_operator="avg")
 
     @api.model
     def create(self, vals_list):

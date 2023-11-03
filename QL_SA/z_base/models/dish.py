@@ -60,3 +60,9 @@ class Dish(models.Model):
                 if i in r.name:
                     raise ValidationError(_('Tên món ăn không được chứa ký tự đặc biệt'))
 
+    def unlink(self):
+        menu_setting_ids = self.env['tigo.menu.setting'].search([('menu_ids', '=', self.id)])
+        if len(menu_setting_ids) > 0:
+            raise ValidationError(_('Món ăn này đã được sử dụng trong thực đơn!'))
+        return super(Dish, self).unlink()
+

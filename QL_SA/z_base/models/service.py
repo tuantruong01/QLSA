@@ -24,7 +24,7 @@ class MealRegister(models.Model):
     price = fields.Integer(string='Tiền Phòng', readonly=1, group_operator="avg")
     time_use = fields.Integer(string='Giờ Sử Dụng', compute='_compute_time_up')
     order_dish_ids = fields.One2many('tigo.dish.order', 'order_dish_id', string=_('Đặt Món Ăn'))
-    total_price = fields.Integer(string=_('Tổng Giá'), readonly=1, compute='_compute_total_price')
+    total_price = fields.Integer(string=_('Tổng Giá'), readonly=1, compute='_compute_total_price',store=True)
     comment = fields.Text(string=_('Ghi Chú'))
     company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
 
