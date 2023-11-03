@@ -59,7 +59,7 @@
             <field name="name">Thực Đơn Ngày</field>
             <field name="res_model">tigo.menu.setting</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('type','=','day')]</field>
+            <field name="domain">[('type','=','day'),('day','=',context_today().strftime('%Y-%m-%d'))]</field>
             <field name="context">{'default_type': 'day'}</field>
         </record>
         <menuitem name="2. Thực Đơn Ăn Trưa"

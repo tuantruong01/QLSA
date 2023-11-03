@@ -77,7 +77,7 @@ class MealRegister(models.Model):
                 'res_model': 'popup.cmt',
                 'views': [(self.env.ref('z_base.popup_cmt_view').id, 'form')],
                 'target': 'new',
-                }
+            }
 
     def action_payed(self):
         for r in self:
@@ -118,9 +118,11 @@ class MealRegister(models.Model):
                 for line in r.order_dish_ids:
                     r.total_price = r.total_price + line.price
 
-    @api.depends('order_dish_ids.dish_id', 'order_dish_ids.number')
+    @api.depends('order_dish_ids', 'order_dish_ids.number', 'order_dish_ids.dish_id')
     def _compute_total_price(self):
         for r in self:
             if r.order_dish_ids:
-                for line in r.order_dish_ids:
-                    r.total_price = r.total_price + line.price
+                r.total_price = sum(r.order_dish_ids.mapped('price'))
+            else:
+                r.total_price = 0
+
