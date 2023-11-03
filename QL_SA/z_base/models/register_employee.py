@@ -13,7 +13,7 @@ class RegisterEmployee(models.Model):
     code = fields.Char(string="Mã Nhân Viên", related='employee_id.code_employee')
     number_phone = fields.Char(string=_('Số điện thoại'), related='employee_id.mobile_phone')
     menu_id = fields.Many2one('tigo.menu', string=_('Thực đơn'))
-    department_id = fields.Many2one('hr.department', string="Phòng Ban", related='employee_id.department_id', store=True)
+    department_id = fields.Many2one('hr.department', string="Phòng Ban", related='employee_id.department_id', store=True, check_company=True)
     note = fields.Char(string=_('Ghi Chú'))
     person = fields.Boolean(string=_('Người đại diện'))
     company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)

@@ -11,11 +11,11 @@ class Menu(models.Model):
 
     code_menu = fields.Char(string=_('Mã thực đơn'), readonly=1)
     name = fields.Char(string=_('Tên thực đơn'), required=True)
-    dish_ids = fields.Many2many('tigo.dish', 'menu_dish_ref', 'menu_id', 'dish_id', string=_('Món ăn'), required=True)
+    dish_ids = fields.Many2many('tigo.dish', 'menu_dish_ref', 'menu_id', 'dish_id', string=_('Món ăn'), required=True, check_company=True)
     type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'), required=True)
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
     img = fields.Binary(string='Hình ảnh')
-    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company, store=True)
 
     @api.model
     def create(self, vals_list):
@@ -47,7 +47,7 @@ class SettingMenu(models.Model):
     state = fields.Selection([('unactive', 'Chưa kích hoạt'), ('active', 'Đã kích hoạt')], string=_('Trạng Thái'),
                              default="unactive")
     menu_ids = fields.Many2many('tigo.menu', 'setting_menu_ref', 'setting_id', 'menu_id', string=_('Thực Đơn'),
-                                required=1)
+                                required=1, check_company=True)
     day_start = fields.Date(string="Từ ngày", readonly=True)
     day_end = fields.Date(string="Đến ngày", readonly=True)
     type = fields.Selection([('day', 'Ngày'), ('week', 'Tuần')], string="Theo ngày/tuần")
@@ -55,8 +55,8 @@ class SettingMenu(models.Model):
     day = fields.Date(string="Ngày")
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
     detail_dish = fields.Char(string=_('Chi tiết món'), readonly=True)
-    week = fields.Many2one('tigo.week', string='Tuần')
-    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
+    week = fields.Many2one('tigo.week', string='Tuần', check_company=True)
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company, store=True)
 
     def write(self, vals):
         result = super(SettingMenu, self).write(vals)

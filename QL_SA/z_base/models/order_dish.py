@@ -12,7 +12,7 @@ class OrderDish(models.Model):
     price = fields.Integer(string=_('Thành Tiền'), readonly=1)
     price_unit = fields.Integer(string=_('Đơn Giá'), readonly=1)
     note = fields.Text(string='Ghi Chú')
-    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company, store=True)
 
     @api.onchange('dish_id', 'number')
     def onchange_dish_id(self):

@@ -6,6 +6,7 @@ from datetime import timedelta
 class Room(models.Model):
     _name = 'tigo.room'
     _description = 'Phòng'
+    _check_company_auto = True
 
     code_room = fields.Char(string=_('Mã Phòng'), readonly=1)
     name = fields.Char(string=_('Tên Phòng'), required=True)
@@ -15,7 +16,7 @@ class Room(models.Model):
     price = fields.Integer(string=_('Giá Phòng / Giờ'), group_operator="avg")
     level = fields.Selection([('normal', 'Phòng thường'), ('vip', 'Phòng VIP')], string=_('Kiểu Phòng'),
                              default="normal", required=True)
-    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company, store=True)
 
     @api.model
     def create(self, vals_list):
@@ -41,7 +42,7 @@ class Week(models.Model):
     name = fields.Char(string='Tuần', required=1)
     begin = fields.Date(string='Từ ngày', required=1)
     end = fields.Date(string='Đến ngày', readonly=1)
-    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company, store=True)
 
     @api.onchange('begin')
     def onchange_begin(self):
