@@ -70,13 +70,13 @@ class MealRegister(models.Model):
                         'department': line.employee_id.department_id.id if line.employee_id.department_id.id else False,
                         'date_register': r.date
                     })
-            if r.client_meal_register_ids:
-                for line in r.client_meal_register_ids:
-                    self.env['confirm.dish'].create({
-                        'mealregister_id': r.id,
-                        'employee_id': line.partner_id.name,
-                        'date_register': r.date
-                    })
+            # if r.client_meal_register_ids:
+            #     for line in r.client_meal_register_ids:
+            #         self.env['confirm.dish'].create({
+            #             'mealregister_id': r.id,
+            #             'employee_id': line.partner_id.name,
+            #             'date_register': r.date
+            #         })
 
     def action_cancel(self):
         for r in self:

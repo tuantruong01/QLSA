@@ -9,7 +9,7 @@ class MealRegister(models.Model):
     _check_company_auto = True
 
     name_id = fields.Many2one('hr.employee', string=_('Người Đặt'), required=1, check_company=True)
-    name = fields.Char(string=_('Mã Đặt Phòng'), readonly=1)
+    name = fields.Char(string=_('Mã Hóa Đơn'), readonly=1)
     type = fields.Selection([('sing', 'Hát'), ('eat', 'Ăn uống')], string=_('Kiểu Dịch Vụ'), default="eat", required=True)
     state = fields.Selection([('quotes', 'Báo Giá'),
                               ('order', 'Đặt Phòng'),
