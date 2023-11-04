@@ -23,7 +23,7 @@
             </field>
         </record>
         <record id="report_menu_action" model="ir.actions.act_window">
-            <field name="name">Báo Cáo Thực Đơn</field>
+            <field name="name">Báo Cáo Thực Đơn Theo Ngày/Tuần</field>
             <field name="res_model">popup.report.menu</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>

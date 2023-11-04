@@ -125,6 +125,12 @@ class ReportMenu(models.AbstractModel):
                     dict_data[r['id']]['thuc_don'] += ',' + r['thuc_don']
             else:
                 dict_data[r['id']] = r
+            if r['id'] in dict_data:
+                if r['week']:
+                    dict_data[r['id']]['week'] = (r['week'] + '(' + r['day_start'].strftime("%d-%m-%Y") + ' đến ' +
+                                                  r['day_end'].strftime("%d-%m-%Y") + ')')
+            else:
+                dict_data[r['id']] = r
         print(dict_data)
         for data in dict_data.values():
             ws.write(row, 0, stt, table_content)
