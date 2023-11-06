@@ -94,11 +94,24 @@
                 </form>
             </field>
         </record>
+        <record id="view_quotes_search" model="ir.ui.view">
+            <field name="name">tigo.service.search</field>
+            <field name="model">tigo.service</field>
+            <field name="arch" type="xml">
+                <search string="Ngày Hôm Nay">
+                    <filter string="Ngày Hôm Nay" name="today_quotes"
+                            domain="[('state', '=', 'quotes'), ('end_day', '>=', context_today().strftime('%Y-%m-%d'))]"/>
+                </search>
+            </field>
+        </record>
+
         <record id="quotes_service_view" model="ir.actions.act_window">
             <field name="name">Báo Giá</field>
             <field name="res_model">tigo.service</field>
             <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_quotes_search"/>
             <field name="domain">[('|'), ('state', '=', 'cancel'), ('state', '=', 'quotes')]</field>
+            <field name="context">{'search_default_today_quotes': 1}</field>
         </record>
         <menuitem name="3.1 Báo Giá"
                   id="quotes_service"

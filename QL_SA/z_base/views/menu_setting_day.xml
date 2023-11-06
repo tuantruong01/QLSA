@@ -55,12 +55,23 @@
                 </form>
             </field>
         </record>
+        <record id="view_menu_day_search" model="ir.ui.view">
+            <field name="name">tigo.menu.setting.search</field>
+            <field name="model">tigo.menu.setting</field>
+            <field name="arch" type="xml">
+                <search string="Ngày Hôm Nay">
+                    <filter string="Ngày Hôm Nay" name="today" domain="[('type','=','day'),('day', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                </search>
+            </field>
+        </record>
+
         <record id="action_menu_day_view" model="ir.actions.act_window">
             <field name="name">Thực Đơn Ngày</field>
             <field name="res_model">tigo.menu.setting</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('type','=','day'),('day','=',context_today().strftime('%Y-%m-%d'))]</field>
-            <field name="context">{'default_type': 'day'}</field>
+            <field name="search_view_id" ref="view_menu_day_search"/>
+            <field name="domain">[('type','=','day')]</field>
+            <field name="context">{'default_type': 'day', 'search_default_my_quotation': 1}</field>
         </record>
         <menuitem name="2. Thực Đơn Ăn Trưa"
                   id="root_menu"

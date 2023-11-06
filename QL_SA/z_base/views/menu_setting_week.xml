@@ -51,13 +51,24 @@
                 </form>
             </field>
         </record>
+        <record id="view_menu_week_search" model="ir.ui.view">
+            <field name="name">tigo.menu.setting.search</field>
+            <field name="model">tigo.menu.setting</field>
+            <field name="arch" type="xml">
+                <search string="Ngày Hôm Nay">
+                    <filter string="Ngày Hôm Nay" name="today"
+                            domain="[('type','=','week'),('day_end', '>=', context_today().strftime('%Y-%m-%d'))]"/>
+                </search>
+            </field>
+        </record>
         <record id="action_menu_week_view" model="ir.actions.act_window">
             <field name="name">Thực Đơn Tuần</field>
             <field name="res_model">tigo.menu.setting</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="menu_week_tree"/>
             <field name="domain">[('type','=','week')]</field>
-            <field name="context">{'default_type': 'week'}</field>
+            <field name="search_view_id" ref="view_menu_week_search"/>
+            <field name="context">{'default_type': 'week', 'search_default_today': 1}</field>
         </record>
 
         <menuitem name="2.2 Thực Đơn Tuần"

@@ -7,7 +7,6 @@ class HrEmployeeInherit(models.Model):
     code_employee = fields.Char(string=_('Mã nhân viên'), readonly=1)
     company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
 
-    _sql_constraints = [('code_employee', 'unique(code_employee)', 'Không Được Đặt Trùng Mã Nhân Viên')]
 
     @api.model
     def create(self, vals_list):
