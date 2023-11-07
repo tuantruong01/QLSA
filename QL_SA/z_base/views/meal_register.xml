@@ -87,12 +87,24 @@
                 </form>
             </field>
         </record>
+        <record id="view_tigo_mealregister_search" model="ir.ui.view">
+            <field name="name">tigo.mealregister.search</field>
+            <field name="model">tigo.mealregister</field>
+            <field name="arch" type="xml">
+                <search string="Ngày Hôm Nay">
+                    <filter string="Ngày Hôm Nay" name="today"
+                            domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                </search>
+            </field>
+        </record>
+
         <record id="meal_register_view" model="ir.actions.act_window">
             <field name="name">Đăng ký suất ăn</field>
             <field name="res_model">tigo.mealregister</field>
             <field name="view_id" ref="meal_register_tree"/>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
+            <field name="context">{'search_default_today': 1}</field>
         </record>
         <menuitem name="Quản Lý Suất Ăn"
                   id="meal_manegent_menu"

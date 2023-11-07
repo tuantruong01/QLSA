@@ -99,7 +99,7 @@
             <field name="model">tigo.service</field>
             <field name="arch" type="xml">
                 <search string="Ngày Hôm Nay">
-                    <filter string="Ngày Hôm Nay" name="today_quotes"
+                    <filter string="Còn hạn" name="today_quotes"
                             domain="[('state', '=', 'quotes'), ('end_day', '>=', context_today().strftime('%Y-%m-%d'))]"/>
                 </search>
             </field>

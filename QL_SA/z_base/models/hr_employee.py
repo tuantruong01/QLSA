@@ -7,7 +7,6 @@ class HrEmployeeInherit(models.Model):
     code_employee = fields.Char(string=_('Mã nhân viên'), readonly=1)
     company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
 
-
     @api.model
     def create(self, vals_list):
         res = super(HrEmployeeInherit, self).create(vals_list)

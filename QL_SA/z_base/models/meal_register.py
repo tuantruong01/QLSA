@@ -62,6 +62,10 @@ class MealRegister(models.Model):
                 elif total < 6:
                     raise ValidationError(_('Số Người Đăng Ký Phải Bằng Số Nguời/Bàn Đặt'))
             r.state = 'done'
+            data = self.env['confirm.dish'].search(
+                [('date_register', '=', r.date), ('employee_id', '=', r.employee_meal_register_ids[0].employee_id.name)])
+            if len(data) > 0:
+                raise ValidationError(_('Nhân Viên đã đăng ký!'))
             if r.employee_meal_register_ids:
                 for line in r.employee_meal_register_ids:
                     self.env['confirm.dish'].create({
