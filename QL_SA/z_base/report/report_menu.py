@@ -37,6 +37,10 @@ class ReportMenu(models.AbstractModel):
                     OR 
                         (tms.day_end::date between '{records.begin}' and '{records.end}')
                     OR
+                        ('{records.begin}'::date between tms.day_start and tms.day_end)
+                    OR 
+                        ('{records.end}'::date between tms.day_start and tms.day_end)
+                    OR
                         tms.day::date between '{records.begin}' and '{records.end}'
             """
         self.env.cr.execute(sql)

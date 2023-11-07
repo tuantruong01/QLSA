@@ -77,8 +77,6 @@
                                         <field name="menu_id"
                                                attrs="{'column_invisible': [('parent.meal_type', '=', 'table')], 'required': [('parent.meal_type', '=', 'set')]}"/>
                                         <field name="note"/>
-                                        <field name="person"
-                                               attrs="{'column_invisible': [('parent.meal_type', '!=', 'table')]}"/>
                                     </tree>
                                 </field>
                             </page>

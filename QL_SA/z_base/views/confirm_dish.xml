@@ -5,7 +5,7 @@
             <field name="name">confirm_dish_view_form</field>
             <field name="model">confirm.dish</field>
             <field name="arch" type="xml">
-                <form string="Suất ăn" create="false" edit="false">
+                <form string="Suất ăn" create="false" edit="false" delete="false">
                     <sheet>
                         <div class="oe_title oe_inline">
                             <label for="name"/>

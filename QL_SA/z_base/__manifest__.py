@@ -26,6 +26,7 @@
 
         'views/menu_set.xml',
         'views/menu_table.xml',
+        'views/customer.xml',
         'views/week.xml',
         'views/dish.xml',
         'views/product_product_inherit_views.xml',

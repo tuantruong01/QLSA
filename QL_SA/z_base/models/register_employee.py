@@ -59,17 +59,16 @@ class RegisterEmployee(models.Model):
 
 class Client(models.Model):
     _name = 'tigo.register.client'
-    _description = 'Đăng ký Khách Hàng'
+    _description = 'Đăng Ký Khách Hàng'
     # _check_company_auto = True
 
     registration_id = fields.Many2one('tigo.mealregister', string=_('Đăng ký suất ăn'))
     menu_id = fields.Many2one('tigo.menu', string=_('Thực đơn'))
-    partner_id = fields.Many2one('res.partner', string=_('Tên khách hàng'))
+    partner_id = fields.Many2one('res.customer', string=_('Tên khách hàng'))
     phone_client = fields.Char(string=_('Số điện thoại'), related='partner_id.phone')
-    company = fields.Char(string=_('Tên công ty'), related='partner_id.company_id.name')
-    position = fields.Char(string=_('Chức danh'), related='partner_id.function')
+    company = fields.Char(string=_('Tên công ty'), related='partner_id.company')
+    position = fields.Char(string=_('Chức danh'), related='partner_id.position')
     note = fields.Char(string="Ghi chú")
-    person = fields.Boolean(string=_('Người đại diện'))
 
     @api.onchange('menu_id', 'registration_id.meal_type', 'registration_id.date')
     def onchange_menu_id(self):
