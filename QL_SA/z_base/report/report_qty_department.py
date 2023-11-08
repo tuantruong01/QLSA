@@ -21,6 +21,7 @@ class ReportQtyDepartment(models.AbstractModel):
                 WHERE
                      tm.DATE::date between '{records.begin}' and '{records.end}'
                      and tdr.department_id is not null
+                     and tdr.company_id = {self.env.company.id}
                 GROUP BY
                     hd.ID,
                     hd.NAME

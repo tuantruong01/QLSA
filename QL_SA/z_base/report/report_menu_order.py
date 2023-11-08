@@ -15,6 +15,8 @@ class ReportMenuOrder(models.AbstractModel):
              from confirm_dish cd
              left join hr_department hd on cd.department = hd.id 
                 where cd.date_register::date between '{records.begin}' and '{records.end}'
+                    AND cd.company_id = {self.env.company.id}
+
         """
         self.env.cr.execute(sql)
         datas = self.env.cr.dictfetchall()
@@ -94,6 +96,6 @@ class ReportMenuOrder(models.AbstractModel):
             ws.write(row, 2, data.get('employee_id', ''), table_left)
             ws.write(row, 3, data.get('phong_ban', ''), table_left)
             ws.write(row, 4, data.get('date_register', '').strftime("%d-%m-%Y"), table_content)
-            ws.write(row, 5, check, table_content)
+            ws.write(row, 5, check, table_left)
             row += 1
             stt += 1

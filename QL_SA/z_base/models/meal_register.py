@@ -49,11 +49,14 @@ class MealRegister(models.Model):
 
     def action_register(self):
         for r in self:
-            check_customer = self.env['confirm.dish'].search(
-                [('date_register', '=', r.date),
-                 ('employee_id', '=', r.client_meal_register_ids[0].partner_id.name)])
-            if len(check_customer) > 0:
-                raise ValidationError(_('Khách hàng đã được đăng ký!'))
+            # check_customer = self.env['confirm.dish'].search(
+            #     [('date_register', '=', r.date)])
+            # for line in check_customer:
+            #     if line.employee_id == r.client_meal_register_ids[0].partner_id.name:
+            #         raise ValidationError(_('Khách Hàng Đã Được Đăng Ký'))
+            #     elif line.employee_id == r.employee_meal_register_ids[0].employee_id.name:
+            #         raise ValidationError(_('Nhân Viên Đã Đăng Ký'))
+
             if r.number == 'four':
                 total = len(r.client_meal_register_ids) + len(r.employee_meal_register_ids)
                 if total > 4:
@@ -67,11 +70,6 @@ class MealRegister(models.Model):
                 elif total < 6:
                     raise ValidationError(_('Số Người Đăng Ký Phải Bằng Số Nguời/Bàn Đặt'))
             r.state = 'done'
-            check_employee = self.env['confirm.dish'].search(
-                [('date_register', '=', r.date), ('employee_id', '=', r.employee_meal_register_ids[0].employee_id.name)])
-            if len(check_employee) > 0:
-                raise ValidationError(_('Nhân Viên đã đăng ký!'))
-
 
             if r.employee_meal_register_ids:
                 for line in r.employee_meal_register_ids:

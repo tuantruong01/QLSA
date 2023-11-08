@@ -23,6 +23,8 @@ class ReportIngredient(models.AbstractModel):
              FROM product_template pt
              Left join product_category pc on pc.id = pt.categ_id
              where {category}
+                AND pt.company_id = {self.env.company.id}
+
         """
         self.env.cr.execute(sql)
         datas = self.env.cr.dictfetchall()
@@ -71,6 +73,15 @@ class ReportIngredient(models.AbstractModel):
             'font_size': 11,
             'italic': 1
         })
+        table_right = workbook.add_format({
+            'bold': 0,
+            'text_wrap': 1,
+            'align': 'right',
+            'valign': 'vcenter',
+            'border': 1,
+            'font_name': 'Times New Roman',
+            'font_size': 11
+        })
         ws.set_column(0, 0, 30)
         ws.set_column(1, 1, 30)
         ws.set_column(2, 2, 30)
@@ -88,9 +99,9 @@ class ReportIngredient(models.AbstractModel):
         total = 0
         for r in datas:
             ws.write(row, 0, stt, table_content)
-            ws.write(row, 1, r.get('ten_nl', ''), table_content)
-            ws.write(row, 2, r.get("name", ''), table_content)
-            ws.write(row, 3, r.get("list_price", 0), table_content)
+            ws.write(row, 1, r.get('ten_nl', ''), table_left)
+            ws.write(row, 2, r.get("name", ''), table_left)
+            ws.write(row, 3, r.get("list_price", 0), table_right)
             if r['list_price']:
                 total += r.get("list_price", 0)
             else:
@@ -98,4 +109,4 @@ class ReportIngredient(models.AbstractModel):
             row += 1
             stt += 1
         ws.merge_range(row, 0, row, 1, 'Tổng', table_header)
-        ws.write(row, 3, total)
+        ws.write(row, 3, total,table_right)

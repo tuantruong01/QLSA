@@ -22,6 +22,8 @@ class ReportServiceInvoice(models.AbstractModel):
                         (ts.end_day::date between '{records.begin}' and '{records.end}'))
                     AND
                         ts.state = 'payed'
+                    AND
+                        ts.company_id = {self.env.company.id}
         """
         self.env.cr.execute(sql)
         datas = self.env.cr.dictfetchall()

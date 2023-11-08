@@ -25,6 +25,8 @@ class ReportMenuList(models.AbstractModel):
                     LEFT JOIN tigo_menu tm1 ON tdr.menu_id = tm1.ID 
                 WHERE
                     tm.DATE::date between '{records.begin}' and '{records.end}'
+                    AND tdr.company_id = {self.env.company.id}
+
                 GROUP BY
                     tdr.menu_id,
                     tm1.NAME,
@@ -111,7 +113,7 @@ class ReportMenuList(models.AbstractModel):
             ws.write(row, 1, stt, table_content)
             ws.write(row, 2, data.get('code_menu', ''), table_left)
             ws.write(row, 3, data.get('name', ''), table_left)
-            ws.write(row, 4, data.get('type', ''), table_content)
+            ws.write(row, 4, data.get('type', ''), table_left)
             ws.write(row, 5, data.get('sl', ''), table_right)
             row += 1
             stt += 1
