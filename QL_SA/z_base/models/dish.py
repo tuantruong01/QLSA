@@ -50,7 +50,7 @@ class Dish(models.Model):
     @api.constrains('name')
     def check_name(self):
         for r in self:
-            dish_id = self.env['tigo.dish'].search([('name', '=', r.name)])
+            dish_id = self.env['tigo.dish'].search([('name', '=', r.name), ('company_id', '=', self.env.company.id)])
             if len(dish_id) > 1:
                 raise ValidationError(_('Món ăn đã tồn tại!'))
             if len(r.name) > 50:

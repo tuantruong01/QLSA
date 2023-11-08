@@ -44,7 +44,8 @@ class RegisterEmployee(models.Model):
     def check_employee_id(self):
         for r in self:
             data = self.env['confirm.dish'].search(
-                [('date_register', '=', r.registration_id.date), ('employee_id', '=', r.employee_id.name)])
+                [('date_register', '=', r.registration_id.date), ('employee_id', '=', r.employee_id.name),
+                 ('company_id', '=', self.env.company.id)])
             if len(data) > 0:
                 raise ValidationError(_('Nhân Viên đã đăng ký!'))
 
@@ -96,6 +97,6 @@ class Client(models.Model):
     def check_partner(self):
         for r in self:
             data = self.env['confirm.dish'].search(
-                [('date_register', '=', r.registration_id.date), ('employee_id', '=', r.partner_id.name)])
+                [('date_register', '=', r.registration_id.date), ('employee_id', '=', r.partner_id.name), ('company_id', '=', self.env.company.id)])
             if len(data) > 0:
                 raise ValidationError(_('Khách hàng đã được đăng ký!'))
