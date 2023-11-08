@@ -60,7 +60,7 @@ class RegisterEmployee(models.Model):
 class Client(models.Model):
     _name = 'tigo.register.client'
     _description = 'Đăng Ký Khách Hàng'
-    # _check_company_auto = True
+    _check_company_auto = True
 
     registration_id = fields.Many2one('tigo.mealregister', string=_('Đăng ký suất ăn'))
     menu_id = fields.Many2one('tigo.menu', string=_('Thực đơn'))
@@ -91,3 +91,11 @@ class Client(models.Model):
             else:
                 menu = []
                 return {'domain': {'menu_id': [('id', 'in', menu)]}}
+
+    @api.constrains('partner_id')
+    def check_partner(self):
+        for r in self:
+            data = self.env['confirm.dish'].search(
+                [('date_register', '=', r.registration_id.date), ('employee_id', '=', r.partner_id.name)])
+            if len(data) > 0:
+                raise ValidationError(_('Khách hàng đã được đăng ký!'))
