@@ -33,7 +33,7 @@ class ReportMenu(models.AbstractModel):
                     LEFT JOIN setting_menu_ref smr on tms.id = smr.setting_id
                     Left JOIN tigo_menu tm on smr.menu_id = tm.id
                 WHERE
-                    (tms.day_start::date between '{records.begin}' and '{records.end}')
+                    ((tms.day_start::date between '{records.begin}' and '{records.end}')
                     OR 
                         (tms.day_end::date between '{records.begin}' and '{records.end}')
                     OR
@@ -41,7 +41,8 @@ class ReportMenu(models.AbstractModel):
                     OR 
                         ('{records.end}'::date between tms.day_start and tms.day_end)
                     OR
-                        tms.day::date between '{records.begin}' and '{records.end}'
+                        tms.day::date between '{records.begin}' and '{records.end}')
+                    AND tms.company_id = {self.env.company.id}
             """
         self.env.cr.execute(sql)
         print(sql)
@@ -145,6 +146,6 @@ class ReportMenu(models.AbstractModel):
                 ws.write(row, 4, data.get('week', ' '), table_content)
             else:
                 ws.write(row, 4, data.get('day', '').strftime("%d-%m-%Y"), table_content)
-            ws.write(row, 5, data.get('state', ''), table_content)
+            ws.write(row, 5, data.get('state', ''), table_left)
             row += 1
             stt += 1
