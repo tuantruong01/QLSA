@@ -36,4 +36,76 @@
         <field name="groups" eval="[(4, ref('group_canteen_manager'))]"/>
     </record>
 
+
+
+    <record id="confirm_dish_rule" model="ir.rule">
+        <field name="name">Account Root multi-company</field>
+        <field name="model_id" ref="model_confirm_dish"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="tigo_room_rule" model="ir.rule">
+        <field name="name">Account Root multi-company</field>
+        <field name="model_id" ref="model_tigo_room"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="tigo_week_rule" model="ir.rule">
+        <field name="name">Account Root multi-company</field>
+        <field name="model_id" ref="model_tigo_week"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="tigo_dish_rule" model="ir.rule">
+        <field name="name">Account Root multi-company</field>
+        <field name="model_id" ref="model_tigo_dish"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="tigo_mealregister_rule" model="ir.rule">
+        <field name="name">Account Root multi-company</field>
+        <field name="model_id" ref="model_tigo_mealregister"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="tigo_menu_rule" model="ir.rule">
+        <field name="name">Account Root multi-company</field>
+        <field name="model_id" ref="model_tigo_menu"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="tigo_menu_setting_rule" model="ir.rule">
+        <field name="name">Account Root multi-company</field>
+        <field name="model_id" ref="model_tigo_menu_setting"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="tigo_dish_order_rule" model="ir.rule">
+        <field name="name">Account Root multi-company</field>
+        <field name="model_id" ref="model_tigo_dish_order"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+    <record id="tigo_detailed_registration_rule" model="ir.rule">
+        <field name="name">Account Root multi-company</field>
+        <field name="model_id" ref="model_tigo_detailed_registration"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+
+<!--     <record id="tigo_register_client_rule" model="ir.rule">-->
+<!--        <field name="name">Account Root multi-company</field>-->
+<!--        <field name="model_id" ref="model_tigo_register_client"/>-->
+<!--        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>-->
+<!--    </record>-->
+
+     <record id="tigo_service_rule" model="ir.rule">
+        <field name="name">Account Root multi-company</field>
+        <field name="model_id" ref="model_tigo_service"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
+    <record id="customer_rule" model="ir.rule">
+        <field name="name">Account Root multi-company</field>
+        <field name="model_id" ref="model_res_customer"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
 </odoo>

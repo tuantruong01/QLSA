@@ -8,7 +8,7 @@
     'category': 'Accounting/Accounting',
     'website': 'https://www.odoo.com/app/invoicing',
     'depends': [
-        'base', 'hr', 'point_of_sale', 'product', 'report_xlsx'
+        'base', 'hr', 'point_of_sale', 'product', 'report_xlsx', 'sale'
     ],
     'data': [
         'security/qlsa_security.xml',
@@ -26,6 +26,7 @@
 
         'views/menu_set.xml',
         'views/menu_table.xml',
+        'views/customer.xml',
         'views/week.xml',
         'views/dish.xml',
         'views/product_product_inherit_views.xml',
@@ -37,6 +38,16 @@
         'datas/sequence.xml',
         'wizard/popup_report_menu_oder.xml',
         'report/report_menu_order.xml',
+        'report/report_ingredient.xml',
+        'wizard/popup_report_ingredient.xml',
+        'wizard/pop_qty_department.xml',
+        'report/report_qty_department.xml',
+        'wizard/pop_report_menu_list.xml',
+        'report/report_menu_list.xml',
+        'wizard/pop_report_menu.xml',
+        'report/report_menu.xml',
+        'wizard/pop_service_invoice.xml',
+        'report/report_service_invoice.xml',
 
     ],
     'license': 'LGPL-3',

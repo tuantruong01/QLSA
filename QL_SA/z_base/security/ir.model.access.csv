@@ -21,8 +21,19 @@ access_tigo_register_client,tigo_register_client,model_tigo_register_client,,1,1
 access_tigo_week,tigo_week,model_tigo_week,,1,1,1,1
 access_confirm_dish,confirm_dish,model_confirm_dish,,1,1,1,1
 access_tigo_dish_order,tigo_dish_order,model_tigo_dish_order,,1,1,1,1
+access_res_customer,res_customer,model_res_customer,,1,1,1,1
+
+
 access_popup,popup,model_popup_cmt,,1,1,1,1
 access_popup_report_menu_oder,popup_report_menu_oder,model_popup_report_menu_oder,,1,1,1,1
+access_popup_report_ingredient,popup_report_ingredient,model_popup_report_ingredient,,1,1,1,1
+access_popup_report_qty_department,popup_report_qty_department,model_popup_report_qty_department,,1,1,1,1
+access_popup_menu_list,popup_menu_list,model_popup_menu_list,,1,1,1,1
+access_popup_report_menu,popup_report_menu,model_popup_report_menu,,1,1,1,1
+access_popup_report_service_invoice,popup_report_service_invoice,model_popup_report_service_invoice,,1,1,1,1
+
+
+
 
 
 

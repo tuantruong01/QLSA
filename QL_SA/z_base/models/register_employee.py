@@ -6,15 +6,17 @@ from odoo.exceptions import ValidationError
 class RegisterEmployee(models.Model):
     _name = 'tigo.detailed.registration'
     _description = 'Đăng ký Nhân Viên'
+    _check_company_auto = True
 
     registration_id = fields.Many2one('tigo.mealregister', string=_('Đăng ký suất ăn'))
     employee_id = fields.Many2one('hr.employee', string='Tên Nhân Viên')
     code = fields.Char(string="Mã Nhân Viên", related='employee_id.code_employee')
     number_phone = fields.Char(string=_('Số điện thoại'), related='employee_id.mobile_phone')
     menu_id = fields.Many2one('tigo.menu', string=_('Thực đơn'))
-    department_id = fields.Many2one('hr.department', string="Phòng Ban", related='employee_id.department_id')
+    department_id = fields.Many2one('hr.department', string="Phòng Ban", related='employee_id.department_id', store=True, check_company=True)
     note = fields.Char(string=_('Ghi Chú'))
     person = fields.Boolean(string=_('Người đại diện'))
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
 
     @api.onchange('menu_id', 'registration_id.meal_type', 'registration_id.date')
     def onchange_employee_meal_register_ids(self):
@@ -42,7 +44,8 @@ class RegisterEmployee(models.Model):
     def check_employee_id(self):
         for r in self:
             data = self.env['confirm.dish'].search(
-                [('date_register', '=', r.registration_id.date), ('employee_id', '=', r.employee_id.name)])
+                [('date_register', '=', r.registration_id.date), ('employee_id', '=', r.employee_id.name),
+                 ('company_id', '=', self.env.company.id)])
             if len(data) > 0:
                 raise ValidationError(_('Nhân Viên đã đăng ký!'))
 
@@ -57,16 +60,16 @@ class RegisterEmployee(models.Model):
 
 class Client(models.Model):
     _name = 'tigo.register.client'
-    _description = 'Đăng ký Khách Hàng'
+    _description = 'Đăng Ký Khách Hàng'
+    _check_company_auto = True
 
     registration_id = fields.Many2one('tigo.mealregister', string=_('Đăng ký suất ăn'))
     menu_id = fields.Many2one('tigo.menu', string=_('Thực đơn'))
-    partner_id = fields.Many2one('res.partner', string=_('Tên khách hàng'))
+    partner_id = fields.Many2one('res.customer', string=_('Tên khách hàng'))
     phone_client = fields.Char(string=_('Số điện thoại'), related='partner_id.phone')
-    company = fields.Char(string=_('Tên công ty'), related='partner_id.company_id.name')
-    position = fields.Char(string=_('Chức danh'), related='partner_id.function')
+    company = fields.Char(string=_('Tên công ty'), related='partner_id.company')
+    position = fields.Char(string=_('Chức danh'), related='partner_id.position')
     note = fields.Char(string="Ghi chú")
-    person = fields.Boolean(string=_('Người đại diện'))
 
     @api.onchange('menu_id', 'registration_id.meal_type', 'registration_id.date')
     def onchange_menu_id(self):
@@ -89,3 +92,11 @@ class Client(models.Model):
             else:
                 menu = []
                 return {'domain': {'menu_id': [('id', 'in', menu)]}}
+
+    @api.constrains('partner_id')
+    def check_partner(self):
+        for r in self:
+            data = self.env['confirm.dish'].search(
+                [('date_register', '=', r.registration_id.date), ('employee_id', '=', r.partner_id.name), ('company_id', '=', self.env.company.id)])
+            if len(data) > 0:
+                raise ValidationError(_('Khách hàng đã được đăng ký!'))

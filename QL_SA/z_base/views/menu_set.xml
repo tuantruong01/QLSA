@@ -9,6 +9,7 @@
                     <field name="name"/>
                     <field name="type_menu"/>
                     <field name="dish_ids" widget="many2many_tags"/>
+                    <field name="price"/>
                 </tree>
             </field>
         </record>
@@ -27,12 +28,14 @@
                         <group>
                             <group>
                                 <field name="code_menu"/>
+                                <field name="company_id" invisible="1"/>
                                 <field name="dish_ids" widget="many2many_tags"/>
                             </group>
                             <group>
                                 <field name="type_menu"/>
                                 <field name="number_of_people"
                                        attrs="{'invisible': [('type_menu','!=','table')], 'required': [('type_menu','=','table')]}"/>
+                                <field name="price"/>
                             </group>
                         </group>
                     </sheet>
@@ -62,6 +65,11 @@
                                     <div name="list_dish" class="mt-1">
                                         Món:
                                         <field name="dish_ids" widget="many2many_tags"/>
+                                    </div>
+                                    <div t-if="record.price.value" class="text-muted">
+                                        Giá:
+                                        <field name="price"/>
+                                        VNĐ
                                     </div>
                                 </div>
                             </div>

@@ -6,24 +6,34 @@ from datetime import datetime, timedelta
 class MealRegister(models.Model):
     _name = 'tigo.service'
     _description = 'Dịch vụ'
+    _check_company_auto = True
 
-    name_id = fields.Many2one('hr.employee', string=_('Người Đặt'), required=1)
-    name = fields.Char(string=_('Mã Đặt Phòng'), readonly=1)
+    name_id = fields.Many2one('hr.employee', string=_('Người Đặt'), required=1, check_company=True)
+    name = fields.Char(string=_('Mã Hóa Đơn'), readonly=1)
     type = fields.Selection([('sing', 'Hát'), ('eat', 'Ăn uống')], string=_('Kiểu Dịch Vụ'), default="eat", required=True)
     state = fields.Selection([('quotes', 'Báo Giá'),
                               ('order', 'Đặt Phòng'),
                               ('pay', 'Thanh Toán'),
                               ('payed', 'Đã Thanh Toán'),
                               ('cancel', 'Hủy')], string='Trạng Thái', default='quotes')
-    room_id = fields.Many2one('tigo.room', string=_('Phòng'), required=True)
+    room_id = fields.Many2one('tigo.room', string=_('Phòng'), required=True, check_company=True)
     start_day = fields.Datetime(string=_("Ngày bắt đầu"), required=True)
     end_day = fields.Datetime(string=_('Ngày kết thúc'), required=True)
     deposit = fields.Integer(string="Tiền cọc", group_operator="avg")
     price = fields.Integer(string='Tiền Phòng', readonly=1, group_operator="avg")
     time_use = fields.Integer(string='Giờ Sử Dụng', compute='_compute_time_up')
     order_dish_ids = fields.One2many('tigo.dish.order', 'order_dish_id', string=_('Đặt Món Ăn'))
-    total_price = fields.Integer(string=_('Tổng Giá'), readonly=1, compute='_compute_total_price')
+    total_price = fields.Integer(string=_('Tổng Giá'), readonly=1, compute='_compute_total_price',store=True)
     comment = fields.Text(string=_('Ghi Chú'))
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company, store=True)
+
+    def write(self, vals):
+        result = super(MealRegister, self).write(vals)
+        if self.name:
+            return result
+        else:
+            self.name = self.env['ir.sequence'].next_by_code('tigo.service')
+            return result
 
     @api.model
     def create(self, vals_list):
@@ -67,7 +77,7 @@ class MealRegister(models.Model):
                 'res_model': 'popup.cmt',
                 'views': [(self.env.ref('z_base.popup_cmt_view').id, 'form')],
                 'target': 'new',
-                }
+            }
 
     def action_payed(self):
         for r in self:
@@ -108,9 +118,11 @@ class MealRegister(models.Model):
                 for line in r.order_dish_ids:
                     r.total_price = r.total_price + line.price
 
-    @api.depends('order_dish_ids.dish_id', 'order_dish_ids.number')
+    @api.depends('order_dish_ids', 'order_dish_ids.number', 'order_dish_ids.dish_id')
     def _compute_total_price(self):
         for r in self:
             if r.order_dish_ids:
-                for line in r.order_dish_ids:
-                    r.total_price = r.total_price + line.price
+                r.total_price = sum(r.order_dish_ids.mapped('price'))
+            else:
+                r.total_price = 0
+

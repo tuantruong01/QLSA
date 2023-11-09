@@ -9,3 +9,5 @@ from . import confirm_dish
 from . import order_dish
 from . import popup
 from . import product_product
+from . import ir_sequence
+from . import customer

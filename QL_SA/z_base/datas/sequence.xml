@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+    <data noupdate="1">
         <record id="sequence_tigo_mealregister" model="ir.sequence">
             <field name="name">Đăng ký bữa ăn</field>
             <field name="code">tigo.mealregister</field>
@@ -61,6 +61,14 @@
             <field name="name">Xac nhan an</field>
             <field name="code">confirm.dish</field>
             <field name="prefix">XNA/</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+        <record id="res_customer" model="ir.sequence">
+            <field name="name">Khách Hàng</field>
+            <field name="code">res.customer</field>
+            <field name="prefix">KH</field>
             <field name="padding">5</field>
             <field name="number_next">1</field>
             <field name="number_increment">1</field>

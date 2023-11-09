@@ -9,12 +9,13 @@ from datetime import datetime
 class MealRegister(models.Model):
     _name = 'tigo.mealregister'
     _description = 'Đăng ký bữa ăn'
+    _check_company_auto = True
 
     name = fields.Char(string=_('Mã suất ăn'), readonly=True)
     register = fields.Many2one('res.users',
                                string=_('Người đăng ký'),
                                default=lambda self: self.env.user,
-                               readonly=1)
+                               readonly=1, check_company=True)
     code_employee = fields.Char(string=_('Mã Nhân Viên'), compute='_compute_code_employee')
     number = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người đăng ký'))
     meal_type = fields.Selection([('set', 'Suất'), ('table', 'Bàn')],
@@ -30,6 +31,7 @@ class MealRegister(models.Model):
                               ('cancel', 'Hủy')], string='Trạng Thái', default='draft')
     confirm_dish_ids = fields.One2many('confirm.dish', 'mealregister_id', string=_('Suất ăn'))
     detail_dish = fields.Char(string=_('Chi tiết món'), readonly=1)
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company, store=True)
 
     @api.model
     def create(self, vals_list):
@@ -47,6 +49,14 @@ class MealRegister(models.Model):
 
     def action_register(self):
         for r in self:
+            # check_customer = self.env['confirm.dish'].search(
+            #     [('date_register', '=', r.date)])
+            # for line in check_customer:
+            #     if line.employee_id == r.client_meal_register_ids[0].partner_id.name:
+            #         raise ValidationError(_('Khách Hàng Đã Được Đăng Ký'))
+            #     elif line.employee_id == r.employee_meal_register_ids[0].employee_id.name:
+            #         raise ValidationError(_('Nhân Viên Đã Đăng Ký'))
+
             if r.number == 'four':
                 total = len(r.client_meal_register_ids) + len(r.employee_meal_register_ids)
                 if total > 4:
@@ -60,6 +70,7 @@ class MealRegister(models.Model):
                 elif total < 6:
                     raise ValidationError(_('Số Người Đăng Ký Phải Bằng Số Nguời/Bàn Đặt'))
             r.state = 'done'
+
             if r.employee_meal_register_ids:
                 for line in r.employee_meal_register_ids:
                     self.env['confirm.dish'].create({
@@ -148,3 +159,11 @@ class MealRegister(models.Model):
                 r.code_employee = employee_id.code_employee
             else:
                 r.code_employee = False
+
+    def write(self, vals):
+        result = super(MealRegister, self).write(vals)
+        if self.name:
+            return result
+        else:
+            self.name = self.env['ir.sequence'].next_by_code('tigo.mealregister')
+            return result

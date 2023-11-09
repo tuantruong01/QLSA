@@ -18,6 +18,11 @@
                           id="menu_table"
                           parent="z_base.menu_lunch"
                           action="action_menu_table_models"
+                          sequence="2"/>
+                <menuitem name="5.1.3 Khách Hàng"
+                          id="res_customer_menu"
+                          parent="z_base.menu_lunch"
+                          action="action_res_customer_models"
                           sequence="3"/>
             <menuitem name="5.2 Danh Mục Ăn Trưa"
                       id="category_menu"

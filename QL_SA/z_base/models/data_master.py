@@ -6,15 +6,17 @@ from datetime import timedelta
 class Room(models.Model):
     _name = 'tigo.room'
     _description = 'Phòng'
+    _check_company_auto = True
 
     code_room = fields.Char(string=_('Mã Phòng'), readonly=1)
     name = fields.Char(string=_('Tên Phòng'), required=True)
-    type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn')], string=_('Dạng'), required=True)
+    type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn')], string=_('Dạng'), readonly=1)
     sate = fields.Selection([('unoccupied', 'Trống'), ('occupied', 'Sử dụng')], string=_('Trạng Thái'),
                             default="unoccupied", readonly=1)
     price = fields.Integer(string=_('Giá Phòng / Giờ'), group_operator="avg")
     level = fields.Selection([('normal', 'Phòng thường'), ('vip', 'Phòng VIP')], string=_('Kiểu Phòng'),
                              default="normal", required=True)
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company, store=True)
 
     @api.model
     def create(self, vals_list):
@@ -22,16 +24,26 @@ class Room(models.Model):
         res['code_room'] = self.env['ir.sequence'].next_by_code('tigo.room')
         return res
 
-    _sql_constraints = [('name', 'unique(name)', 'Phòng Đã Tồn Tại')]
+    def write(self, vals):
+        result = super(Room, self).write(vals)
+        if self.code_room:
+            return result
+        else:
+            self.code_room = self.env['ir.sequence'].next_by_code('tigo.room')
+            return result
+
+    _sql_constraints = [('name', 'unique(name,company_id)', 'Phòng Đã Tồn Tại')]
 
 
 class Week(models.Model):
     _name = 'tigo.week'
     _description = 'Tuần Trong Năm'
+    _check_company_auto = True
 
     name = fields.Char(string='Tuần', required=1)
     begin = fields.Date(string='Từ ngày', required=1)
     end = fields.Date(string='Đến ngày', readonly=1)
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company, store=True)
 
     @api.onchange('begin')
     def onchange_begin(self):

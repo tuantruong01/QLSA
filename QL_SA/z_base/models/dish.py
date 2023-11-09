@@ -5,6 +5,7 @@ from odoo.exceptions import ValidationError
 class Dish(models.Model):
     _name = 'tigo.dish'
     _description = 'Dish'
+    _check_company_auto = True
 
     name = fields.Char(string=_('Tên món ăn'), required=True)
     ingredient_ids = fields.Many2many('product.template', 'dish_product_ref', 'dish_id', 'ptml_id',
@@ -20,12 +21,21 @@ class Dish(models.Model):
     type_room = fields.Selection([('sing', 'Phòng Hát'), ('eat', 'Phòng Ăn'), ('all', 'Tất Cả')],
                                  string=_('Món Phòng Hát/Ăn'))
     img = fields.Binary(string='Hình ảnh')
+    company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company, store=True)
 
     @api.model
     def create(self, vals_list):
         res = super(Dish, self).create(vals_list)
         res['code_dish'] = self.env['ir.sequence'].next_by_code('tigo.dish')
         return res
+
+    def write(self, vals):
+        result = super(Dish, self).write(vals)
+        if self.code_dish:
+            return result
+        else:
+            self.code_dish = self.env['ir.sequence'].next_by_code('tigo.dish')
+            return result
 
     @api.onchange('ingredient_ids')
     def onchange_ingredient_ids(self):
@@ -40,7 +50,7 @@ class Dish(models.Model):
     @api.constrains('name')
     def check_name(self):
         for r in self:
-            dish_id = self.env['tigo.dish'].search([('name', '=', r.name)])
+            dish_id = self.env['tigo.dish'].search([('name', '=', r.name), ('company_id', '=', self.env.company.id)])
             if len(dish_id) > 1:
                 raise ValidationError(_('Món ăn đã tồn tại!'))
             if len(r.name) > 50:
@@ -49,4 +59,10 @@ class Dish(models.Model):
             for i in data:
                 if i in r.name:
                     raise ValidationError(_('Tên món ăn không được chứa ký tự đặc biệt'))
+
+    def unlink(self):
+        menu_setting_ids = self.env['tigo.menu.setting'].search([('menu_ids', '=', self.id)])
+        if len(menu_setting_ids) > 0:
+            raise ValidationError(_('Món ăn này đã được sử dụng trong thực đơn!'))
+        return super(Dish, self).unlink()
 
