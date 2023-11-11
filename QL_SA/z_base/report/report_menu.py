@@ -43,6 +43,7 @@ class ReportMenu(models.AbstractModel):
                     OR
                         tms.day::date between '{records.begin}' and '{records.end}')
                     AND tms.company_id = {self.env.company.id}
+                ORDER BY tms.day,tms.week
             """
         self.env.cr.execute(sql)
         print(sql)

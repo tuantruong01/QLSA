@@ -31,7 +31,8 @@
         <menuitem name="4. Báo cáo"
                   id="menu_report"
                   parent="z_base.meal_manegent_menu"
-                  sequence="4"/>
+                  sequence="4"
+                  groups="group_canteen_manager"/>
         <menuitem name="4.1 Báo cáo ăn trưa"
                   id="menu_report_lunch"
                   parent="z_base.menu_report"
