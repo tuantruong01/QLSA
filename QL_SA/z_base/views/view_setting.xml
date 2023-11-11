@@ -38,7 +38,7 @@
                           parent="z_base.category_menu"
                           action="action_dish_models"
                           sequence="3"/>
-                <menuitem name="5.2.4 Khách Hàng"
+                <menuitem name="5.2.4 Khách Ăn"
                           id="res_customer_menu"
                           parent="z_base.category_menu"
                           action="action_res_customer_models"
