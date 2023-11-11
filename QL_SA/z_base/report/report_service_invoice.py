@@ -24,6 +24,7 @@ class ReportServiceInvoice(models.AbstractModel):
                         ts.state = 'payed'
                     AND
                         ts.company_id = {self.env.company.id}
+                    ORDER BY ts.start_day
         """
         self.env.cr.execute(sql)
         datas = self.env.cr.dictfetchall()

@@ -16,6 +16,7 @@ class ReportMenuOrder(models.AbstractModel):
              left join hr_department hd on cd.department = hd.id 
                 where cd.date_register::date between '{records.begin}' and '{records.end}'
                     AND cd.company_id = {self.env.company.id}
+             ORDER BY cd.date_register
 
         """
         self.env.cr.execute(sql)

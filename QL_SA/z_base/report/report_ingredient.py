@@ -82,10 +82,10 @@ class ReportIngredient(models.AbstractModel):
             'font_name': 'Times New Roman',
             'font_size': 11
         })
-        ws.set_column(0, 0, 30)
-        ws.set_column(1, 1, 30)
-        ws.set_column(2, 2, 30)
-        ws.set_column(3, 3, 30)
+        ws.set_column(0, 0, 7)
+        ws.set_column(1, 1, 20)
+        ws.set_column(2, 2, 20)
+        ws.set_column(3, 3, 20)
         row = 0
         ws.merge_range(row, 0, row, 4, 'BÁO CÁO DANH SÁCH NGUYÊN LIỆU', header)
 

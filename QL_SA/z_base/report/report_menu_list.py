@@ -32,6 +32,7 @@ class ReportMenuList(models.AbstractModel):
                     tm1.NAME,
                     tm1.code_menu,
                     tm1.type_menu
+                
         '''
         self.env.cr.execute(sql)
         datas = self.env.cr.dictfetchall()

@@ -31,7 +31,7 @@
             <field name="name">confirm_dish_view_tree</field>
             <field name="model">confirm.dish</field>
             <field name="arch" type="xml">
-                <tree string="Suất ăn" editable="bottom" create="false">
+                <tree string="Suất ăn" editable="bottom" create="false" delete="false">
                     <field name="name" readonly="1"/>
                     <field name="employee_id" readonly="1"/>
                     <field name="department" readonly="1"/>
