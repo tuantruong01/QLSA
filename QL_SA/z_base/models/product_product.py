@@ -10,7 +10,6 @@ class ProductTemplateInherit(models.Model):
         ('service', 'Dịch vụ'),
         ('product', 'Sản phẩm lưu kho'),
         ('food', 'Thực phẩm')], string='Loại sản phẩm', default='consu', required=True)
-    list_price = fields.Integer(string=_('Giá'), group_operator="avg")
     company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
 
     @api.constrains('name')
