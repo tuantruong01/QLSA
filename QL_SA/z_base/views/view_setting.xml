@@ -8,7 +8,7 @@
         <menuitem name="5.1 Thực Đơn Ăn Trưa"
                   id="menu_lunch"
                   parent="z_base.setting_root"
-                  groups="group_canteen_manager, group_canteen_chef"
+                  groups="group_canteen_manager,group_canteen_chef"
                   sequence="1"/>
         <menuitem name="5.1.1 Thực Đơn Suất"
                   id="menu_set"
@@ -24,7 +24,7 @@
                   id="category_menu"
                   parent="z_base.setting_root"
                   sequence="2"
-                  groups="group_canteen_manager, group_canteen_chef"/>
+                  groups="group_canteen_manager,group_canteen_chef"/>
         <menuitem name="5.2.1 Tuần Trong Năm"
                   id="week_menu"
                   parent="z_base.category_menu"
@@ -49,7 +49,7 @@
                   name="5.3 Thực Đơn Dịch Vụ Ngoài"
                   parent="z_base.setting_root"
                   sequence="3"
-                  groups="group_canteen_manager, group_canteen_chef"
+                  groups="group_canteen_manager,group_canteen_chef"
         />
         <menuitem id="type_drink"
                   name="5.3.1 Đồ uống"
