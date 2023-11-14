@@ -55,7 +55,7 @@ class MealRegister(models.Model):
                     if line.employee_id == p.employee_id.name:
                         raise ValidationError(_('Nhân Viên Đã Được Đăng Ký'))
                 for p in r.client_meal_register_ids:
-                    if line.client_id == p.partner_id.name:
+                    if line.employee_id == p.partner_id.name:
                         raise ValidationError(_('Khách Hàng Đã Đăng Ký'))
 
             if r.number == 'four':
@@ -71,22 +71,51 @@ class MealRegister(models.Model):
                 elif total < 6:
                     raise ValidationError(_('Số Người Đăng Ký Phải Bằng Số Nguời/Bàn Đặt'))
             r.state = 'done'
+            if r.meal_type == 'set':
+                if r.employee_meal_register_ids:
+                    for line in r.employee_meal_register_ids:
+                        self.env['confirm.dish'].create({
+                            'employee_id': line.employee_id.name,
+                            'mealregister_id': r.id,
+                            'department': line.dapartment_id.name,
+                            'date_register': r.date,
+                            'menu_id': line.menu_id.name,
+                            'price': line.menu_id.price,
 
-            if r.employee_meal_register_ids:
-                for line in r.employee_meal_register_ids:
-                    self.env['confirm.dish'].create({
-                        'employee_id': line.employee_id.name,
-                        'mealregister_id': r.id,
-                        'department': line.employee_id.department_id.id if line.employee_id.department_id.id else False,
-                        'date_register': r.date
-                    })
-            if r.client_meal_register_ids:
-                for line in r.client_meal_register_ids:
-                    self.env['confirm.dish'].create({
-                        'mealregister_id': r.id,
-                        'employee_id': line.partner_id.name,
-                        'date_register': r.date
-                    })
+                        })
+                if r.client_meal_register_ids:
+                    for line in r.client_meal_register_ids:
+                        self.env['confirm.dish'].create({
+                            'mealregister_id': r.id,
+                            'employee_id': line.partner_id.name,
+                            'date_register': r.date,
+                            'department': line.company,
+                            'menu_id': line.menu_id.name,
+                            'price': line.menu_id.price,
+
+                        })
+            else:
+                if r.employee_meal_register_ids:
+                    for line in r.employee_meal_register_ids:
+                        self.env['confirm.dish'].create({
+                            'employee_id': line.employee_id.name,
+                            'mealregister_id': r.id,
+                            'department': line.department_id.name,
+                            'date_register': r.date,
+                            'menu_id': r.detail_dish,
+                            'price': r.menu_id.price,
+
+                        })
+                if r.client_meal_register_ids:
+                    for line in r.client_meal_register_ids:
+                        self.env['confirm.dish'].create({
+                            'mealregister_id': r.id,
+                            'employee_id': line.partner_id.name,
+                            'date_register': r.date,
+                            'department': line.company,
+                            'menu_id': r.detail_dish,
+                            'price': r.menu_id.price,
+                        })
 
     def action_cancel(self):
         for r in self:
@@ -96,7 +125,7 @@ class MealRegister(models.Model):
                     if (line.employee_id == p.employee_id.name) and (line.ate == True):
                         raise ValidationError(_('Nhân Viên Đã Ăn Không Thể Hủy'))
                 for p in r.client_meal_register_ids:
-                    if line.client_id == p.partner_id.name and (line.ate == True):
+                    if line.employee_id == p.partner_id.name and (line.ate == True):
                         raise ValidationError(_('Khách Hàng Đã Ăn Không Thể Hủy'))
             for line in r.confirm_dish_ids:
                 line.unlink()

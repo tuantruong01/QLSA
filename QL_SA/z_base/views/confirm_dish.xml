@@ -21,6 +21,8 @@
                             <group>
                                 <field name="department"/>
                                 <field name="date_register"/>
+                                <field name="menu_id"/>
+                                <field name="price"/>
                             </group>
                         </group>
                     </sheet>
@@ -36,6 +38,8 @@
                     <field name="employee_id" readonly="1"/>
                     <field name="department" readonly="1"/>
                     <field name="date_register" readonly="1"/>
+                    <field name="menu_id" readonly="1"/>
+                    <field name="price" readonly="1"/>
                     <field name="ate" widget="boolean_toggle"/>
                 </tree>
             </field>
