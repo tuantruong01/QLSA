@@ -65,11 +65,23 @@
                 </form>
             </field>
         </record>
+        <record id="view_order_service_search" model="ir.ui.view">
+            <field name="name">order.service.search</field>
+            <field name="model">tigo.service</field>
+            <field name="arch" type="xml">
+                <search string="Hôm Nay">
+                    <filter string="Hôm Nay" name="order_today"
+                            domain="[('state', '=', 'quotes'), ('start_day', '>=', context_today().strftime('%Y-%m-%d'))]"/>
+                </search>
+            </field>
+        </record>
         <record id="order_service_view" model="ir.actions.act_window">
             <field name="name">Đặt Phòng</field>
             <field name="res_model">tigo.service</field>
             <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_order_service_search"/>
             <field name="domain">[('state', '=', 'order')]</field>
+            <field name="context">{'search_default_order_today': 1}</field>
         </record>
         <menuitem name="3. Dịch Vụ Ngoài"
                   id="root_service"

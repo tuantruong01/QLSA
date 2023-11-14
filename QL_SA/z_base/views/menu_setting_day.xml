@@ -60,7 +60,7 @@
             <field name="model">tigo.menu.setting</field>
             <field name="arch" type="xml">
                 <search string="Ngày Hôm Nay">
-                    <filter string="Có Thể Sử DỤng" name="today" domain="[('type','=','day'),('day', '>=', context_today().strftime('%Y-%m-%d'))]"/>
+                    <filter string="Có Thể Sử Dụng" name="today" domain="[('type','=','day'),('day', '>=', context_today().strftime('%Y-%m-%d'))]"/>
                 </search>
             </field>
         </record>

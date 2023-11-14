@@ -49,13 +49,14 @@ class MealRegister(models.Model):
 
     def action_register(self):
         for r in self:
-            # check_customer = self.env['confirm.dish'].search(
-            #     [('date_register', '=', r.date)])
-            # for line in check_customer:
-            #     if line.employee_id == r.client_meal_register_ids[0].partner_id.name:
-            #         raise ValidationError(_('Khách Hàng Đã Được Đăng Ký'))
-            #     elif line.employee_id == r.employee_meal_register_ids[0].employee_id.name:
-            #         raise ValidationError(_('Nhân Viên Đã Đăng Ký'))
+            check_customer = self.env['confirm.dish'].search([('date_register', '=', r.date)])
+            for line in check_customer:
+                for p in r.employee_meal_register_ids:
+                    if line.employee_id == p.employee_id.name:
+                        raise ValidationError(_('Nhân Viên Đã Được Đăng Ký'))
+                for p in r.client_meal_register_ids:
+                    if line.client_id == p.partner_id.name:
+                        raise ValidationError(_('Khách Hàng Đã Đăng Ký'))
 
             if r.number == 'four':
                 total = len(r.client_meal_register_ids) + len(r.employee_meal_register_ids)
@@ -89,6 +90,14 @@ class MealRegister(models.Model):
 
     def action_cancel(self):
         for r in self:
+            check = self.env['confirm.dish'].search([('date_register', '=', r.date)])
+            for line in check:
+                for p in r.employee_meal_register_ids:
+                    if (line.employee_id == p.employee_id.name) and (line.ate == True):
+                        raise ValidationError(_('Nhân Viên Đã Ăn Không Thể Hủy'))
+                for p in r.client_meal_register_ids:
+                    if line.client_id == p.partner_id.name and (line.ate == True):
+                        raise ValidationError(_('Khách Hàng Đã Ăn Không Thể Hủy'))
             for line in r.confirm_dish_ids:
                 line.unlink()
             r.state = 'cancel'

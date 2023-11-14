@@ -93,12 +93,12 @@ class ReportMenu(models.AbstractModel):
             'font_size': 11,
             'italic': 1
         })
-        ws.set_column(0, 0, 30)
-        ws.set_column(1, 1, 30)
-        ws.set_column(2, 2, 30)
-        ws.set_column(3, 3, 30)
-        ws.set_column(4, 4, 30)
-        ws.set_column(5, 5, 30)
+        ws.set_column(0, 0, 7)
+        ws.set_column(1, 1, 20)
+        ws.set_column(2, 2, 20)
+        ws.set_column(3, 3, 20)
+        ws.set_column(4, 4, 20)
+        ws.set_column(5, 5, 20)
         row = 0
         table_right = workbook.add_format({
             'bold': 0,
@@ -126,11 +126,11 @@ class ReportMenu(models.AbstractModel):
         stt = 1
         dict_data = {}
         for r in datas:
-            if r['id'] in dict_data:
-                if r['thuc_don']:
-                    dict_data[r['id']]['thuc_don'] += ',' + r['thuc_don']
-            else:
-                dict_data[r['id']] = r
+            # if r['id'] in dict_data:
+            #     if r['thuc_don']:
+            #         dict_data[r['id']]['thuc_don'] += ',' + r['thuc_don']
+            # else:
+            #     dict_data[r['id']] = r
             if r['id'] in dict_data:
                 if r['week']:
                     dict_data[r['id']]['week'] = (r['week'] + '(' + r['day_start'].strftime("%d-%m-%Y") + ' đến ' +
