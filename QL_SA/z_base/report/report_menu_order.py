@@ -67,10 +67,10 @@ class ReportMenuOrder(models.AbstractModel):
             'italic': 1
         })
         ws.set_column(0, 0, 7)
-        ws.set_column(1, 1, 20)
-        ws.set_column(2, 2, 20)
-        ws.set_column(3, 3, 20)
-        ws.set_column(4, 4, 20)
+        ws.set_column(1, 1, 10)
+        ws.set_column(2, 2, 15)
+        ws.set_column(3, 3, 15)
+        ws.set_column(4, 4, 10)
         row = 0
         ws.merge_range(row, 0, row, 5, 'BÁO CÁO THỰC ĐƠN ĐÃ ĐẶT', header)
         row += 1

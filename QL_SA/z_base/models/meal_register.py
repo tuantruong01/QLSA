@@ -77,7 +77,7 @@ class MealRegister(models.Model):
                         self.env['confirm.dish'].create({
                             'employee_id': line.employee_id.name,
                             'mealregister_id': r.id,
-                            'department': line.dapartment_id.name,
+                            'department': line.department_id,
                             'date_register': r.date,
                             'menu_id': line.menu_id.name,
                             'price': line.menu_id.price,
@@ -87,7 +87,7 @@ class MealRegister(models.Model):
                     for line in r.client_meal_register_ids:
                         self.env['confirm.dish'].create({
                             'mealregister_id': r.id,
-                            'employee_id': line.partner_id.name,
+                            'employee_id': line.partner_id,
                             'date_register': r.date,
                             'department': line.company,
                             'menu_id': line.menu_id.name,

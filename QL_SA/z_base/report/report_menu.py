@@ -94,11 +94,11 @@ class ReportMenu(models.AbstractModel):
             'italic': 1
         })
         ws.set_column(0, 0, 7)
-        ws.set_column(1, 1, 20)
+        ws.set_column(1, 1, 10)
         ws.set_column(2, 2, 20)
-        ws.set_column(3, 3, 20)
-        ws.set_column(4, 4, 20)
-        ws.set_column(5, 5, 20)
+        ws.set_column(3, 3, 7)
+        ws.set_column(4, 4, 15)
+        ws.set_column(5, 5, 10)
         row = 0
         table_right = workbook.add_format({
             'bold': 0,
