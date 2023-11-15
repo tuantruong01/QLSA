@@ -70,7 +70,7 @@
                             <page string="Đăng ký cho khách hàng">
                                 <field name="client_meal_register_ids" attrs="{'readonly': [('state', '!=', 'draft')]}">
                                     <tree editable="bottom">
-                                        <field name="partner_id"/>
+                                        <field name="partner_id" widget="many2one"/>
                                         <field name="phone_client"/>
                                         <field name="company"/>
                                         <field name="position"/>
