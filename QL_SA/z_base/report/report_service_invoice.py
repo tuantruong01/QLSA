@@ -82,6 +82,16 @@ class ReportServiceInvoice(models.AbstractModel):
             'font_name': 'Times New Roman',
             'font_size': 11
         })
+        right = workbook.add_format({
+            'bold': 0,
+            'text_wrap': 1,
+            'align': 'right',
+            'valign': 'vcenter',
+            'border': 1,
+            'bg_color': '#DDEBF6',
+            'font_name': 'Times New Roman',
+            'font_size': 11
+        })
         ws.set_column(0, 0, 7)
         ws.set_column(1, 1, 10)
         ws.set_column(2, 2, 20)
@@ -121,6 +131,5 @@ class ReportServiceInvoice(models.AbstractModel):
                 total += 0
             row += 1
             stt += 1
-        ws.merge_range(row, 0, row, 1, 'Tổng', table_header)
-        ws.merge_range(row, 6, row, 1, 'Tổng', table_right)
-        ws.write(row, 6, total, table_right)
+        ws.merge_range(row, 0, row, 5, 'Tổng', table_header)
+        ws.write(row, 6, total, right)
