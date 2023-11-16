@@ -70,8 +70,8 @@
             <field name="model">tigo.service</field>
             <field name="arch" type="xml">
                 <search string="Hôm Nay">
-                    <filter string="Hôm Nay" name="order_today"
-                            domain="[('state', '=', 'quotes'), ('start_day', '>=', context_today().strftime('%Y-%m-%d'))]"/>
+                    <filter string="Còn Hạn" name="order_today"
+                            domain="[('state', '=', 'order'), ('end_day', '>=', context_today().strftime('%Y-%m-%d'))]"/>
                 </search>
             </field>
         </record>

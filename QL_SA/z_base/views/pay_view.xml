@@ -71,7 +71,7 @@
             <field name="arch" type="xml">
                 <search string="Hôm Nay">
                     <filter string="Hôm Nay" name="pay_today"
-                            domain="[('state', 'in', ('pay','payed')), ('start_day', '>=', context_today().strftime('%Y-%m-%d'))]"/>
+                            domain="[('state', 'in', ('pay','payed')), ('end_day', '>=', context_today().strftime('%Y-%m-%d'))]"/>
                 </search>
             </field>
         </record>

@@ -98,9 +98,9 @@
             <field name="name">tigo.service.search</field>
             <field name="model">tigo.service</field>
             <field name="arch" type="xml">
-                <search string="Ngày Hôm Nay">
-                    <filter string="Hôm Nay" name="today_quotes"
-                            domain="[('state', '=', 'order'), ('start_day', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <search string="Còn Hạn Báo Giá">
+                    <filter string="Còn Hạn" name="today_quotes"
+                            domain="[('state', '=', 'quotes'), ('end_day', '>=', context_today().strftime('%Y-%m-%d'))]"/>
                 </search>
             </field>
         </record>
