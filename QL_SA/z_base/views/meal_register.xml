@@ -55,11 +55,12 @@
                                 <field name="employee_meal_register_ids"
                                        attrs="{'readonly': [('state', '!=', 'draft')]}">
                                     <tree editable="bottom">
+                                        <field name="registration_id" invisible="1"/>
                                         <field name="employee_id"/>
                                         <field name="code"/>
                                         <field name="number_phone"/>
                                         <field name="department_id"/>
-                                        <field name="menu_id"
+                                        <field name="menu_id" context="{'get_date': parent.date, 'get_meal_type': parent.meal_type}"
                                                attrs="{'column_invisible': [('parent.meal_type', '=', 'table')], 'required': [('parent.meal_type', '=', 'set')]}"/>
                                         <field name="note"/>
                                         <field name="person"

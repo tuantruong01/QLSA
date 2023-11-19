@@ -31,8 +31,6 @@
                                 attrs="{'invisible': [('state','in',('quotes','order','payed','cancel'))]}"/>
                         <button string="Hủy" class="oe_highlight" type="object" name="action_cancel"
                                 attrs="{'invisible': [('state','!=','order')]}"/>
-                        <button string="In hóa đơn" class="oe_highlight" type="object" name="print_bill"
-                                attrs="{'invisible': [('state','not in',('pay', 'payed'))]}"/>
                     </header>
                     <sheet>
                         <group>

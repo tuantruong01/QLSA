@@ -1,6 +1,6 @@
 from odoo import models, fields, _, api
 from datetime import timedelta
-
+from odoo.osv import expression
 from odoo.exceptions import ValidationError
 
 
@@ -52,6 +52,25 @@ class Menu(models.Model):
     def onchange_dish(self):
         for r in self:
             r.price = sum(r.dish_ids.mapped('price_total'))
+
+    def _search(self, args, offset=0, limit=None, order=None, count=False, access_rights_uid=None):
+        args = args or []
+        if self._context.get('get_date', False) and self._context.get('get_meal_type', False):
+            if self._context.get('get_meal_type', False) == 'set':
+                menu_day_ids = self.env['tigo.menu.setting'].search([
+                    ('day', '=', self._context.get('get_date')),
+                    ('state', '=', 'active'),
+                    ('type_menu', '=', 'set')])
+                menu_week_ids = self.env['tigo.menu.setting'].search([
+                    ('day_start', '<=', self._context.get('get_date')),
+                    ('day_end', '>=', self._context.get('get_date')),
+                    ('state', '=', 'active'),
+                    ('type_menu', '=', 'set')])
+                menu = menu_day_ids + menu_week_ids
+                domain = [('id', 'in', menu.menu_ids.ids)]
+                args = expression.AND([args, domain])
+        return super(Menu, self)._search(args, offset=offset, limit=limit, order=order, count=count,
+                                         access_rights_uid=access_rights_uid)
 
 
 class SettingMenu(models.Model):
