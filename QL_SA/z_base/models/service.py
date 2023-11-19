@@ -126,3 +126,6 @@ class MealRegister(models.Model):
             else:
                 r.total_price = 0
 
+    def print_bill(self):
+        self.ensure_one()
+        return self.env.ref('z_base.print_bill_xlsx').report_action(self)
