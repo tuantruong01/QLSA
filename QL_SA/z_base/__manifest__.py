@@ -48,6 +48,7 @@
         'report/report_menu.xml',
         'wizard/pop_service_invoice.xml',
         'report/report_service_invoice.xml',
+        'report/print_bill.xml',
 
     ],
     'license': 'LGPL-3',
