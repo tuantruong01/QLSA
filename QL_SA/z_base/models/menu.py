@@ -11,13 +11,13 @@ class Menu(models.Model):
 
     code_menu = fields.Char(string=_('Mã thực đơn'), readonly=1)
     name = fields.Char(string=_('Tên thực đơn'), required=True)
-    dish_ids = fields.Many2many('tigo.dish', 'menu_dish_ref', 'menu_id', 'dish_id', string=_('Món ăn'), required=True, check_company=True)
+    dish_ids = fields.Many2many('tigo.dish', 'menu_dish_ref', 'menu_id', 'dish_id', string=_('Món ăn'), required=True,
+                                check_company=True)
     type_menu = fields.Selection([('set', 'Suất ăn'), ('table', 'Bàn')], string=_('Kiểu thực đơn'), required=True)
     number_of_people = fields.Selection([('four', '4'), ('six', '6')], string=_('Số người/ Bàn'))
     img = fields.Binary(string='Hình ảnh')
     company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company, store=True)
     price = fields.Integer(string=_('Giá'), group_operator="avg")
-
 
     @api.model
     def create(self, vals_list):
@@ -26,9 +26,18 @@ class Menu(models.Model):
         return res
 
     def unlink(self):
-        detailed_registration_ids = self.env['tigo.detailed.registration'].search([('menu_id', '=', self.id)])
-        if len(detailed_registration_ids) > 0:
-            raise ValidationError(_('Thực đơn này đã được đăng ký trong suất ăn!'))
+        check_menu_day = self.env['tigo.menu.setting'].search(
+            [('day', '=', fields.date.today()), ('state', '=', 'active')])
+        for r in check_menu_day:
+            for i in r.menu_ids:
+                if i.name == self.name:
+                    raise ValidationError(_('Thực đơn này đang trong trạng thái sử dụng!'))
+        check_menu_week = self.env['tigo.menu.setting'].search(
+            [('day_end', '>=', fields.date.today()), ('state', '=', 'active')])
+        for r in check_menu_week:
+            for i in r.menu_ids:
+                if i.name == self.name:
+                    raise ValidationError(_('Thực đơn này đang trong trạng thái sử dụng!'))
         return super(Menu, self).unlink()
 
     def write(self, vals):
