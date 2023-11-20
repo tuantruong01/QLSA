@@ -11,11 +11,10 @@ class ReportMenuOrder(models.AbstractModel):
         ws = workbook.add_worksheet(name)
 
         sql = f"""
-             select cd.name ,cd.employee_id, hd.name phong_ban, cd.date_register, cd.ate 
+             select cd.name ,cd.employee_id, cd.department phong_ban, cd.date_register, cd.ate 
              from confirm_dish cd
-             left join hr_department hd on cd.department = hd.id 
-                where cd.date_register::date between '{records.begin}' and '{records.end}'
-                    AND cd.company_id = {self.env.company.id}
+            where cd.date_register::date between '{records.begin}' and '{records.end}'
+                AND cd.company_id = {self.env.company.id}
              ORDER BY cd.date_register
 
         """
@@ -68,22 +67,23 @@ class ReportMenuOrder(models.AbstractModel):
         })
         ws.set_column(0, 0, 7)
         ws.set_column(1, 1, 10)
-        ws.set_column(2, 2, 15)
-        ws.set_column(3, 3, 15)
-        ws.set_column(4, 4, 10)
-        row = 0
-        ws.merge_range(row, 0, row, 5, 'BÁO CÁO THỰC ĐƠN ĐÃ ĐẶT', header)
+        ws.set_column(2, 2, 20)
+        ws.set_column(3, 3, 20)
+        ws.set_column(4, 4, 20)
+        ws.set_column(5, 5, 20)
+        row = 3
+        ws.merge_range(row, 1, row, 5, 'BÁO CÁO THỰC ĐƠN ĐÃ ĐẶT', header)
         row += 1
-        ws.merge_range(row, 0, row, 5,
+        ws.merge_range(row, 1, row, 5,
                        f'Từ ngày: {records.begin.strftime("%d-%m-%Y")} đến {records.end.strftime("%d-%m-%Y")}',
                        header_content)
         row += 1
-        ws.write(row, 0, "STT", table_header)
-        ws.write(row, 1, "Tên phiếu", table_header)
-        ws.write(row, 2, "Người đăng lý", table_header)
-        ws.write(row, 3, "Phòng ban", table_header)
-        ws.write(row, 4, "Ngày đăng ký", table_header)
-        ws.write(row, 5, "Tình trạng", table_header)
+        ws.write(row, 1, "STT", table_header)
+        ws.write(row, 2, "Tên phiếu", table_header)
+        ws.write(row, 3, "Người đăng lý", table_header)
+        ws.write(row, 4, "Phòng ban", table_header)
+        ws.write(row, 5, "Ngày đăng ký", table_header)
+        ws.write(row, 6, "Tình trạng", table_header)
         row += 1
         stt = 1
         for data in datas:
@@ -92,11 +92,11 @@ class ReportMenuOrder(models.AbstractModel):
                 check = 'Đã ăn'
             else:
                 check = 'Chưa ăn'
-            ws.write(row, 0, stt, table_content)
-            ws.write(row, 1, data.get('name', ''), table_left)
-            ws.write(row, 2, data.get('employee_id', ''), table_left)
-            ws.write(row, 3, data.get('phong_ban', ''), table_left)
-            ws.write(row, 4, data.get('date_register', '').strftime("%d-%m-%Y"), table_content)
-            ws.write(row, 5, check, table_left)
+            ws.write(row, 1, stt, table_content)
+            ws.write(row, 2, data.get('name', ''), table_left)
+            ws.write(row, 3, data.get('employee_id', ''), table_left)
+            ws.write(row, 4, data.get('phong_ban', ''), table_left)
+            ws.write(row, 5, data.get('date_register', '').strftime("%d-%m-%Y"), table_content)
+            ws.write(row, 6, check, table_left)
             row += 1
             stt += 1

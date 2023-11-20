@@ -95,41 +95,46 @@ class ReportServiceInvoice(models.AbstractModel):
         ws.set_column(0, 0, 7)
         ws.set_column(1, 1, 10)
         ws.set_column(2, 2, 20)
-        ws.set_column(3, 3, 10)
-        ws.set_column(4, 4, 15)
-        ws.set_column(5, 5, 15)
+        ws.set_column(3, 3, 20)
+        ws.set_column(4, 4, 20)
+        ws.set_column(5, 5, 20)
         ws.set_column(6, 6, 20)
-        row = 0
-        ws.merge_range(row, 0, row, 6, 'BÁO CÁO DANH SÁCH HÓA ĐƠN', header)
+        ws.set_column(7, 7, 20)
+        row = 3
+        ws.merge_range(row, 1, row, 6, 'BÁO CÁO DANH SÁCH HÓA ĐƠN', header)
         row += 1
-        ws.merge_range(row, 0, row, 6,
+        ws.merge_range(row, 1, row, 6,
                        f'Từ ngày: {records.begin.strftime("%d-%m-%Y")} đến {records.end.strftime("%d-%m-%Y")}',
                        header_content)
         row += 1
-        ws.write(row, 0, "STT", table_header)
-        ws.write(row, 1, "Mã Hóa Đơn", table_header)
-        ws.write(row, 2, "Người Đặt", table_header)
-        ws.write(row, 3, "Phòng", table_header)
-        ws.write(row, 4, "Từ Ngày", table_header)
-        ws.write(row, 5, "Đến Ngày", table_header)
-        ws.write(row, 6, "Giá", table_header)
+        ws.write(row, 1, "STT", table_header)
+        ws.write(row, 2, "Mã Hóa Đơn", table_header)
+        ws.write(row, 3, "Người Đặt", table_header)
+        ws.write(row, 4, "Phòng", table_header)
+        ws.write(row, 5, "Từ Ngày", table_header)
+        ws.write(row, 6, "Đến Ngày", table_header)
+        ws.write(row, 7, "Giá", table_header)
         row += 1
 
         stt = 1
         total = 0
         for data in datas:
-            ws.write(row, 0, stt, table_content)
-            ws.write(row, 1, data.get('mhd', ''), table_left)
-            ws.write(row, 2, data.get('nd', ''), table_left)
-            ws.write(row, 3, data.get('tp', ''), table_left)
-            ws.write(row, 4, data.get('start_day', '').strftime("%H:%M %d-%m-%Y"), table_content)
-            ws.write(row, 5, data.get('end_day', '').strftime("%H:%M %d-%m-%Y"), table_content)
-            ws.write(row, 6, data.get('total_price', 0), table_right)
+            ws.write(row, 1, stt, table_content)
+            ws.write(row, 2, data.get('mhd', ''), table_left)
+            ws.write(row, 3, data.get('nd', ''), table_left)
+            ws.write(row, 4, data.get('tp', ''), table_left)
+            ws.write(row, 5, data.get('start_day', '').strftime("%H:%M %d-%m-%Y"), table_content)
+            ws.write(row, 6, data.get('end_day', '').strftime("%H:%M %d-%m-%Y"), table_content)
+            ws.write(row, 7, data.get('total_price', 0), table_right)
             if data['total_price']:
                 total += data.get("total_price", 0)
             else:
                 total += 0
             row += 1
             stt += 1
-        ws.merge_range(row, 0, row, 5, 'Tổng', table_header)
-        ws.write(row, 6, total, right)
+        ws.merge_range(row, 1, row, 2, 'Tổng', table_header)
+        ws.write(row, 3, '', table_right)
+        ws.write(row, 4, '', table_right)
+        ws.write(row, 5, '', table_right)
+        ws.write(row, 6, '', table_right)
+        ws.write(row, 7, total, table_right)
