@@ -93,8 +93,9 @@ class ReportMenuList(models.AbstractModel):
         ws.set_column(0, 0, 7)
         ws.set_column(1, 1, 10)
         ws.set_column(2, 2, 20)
-        ws.set_column(3, 3, 10)
-        ws.set_column(4, 4, 7)
+        ws.set_column(3, 3, 20)
+        ws.set_column(4, 4, 20)
+        ws.set_column(5, 5, 20)
         row = 3
         ws.merge_range(row, 1, row, 5, 'BÁO CÁO DANH SÁCH THỰC ĐƠN', header)
         row += 1
