@@ -111,9 +111,9 @@ class ReportMenu(models.AbstractModel):
             'font_size': 11
         })
         row = 3
-        ws.merge_range(row, 0, row, 6, 'BÁO CÁO DANH SÁCH THỰC ĐƠN CẤU HÌNH THEO NGÀY/TUẦN', header)
+        ws.merge_range(row, 0, row, 5, 'BÁO CÁO DANH SÁCH THỰC ĐƠN CẤU HÌNH THEO NGÀY/TUẦN', header)
         row += 1
-        ws.merge_range(row, 1, row, 6,
+        ws.merge_range(row, 1, row, 5,
                        f'Từ ngày: {records.begin.strftime("%d-%m-%Y")} đến {records.end.strftime("%d-%m-%Y")}',
                        header_content)
 
@@ -122,8 +122,7 @@ class ReportMenu(models.AbstractModel):
         ws.write(row, 2, "Mã Cấu Hình ", table_header)
         ws.write(row, 3, "Thực Đơn", table_header)
         ws.write(row, 4, "Kiểu", table_header)
-        ws.write(row, 5, "Ngày", table_header)
-        ws.write(row, 6, "Trạng Thái", table_header)
+        ws.write(row, 5, "Trạng Thái", table_header)
         row += 1
         stt = 1
         dict_data = {}
@@ -145,10 +144,6 @@ class ReportMenu(models.AbstractModel):
             ws.write(row, 2, data.get('name', ''), table_left)
             ws.write(row, 3, data.get('thuc_don', ''), table_left)
             ws.write(row, 4, data.get('type', ''), table_left)
-            if data['week']:
-                ws.write(row, 5, data.get('week', ' '), table_content)
-            else:
-                ws.write(row, 5, data.get('day', '').strftime("%d-%m-%Y"), table_content)
-            ws.write(row, 6, data.get('state', ''), table_left)
+            ws.write(row, 5, data.get('state', ''), table_left)
             row += 1
             stt += 1
