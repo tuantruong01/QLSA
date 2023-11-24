@@ -8,6 +8,9 @@ class PopupReportMenu(models.TransientModel):
 
     begin = fields.Date(string="Từ Ngày", required=True)
     end = fields.Date(string="Đến Ngày", required=True)
+    image = fields.Html(
+        default='<img src="/z_base/static/img/400072437_895459194939025_7348562175171294141_n.png" style="margin-left: 73px;width: 547px;">',
+        string='Ảnh')
 
     @api.onchange('begin', 'end')
     def onchange_begin_end(self):
