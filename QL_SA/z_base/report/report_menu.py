@@ -111,7 +111,7 @@ class ReportMenu(models.AbstractModel):
             'font_size': 11
         })
         row = 3
-        ws.merge_range(row, 0, row, 5, 'BÁO CÁO DANH SÁCH THỰC ĐƠN CẤU HÌNH THEO NGÀY/TUẦN', header)
+        ws.merge_range(row, 1, row, 5, 'BÁO CÁO DANH SÁCH THỰC ĐƠN CẤU HÌNH THEO NGÀY/TUẦN', header)
         row += 1
         ws.merge_range(row, 1, row, 5,
                        f'Từ ngày: {records.begin.strftime("%d-%m-%Y")} đến {records.end.strftime("%d-%m-%Y")}',
