@@ -98,7 +98,7 @@ class PrintBillXlsx(models.AbstractModel):
         ws.merge_range(row, 4, row, 7, f'Thời gian bắt đầu: {records.start_day.strftime("%d/%m/%Y %H:%M:%S")}', context)
 
         row += 1
-        ws.merge_range(row, 1, row, 3, f'Mã hóa đơn: {records.name}')
+        ws.merge_range(row, 1, row, 3, f'Mã hóa đơn: {records.name}', context)
         ws.merge_range(row, 4, row, 7, f'Thời gian kết thúc: {records.end_day.strftime("%d/%m/%Y %H:%M:%S")}', context)
 
         row += 1
