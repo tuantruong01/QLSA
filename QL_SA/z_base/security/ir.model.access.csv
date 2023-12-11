@@ -5,18 +5,19 @@ access_dish_manager,dish_manager,model_tigo_dish,group_canteen_manager,1,1,1,1
 access_tigo_detailed_registration,tigo_detailed_registration,model_tigo_detailed_registration,,1,1,1,1
 access_tigo_room,tigo_room,model_tigo_room,,1,1,1,1
 
-access_tigo_service_staff,tigo_service_staff,model_tigo_service,group_canteen_user,1,1,1,1
-access_tigo_service_chef,tigo_service_chef,model_tigo_service,group_canteen_chef,1,0,0,0
-access_tigo_service_manager,tigo_service_manager,model_tigo_service,group_canteen_manager,1,1,1,1
+access_tigo_service_all_user,tigo_service_all_user,model_tigo_service,,1,0,0,0
+access_tigo_service_manager,tigo_service_manager,model_tigo_service,group_service_manager,1,1,1,1
 
 access_menu_staff,menu_staff,model_tigo_menu,group_canteen_user,1,0,0,0
 access_menu_manager,menu_manager,model_tigo_menu,group_canteen_chef,1,1,1,1
 access_menu_chef,menu_chef,model_tigo_menu,group_canteen_manager,1,1,1,1
 
 
-access_register_manager,register_manager,model_tigo_mealregister,,1,1,1,1
+access_register_manager,register_manager,model_tigo_mealregister,group_mealregister_manager,1,1,1,1
+access_register_read,read_manager,model_tigo_mealregister,,1,0,0,0
 
-access_setting_menu,tigo_menu_setting,model_tigo_menu_setting,,1,1,1,1
+access_setting_all_user,tigo_menu_setting_all_user,model_tigo_menu_setting,,1,0,0,0
+access_setting_menu_manager,tigo_menu_setting_menu_manager,model_tigo_menu_setting,group_menu_setting_manager,1,1,1,1
 access_tigo_register_client,tigo_register_client,model_tigo_register_client,,1,1,1,1
 access_tigo_week,tigo_week,model_tigo_week,,1,1,1,1
 access_confirm_dish,confirm_dish,model_confirm_dish,,1,1,1,1

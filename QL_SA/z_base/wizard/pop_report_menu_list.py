@@ -8,6 +8,8 @@ class PopupMenuList(models.TransientModel):
 
     begin = fields.Date(string="Từ Ngày", required=True)
     end = fields.Date(string="Đến Ngày", required=True)
+    image = fields.Html(default='<img src="\z_base\static\img\ds_thuc_don.png" "style="margin-left: 73px;width: 547px;">',
+                        string='Ảnh')
 
     @api.onchange('begin', 'end')
     def onchange_begin_end(self):

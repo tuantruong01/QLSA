@@ -24,6 +24,7 @@ class ReportServiceInvoice(models.AbstractModel):
                         ts.state = 'payed'
                     AND
                         ts.company_id = {self.env.company.id}
+                    ORDER BY ts.start_day
         """
         self.env.cr.execute(sql)
         datas = self.env.cr.dictfetchall()
@@ -81,45 +82,59 @@ class ReportServiceInvoice(models.AbstractModel):
             'font_name': 'Times New Roman',
             'font_size': 11
         })
-        ws.set_column(0, 0, 30)
-        ws.set_column(1, 1, 30)
-        ws.set_column(2, 2, 30)
-        ws.set_column(3, 3, 30)
-        ws.set_column(4, 4, 30)
-        ws.set_column(5, 5, 30)
-        ws.set_column(6, 6, 30)
-        row = 0
-        ws.merge_range(row, 0, row, 6, 'BÁO CÁO DANH SÁCH HÓA ĐƠN', header)
+        right = workbook.add_format({
+            'bold': 0,
+            'text_wrap': 1,
+            'align': 'right',
+            'valign': 'vcenter',
+            'border': 1,
+            'bg_color': '#DDEBF6',
+            'font_name': 'Times New Roman',
+            'font_size': 11
+        })
+        ws.set_column(0, 0, 7)
+        ws.set_column(1, 1, 10)
+        ws.set_column(2, 2, 20)
+        ws.set_column(3, 3, 20)
+        ws.set_column(4, 4, 20)
+        ws.set_column(5, 5, 20)
+        ws.set_column(6, 6, 20)
+        ws.set_column(7, 7, 20)
+        row = 3
+        ws.merge_range(row, 1, row, 6, 'BÁO CÁO DANH SÁCH HÓA ĐƠN', header)
         row += 1
-        ws.merge_range(row, 0, row, 6,
+        ws.merge_range(row, 1, row, 6,
                        f'Từ ngày: {records.begin.strftime("%d-%m-%Y")} đến {records.end.strftime("%d-%m-%Y")}',
                        header_content)
         row += 1
-        ws.write(row, 0, "STT", table_header)
-        ws.write(row, 1, "Mã Hóa Đơn", table_header)
-        ws.write(row, 2, "Người Đặt", table_header)
-        ws.write(row, 3, "Phòng", table_header)
-        ws.write(row, 4, "Từ Ngày", table_header)
-        ws.write(row, 5, "Đến Ngày", table_header)
-        ws.write(row, 6, "Giá", table_header)
+        ws.write(row, 1, "STT", table_header)
+        ws.write(row, 2, "Mã Hóa Đơn", table_header)
+        ws.write(row, 3, "Người Đặt", table_header)
+        ws.write(row, 4, "Phòng", table_header)
+        ws.write(row, 5, "Từ Ngày", table_header)
+        ws.write(row, 6, "Đến Ngày", table_header)
+        ws.write(row, 7, "Giá", table_header)
         row += 1
 
         stt = 1
         total = 0
         for data in datas:
-            ws.write(row, 0, stt, table_content)
-            ws.write(row, 1, data.get('mhd', ''), table_left)
-            ws.write(row, 2, data.get('nd', ''), table_left)
-            ws.write(row, 3, data.get('tp', ''), table_left)
-            ws.write(row, 4, data.get('start_day', '').strftime("%H:%M %d-%m-%Y"), table_content)
-            ws.write(row, 5, data.get('end_day', '').strftime("%H:%M %d-%m-%Y"), table_content)
-            ws.write(row, 6, data.get('total_price', 0), table_right)
+            ws.write(row, 1, stt, table_content)
+            ws.write(row, 2, data.get('mhd', ''), table_left)
+            ws.write(row, 3, data.get('nd', ''), table_left)
+            ws.write(row, 4, data.get('tp', ''), table_left)
+            ws.write(row, 5, data.get('start_day', '').strftime("%H:%M %d-%m-%Y"), table_content)
+            ws.write(row, 6, data.get('end_day', '').strftime("%H:%M %d-%m-%Y"), table_content)
+            ws.write(row, 7, data.get('total_price', 0), table_right)
             if data['total_price']:
                 total += data.get("total_price", 0)
             else:
                 total += 0
             row += 1
             stt += 1
-        ws.merge_range(row, 0, row, 1, 'Tổng', table_header)
-        ws.merge_range(row, 6, row, 1, 'Tổng', table_right)
-        ws.write(row, 6, total, table_right)
+        ws.merge_range(row, 1, row, 2, 'Tổng', table_header)
+        ws.write(row, 3, '', table_right)
+        ws.write(row, 4, '', table_right)
+        ws.write(row, 5, '', table_right)
+        ws.write(row, 6, '', table_right)
+        ws.write(row, 7, total, table_right)

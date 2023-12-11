@@ -13,32 +13,31 @@ class RegisterEmployee(models.Model):
     code = fields.Char(string="Mã Nhân Viên", related='employee_id.code_employee')
     number_phone = fields.Char(string=_('Số điện thoại'), related='employee_id.mobile_phone')
     menu_id = fields.Many2one('tigo.menu', string=_('Thực đơn'))
-    department_id = fields.Many2one('hr.department', string="Phòng Ban", related='employee_id.department_id', store=True, check_company=True)
+    department_id = fields.Char(string="Phòng Ban", related='employee_id.department_id.name')
     note = fields.Char(string=_('Ghi Chú'))
     person = fields.Boolean(string=_('Người đại diện'))
     company_id = fields.Many2one('res.company', string=_('Công ty'), default=lambda x: x.env.company)
 
     @api.onchange('menu_id', 'registration_id.meal_type', 'registration_id.date')
     def onchange_employee_meal_register_ids(self):
-        for r in self:
-            if r.registration_id.meal_type == 'set' and r.registration_id.date:
-                menu_week_ids = self.env['tigo.menu.setting'].search([('day_start', '<=', r.registration_id.date),
-                                                                      ('day_end', '>=', r.registration_id.date),
-                                                                      ('type_menu', '=', r.registration_id.meal_type),
-                                                                      ('state', '=', 'active')])
-                menu_day_id = self.env['tigo.menu.setting'].search([('state', '=', 'active'),
-                                                                    ('type_menu', '=', r.registration_id.meal_type),
-                                                                    ('day', '=', r.registration_id.date)])
-                if not menu_week_ids and not menu_day_id:
-                    menu = []
-                    return {'domain': {'menu_id': [('id', 'in', menu)]}}
-                else:
-                    menu = menu_week_ids + menu_day_id
-                    if menu:
-                        return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
-            else:
+        if self.registration_id.meal_type == 'set' and self.registration_id.date:
+            menu_week_ids = self.env['tigo.menu.setting'].search([('day_start', '<=', self.registration_id.date),
+                                                                  ('day_end', '>=', self.registration_id.date),
+                                                                  ('type_menu', '=', self.registration_id.meal_type),
+                                                                  ('state', '=', 'active')])
+            menu_day_id = self.env['tigo.menu.setting'].search([('state', '=', 'active'),
+                                                                ('type_menu', '=', self.registration_id.meal_type),
+                                                                ('day', '=', self.registration_id.date)])
+            if not menu_week_ids and not menu_day_id:
                 menu = []
                 return {'domain': {'menu_id': [('id', 'in', menu)]}}
+            else:
+                menu = menu_week_ids + menu_day_id
+                if menu:
+                    return {'domain': {'menu_id': [('id', 'in', menu.menu_ids.ids)]}}
+        else:
+            menu = []
+            return {'domain': {'menu_id': [('id', 'in', menu)]}}
 
     @api.constrains('employee_id')
     def check_employee_id(self):
@@ -97,6 +96,7 @@ class Client(models.Model):
     def check_partner(self):
         for r in self:
             data = self.env['confirm.dish'].search(
-                [('date_register', '=', r.registration_id.date), ('employee_id', '=', r.partner_id.name), ('company_id', '=', self.env.company.id)])
+                [('date_register', '=', r.registration_id.date), ('employee_id', '=', r.partner_id.name),
+                 ('company_id', '=', self.env.company.id)])
             if len(data) > 0:
                 raise ValidationError(_('Khách hàng đã được đăng ký!'))

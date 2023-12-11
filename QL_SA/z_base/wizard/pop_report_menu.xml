@@ -6,14 +6,17 @@
             <field name="model">popup.report.menu</field>
             <field name="arch" type="xml">
                 <form string="báo cáo thực đơn theo ngày/tuần">
-                   <group>
-                       <group>
-                           <field name="begin"/>
-                       </group>
-                       <group>
-                           <field name="end"/>
-                       </group>
-                   </group>
+                    <group>
+                        <group>
+                            <field name="begin"/>
+                        </group>
+                        <group>
+                            <field name="end"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="image" readonly="1"/>
+                    </group>
                     <footer>
                         <button name="action_print" string="Đồng Ý" type="object" class="btn-primary"
                                 data-hotkey="q"/>

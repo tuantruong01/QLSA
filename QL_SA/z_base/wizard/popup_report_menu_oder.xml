@@ -14,6 +14,9 @@
                            <field name="end"/>
                        </group>
                    </group>
+                    <group>
+                        <field name="img" readonly="1" widget="image"/>
+                    </group>
                     <footer>
                         <button name="action_print" string="Đồng Ý" type="object" class="btn-primary"
                                 data-hotkey="q"/>
@@ -31,7 +34,8 @@
         <menuitem name="4. Báo cáo"
                   id="menu_report"
                   parent="z_base.meal_manegent_menu"
-                  sequence="4"/>
+                  sequence="4"
+                  groups="group_report_manager"/>
         <menuitem name="4.1 Báo cáo ăn trưa"
                   id="menu_report_lunch"
                   parent="z_base.menu_report"

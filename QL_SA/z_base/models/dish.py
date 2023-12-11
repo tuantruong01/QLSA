@@ -40,12 +40,12 @@ class Dish(models.Model):
     @api.onchange('ingredient_ids')
     def onchange_ingredient_ids(self):
         for r in self:
-            r.price_total = sum(r.ingredient_ids.mapped('list_price'), r.wage)
+            r.price_total = int(sum(r.ingredient_ids.mapped('list_price'), r.wage))
 
     @api.onchange('wage')
     def onchange_wage(self):
         for r in self:
-            r.price_total = sum(r.ingredient_ids.mapped('list_price'), r.wage)
+            r.price_total = int(sum(r.ingredient_ids.mapped('list_price'), r.wage))
 
     @api.constrains('name')
     def check_name(self):
@@ -65,4 +65,3 @@ class Dish(models.Model):
         if len(menu_setting_ids) > 0:
             raise ValidationError(_('Món ăn này đã được sử dụng trong thực đơn!'))
         return super(Dish, self).unlink()
-

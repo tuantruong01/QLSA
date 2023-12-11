@@ -31,6 +31,8 @@
                                 attrs="{'invisible': [('state','in',('quotes','order','payed','cancel'))]}"/>
                         <button string="Hủy" class="oe_highlight" type="object" name="action_cancel"
                                 attrs="{'invisible': [('state','!=','order')]}"/>
+                        <button string="In hóa đơn" class="oe_highlight" type="object" name="print_bill"
+                                attrs="{'invisible': [('state','not in',('pay', 'payed'))]}"/>
                     </header>
                     <sheet>
                         <group>
@@ -98,8 +100,8 @@
             <field name="name">tigo.service.search</field>
             <field name="model">tigo.service</field>
             <field name="arch" type="xml">
-                <search string="Ngày Hôm Nay">
-                    <filter string="Còn hạn" name="today_quotes"
+                <search string="Còn Hạn Báo Giá">
+                    <filter string="Còn Hạn" name="today_quotes"
                             domain="[('state', '=', 'quotes'), ('end_day', '>=', context_today().strftime('%Y-%m-%d'))]"/>
                 </search>
             </field>

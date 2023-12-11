@@ -32,6 +32,7 @@ class ReportMenuList(models.AbstractModel):
                     tm1.NAME,
                     tm1.code_menu,
                     tm1.type_menu
+                
         '''
         self.env.cr.execute(sql)
         datas = self.env.cr.dictfetchall()
@@ -89,11 +90,12 @@ class ReportMenuList(models.AbstractModel):
             'font_name': 'Times New Roman',
             'font_size': 11
         })
-        ws.set_column(0, 0, 30)
-        ws.set_column(1, 1, 30)
-        ws.set_column(2, 2, 30)
-        ws.set_column(3, 3, 30)
-        ws.set_column(4, 4, 30)
+        ws.set_column(0, 0, 7)
+        ws.set_column(1, 1, 10)
+        ws.set_column(2, 2, 20)
+        ws.set_column(3, 3, 20)
+        ws.set_column(4, 4, 20)
+        ws.set_column(5, 5, 20)
         row = 3
         ws.merge_range(row, 1, row, 5, 'BÁO CÁO DANH SÁCH THỰC ĐƠN', header)
         row += 1

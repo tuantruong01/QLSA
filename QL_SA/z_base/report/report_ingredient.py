@@ -82,31 +82,33 @@ class ReportIngredient(models.AbstractModel):
             'font_name': 'Times New Roman',
             'font_size': 11
         })
-        ws.set_column(0, 0, 30)
-        ws.set_column(1, 1, 30)
-        ws.set_column(2, 2, 30)
+        ws.set_column(0, 0, 7)
+        ws.set_column(1, 1, 7)
+        ws.set_column(2, 2, 20)
         ws.set_column(3, 3, 30)
-        row = 0
+        ws.set_column(4, 4, 20)
+        row = 3
         ws.merge_range(row, 0, row, 4, 'BÁO CÁO DANH SÁCH NGUYÊN LIỆU', header)
 
         row += 1
-        ws.write(row, 0, "STT", table_header)
-        ws.write(row, 1, "Tên Nguyên Liệu", table_header)
-        ws.write(row, 2, "Nhóm Nguyên Liệu", table_header)
-        ws.write(row, 3, "Giá Nguyên Liệu", table_header)
+        ws.write(row, 1, "STT", table_header)
+        ws.write(row, 2, "Tên Nguyên Liệu", table_header)
+        ws.write(row, 3, "Nhóm Nguyên Liệu", table_header)
+        ws.write(row, 4, "Giá Nguyên Liệu", table_header)
         row += 1
         stt = 1
         total = 0
         for r in datas:
-            ws.write(row, 0, stt, table_content)
-            ws.write(row, 1, r.get('ten_nl', ''), table_left)
-            ws.write(row, 2, r.get("name", ''), table_left)
-            ws.write(row, 3, r.get("list_price", 0), table_right)
+            ws.write(row, 1, stt, table_content)
+            ws.write(row, 2, r.get('ten_nl', ''), table_left)
+            ws.write(row, 3, r.get("name", ''), table_left)
+            ws.write(row, 4, r.get("list_price", 0), table_right)
             if r['list_price']:
                 total += r.get("list_price", 0)
             else:
                 total += 0
             row += 1
             stt += 1
-        ws.merge_range(row, 0, row, 1, 'Tổng', table_header)
-        ws.write(row, 3, total,table_right)
+        ws.merge_range(row, 1, row, 2, 'Tổng', table_header)
+        ws.write(row, 3, '', table_right)
+        ws.write(row, 4, total, table_right)
