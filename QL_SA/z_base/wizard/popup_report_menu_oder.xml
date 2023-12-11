@@ -15,7 +15,7 @@
                        </group>
                    </group>
                     <group>
-                        <field name="image" readonly="1"/>
+                        <field name="img" readonly="1" widget="image"/>
                     </group>
                     <footer>
                         <button name="action_print" string="Đồng Ý" type="object" class="btn-primary"
