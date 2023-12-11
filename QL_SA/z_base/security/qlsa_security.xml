@@ -37,7 +37,6 @@
     </record>
 
 
-
     <record id="confirm_dish_rule" model="ir.rule">
         <field name="name">Account Root multi-company</field>
         <field name="model_id" ref="model_confirm_dish"/>
@@ -92,13 +91,7 @@
         <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
     </record>
 
-<!--     <record id="tigo_register_client_rule" model="ir.rule">-->
-<!--        <field name="name">Account Root multi-company</field>-->
-<!--        <field name="model_id" ref="model_tigo_register_client"/>-->
-<!--        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>-->
-<!--    </record>-->
-
-     <record id="tigo_service_rule" model="ir.rule">
+    <record id="tigo_service_rule" model="ir.rule">
         <field name="name">Account Root multi-company</field>
         <field name="model_id" ref="model_tigo_service"/>
         <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
@@ -157,4 +150,25 @@
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     </record>
 
+<!--    <record id="manager_rule" model="ir.rule">-->
+<!--        <field name="model_id" ref="base.model_res_company"/>-->
+<!--        <field name="name">for Manager</field>-->
+<!--        <field name="domain_force">[(1,'=',1)]</field>-->
+<!--        <field name="groups" eval="[(4,ref('base.group_system'))]"/>-->
+<!--    </record>-->
+
+    <record id="user_rule" model="ir.rule">
+        <field name="name">for Employee</field>
+        <field name="model_id" ref="base.model_res_company"/>
+        <field name="domain_force">[('user_ids', 'in', user.id)]</field>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <record id="user_hide_rule" model="ir.rule">
+        <field name="name">User Hide Rule</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+    </record>
 </odoo>
